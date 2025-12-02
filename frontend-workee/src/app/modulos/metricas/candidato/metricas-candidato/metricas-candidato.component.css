@@ -1,0 +1,295 @@
+.metricas-wrapper {
+  /* background-color: #ffffff; */
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.filtros-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap; 
+  flex-direction: row;
+  justify-content: space-between;
+}
+.metricas-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+
+.metricas-filtro {
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+}
+.metricas-header{
+    margin-bottom: 24px;
+}
+.boton {
+    background-color: #31A5DD;
+    color: #ffffff;
+    border: 2px solid #31A5DD;    
+    border-radius: 8px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+.descargar {
+    background-color: #ffffff;
+    color: #31A5DD;
+}
+
+.filtro-fechas {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.campo-fecha {
+  display: flex;
+  flex-direction: column;
+}
+.campo-fecha label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.campo-fecha input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.botones {
+  display: flex;
+  gap: 15px;
+}
+
+/*LO NUEVO DEL CHAT PARA LOS PANELES*/
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
+}
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  border: none;
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+}
+
+/*las tarj de graficos*/
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-card canvas {
+  width: 100%;
+  max-height: 300px;
+}
+.metric-card {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+}
+.info-metrica {
+    gap: 8px;
+}
+.info-metrica h2{
+    font-weight: 700;
+}
+.metric-card p {
+    color: #555454;
+    font-size: 14px;
+}
+.chart-card p {
+  color: #555454;
+  font-size: 14px;
+  text-align: center;
+}
+.icono-metrica{
+    color: #31A5DD;
+    background-color: #E1F0FA;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 100%;
+    font-size: 56px;
+    margin-left: 20px;
+}
+.rechazada {
+    color: #EE4242;
+    background-color: #F6ADAD;
+}
+.nro{
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    justify-content: space-between;
+}
+/*SPINNER*/
+.overlay-cargando {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/*TARJETA SIN DATOS*/
+.mensaje-sin-datos {
+  display: flex;
+  text-align: center;
+  padding: 2rem 0;
+  background-color: #ffff;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.mensaje-sin-datos p {
+  color: #777;
+  font-style: italic;
+}
+
+/*HABILIDADES*/
+.habilidades {
+  padding: 16px;
+  padding-right: 0px;
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.habilidades h5 {
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: left; 
+}
+
+.habilidades ol {
+  margin: 0;
+  padding-left: 20px; 
+  list-style-type: decimal; 
+}
+
+.habilidades li {
+  margin-bottom: 6px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.hab-contenedor{
+    padding-right: 36px;
+}
+
+.blandas {
+    color: #10C036;
+    background-color: #E8FCEF;
+    padding: 4px;
+}
+
+.tecnicas {
+    color: #FFAE00;
+    background-color: #FFE1A1;
+    padding: 4px;
+}
+
+/*ITEMS DE HABILIDADES*/
+.lista-habilidades {
+  list-style: none;
+  counter-reset: item;
+
+}
+
+.lista-habilidades li {
+  counter-increment: item;
+  color: #000; 
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.lista-habilidades li::before {
+  content: counter(item);
+  width: 24px;
+  height: 24px;
+  border-radius: 80%;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Colores distintos según tipo */
+.items-blandas li::before {
+  background-color: #2ecc71; /* verde */
+}
+
+.items-tecnicas li::before {
+  background-color: #f1c40f; /* amarillo */
+}
+
+.habilidades h5 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.sin-datos p{
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+.sin-datos{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+/*BOTON PARA LIMPIAR FILTROS*/
+.limpiar {
+  background-color: #8d8d8d;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.limpiar:hover {
+  background-color: #777;
+  color: #ffffff;
+}

@@ -1,0 +1,101 @@
+<div class="perfil-wrapper">
+    <button type="button" class="boton" (click)="volverAListado()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="perfil-header">
+        <div class="logo-seccion">
+            <img [src]="candidato.usuario?.urlFotoUsuario" alt="foto" class="foto" />
+        </div>
+        <div class="info">
+            <div class="nombre-boton">
+                <h1>{{candidato.nombreCandidato}} {{candidato.apellidoCandidato}}</h1>
+                <div class="position-relative d-inline-block">
+                    <button 
+                    class="boton-enviar-oferta" (click)="abrirDesplegable()">
+                        <span class="material-symbols-outlined">send</span>
+                        Enviar oferta
+                    </button>
+                    <!-- @if (dropdownAbierto) {
+                        <div class="dropdown-menu-custom">
+                            @for (oferta of ofertas; track oferta.id) {
+                            <div 
+                                class="dropdown-item-custom" 
+                                (click)="enviarOferta(oferta.id, oferta.titulo)">
+                                {{ oferta.titulo }}
+                            </div>
+                            }
+                        </div>
+                    } -->
+                        @if (dropdownAbierto) {
+                            <div class="dropdown-menu-custom">
+                                @if (ofertas.length > 0) {
+                                    @for (oferta of ofertas; track oferta.id) {
+                                        <div 
+                                            class="dropdown-item-custom" 
+                                            (click)="enviarOferta(oferta.id, oferta.titulo)">
+                                            {{ oferta.titulo }}
+                                        </div>
+                                    }
+                                } @else {
+                                    <!-- Mensaje cuando no hay ofertas disponibles -->
+                                    <div class="dropdown-item-custom disabled-item">
+                                        No hay ofertas disponibles para enviar a este candidato
+                                    </div>
+                                }
+                            </div>
+                        }
+                </div>
+            </div>
+            <span
+                class="badge"
+                [ngClass]="{
+                'no-disponible': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'No disponible',
+                'escucho-ofertas': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Escucho ofertas',
+                'buscando-activamente': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Buscando activamente'
+                }"
+                >
+                {{ candidato.estadoBusqueda?.nombreEstadoBusqueda?.toUpperCase() }}
+            </span>
+                <div class="datos">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <p>{{candidato.provincia?.nombreProvincia}}, {{candidato.provincia?.pais?.nombrePais}}</p>
+                </div>
+                <div class="datos">
+                    <span class="material-symbols-outlined">boy</span>
+                    <p>{{candidato.genero?.nombreGenero}}</p>
+                </div>
+                <div class="datos">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <p>{{edadCandidato}} años</p>
+                </div>
+            </div>
+        </div>
+    <div class="seccion-abajo">
+        <div class="seccion-habilidades">
+            <h5 class="pb-10">Habilidades</h5>
+            <div class="habilidades">
+            @for (hab of candidato.habilidades; track $index) {
+                <span class="tag"> {{hab.habilidad?.nombreHabilidad}} </span>
+            }
+        </div>
+        <div class="seccion-cv">
+            <h5 class="pb-10">Currículum Vitae</h5>
+            @if (candidato.candidatoCV === null || candidato.candidatoCV!.enlaceCV === '') {
+                <p>{{candidato.nombreCandidato}} {{candidato.apellidoCandidato}} no ha subido un CV.</p>
+            } @else {
+                <div class="cv-box">
+                    <span class="material-symbols-outlined icono-pdf">description</span>
+                    <div class="cv-detalle">
+                        <p>
+                            <a [href]="candidato.candidatoCV!.enlaceCV" target="_blank">
+                            {{ mostrarNombreArchivoCV(candidato.candidatoCV!.enlaceCV) }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        </div>
+    </div>
+</div>

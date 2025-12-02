@@ -1,0 +1,55 @@
+<div class="login-container">
+  <div class="login-content">
+    <h1 class="titulo-login">Recuperación de contraseña</h1>
+
+    <form [formGroup]="recuperarContraseniaForm" class="login-form">
+      <div class="form-group">
+        <label>Contraseña Nueva <span class="required"></span></label>
+        <div class="password-input-container">
+          <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                formControlName="contraseniaNueva"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('contraseniaNueva') }" />
+          <span class="password-toggle-icon" (click)="verContrasenia = !verContrasenia">
+            <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+          </span>
+        </div>
+        @if (isCampoInvalido('contraseniaNueva')) {
+          <div class="invalid-feedback d-block">
+            @if (recuperarContraseniaForm.get('contraseniaNueva')?.hasError('required')) {
+              El campo “Nueva Contraseña” no puede estar vacío
+            } @else if (recuperarContraseniaForm.get('contraseniaNueva')?.hasError('minlength')) {
+                La contraseña debe tener al menos 8 caracteres
+            }
+          </div>
+        }
+      </div>
+    
+      <div class="form-group">
+        <label>Repetir Contraseña <span class="required"></span></label>
+        <div class="password-input-container">
+          <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                formControlName="repetirContrasenia"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('repetirContrasenia') }" />
+          <span class="password-toggle-icon" (click)="verContrasenia = !verContrasenia">
+            <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+          </span>
+        </div>
+        @if (isCampoInvalido('repetirContrasenia')) {
+          <div class="invalid-feedback d-block">
+            @if (recuperarContraseniaForm.get('repetirContrasenia')?.hasError('required')) {
+              El campo “Repetir Contraseña” no puede estar vacío
+            }
+          </div>
+        }
+      </div>
+
+      <button 
+        type="button" 
+        class="botoniniciarsesion"
+        (click)="recuperarContrasenia()"
+        >
+        Confirmar
+      </button>
+    </form>
+  </div>
+</div>

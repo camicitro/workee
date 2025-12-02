@@ -1,0 +1,169 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Candidatos</h1>
+            <p>Encuentra los mejores candidatos para tu empresa</p>
+        </div>
+    </div>
+
+    <div class="buscador">
+        <div class="input-search-wrapper">
+            <input 
+                type="text" 
+                placeholder="Buscar..." 
+                class="input-search"
+                [(ngModel)]="textoCandidato" />
+            <button id="icon-button" (click)="buscarPorNombre(textoCandidato)">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+        </div>
+    </div>
+    <div class="seccion-filtros">
+        <div class="filtros">
+            <p-multiselect
+                [options]="filtrosHabilidad"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Habilidades"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Habilidades ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosHabilidad">
+            </p-multiselect>
+            <p-multiselect
+                [options]="filtrosEstado"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Estado de búsqueda laboral"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Estado de búsqueda laboral ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosEstado">
+            </p-multiselect>
+            <p-multiselect
+                [options]="filtrosPais"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="País"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'País ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosPais"
+                (onChange)="onCambiarPais()">
+            </p-multiselect>
+            <p-multiselect
+                [options]="filtrosProvincia"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Provincia"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Provincia ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosProvincia">
+            </p-multiselect>
+        </div>
+        <div class="contenedor-boton">
+            <button 
+            [disabled]="!filtrosSeleccionadosHabilidad.length && !filtrosSeleccionadosEstado.length && !filtrosSeleccionadosPais.length"
+            class="boton"
+            (click)="filtrarCandidatos()">
+                Aplicar filtros
+            </button>
+            <button 
+                *ngIf="filtrosAplicados"
+                class="boton btn-limpiar"
+                (click)="limpiarFiltros()">
+                Limpiar filtros
+            </button>
+        </div>
+    </div>   
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        <div *ngIf="isLoading; else results">
+            <app-spinner type="inline" message="Cargando resultados..."></app-spinner>
+        </div>
+        <ng-template #results> 
+        @if (candidatoList.length === 0) {
+            <div class="sin-resultados">
+                @if (!busquedaRealizada) {
+                    <img src="assets\img\buscar.png" alt="Busca empresas" class="sin-resultados-img">
+                    <p class="sin-resultados-txt">
+                        Busca los candidatos que te interesan en Workee
+                    </p>
+                } @else {
+                    <img src="assets\img\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                    <p class="sin-resultados-txt">
+                        No encontramos candidatos que coincidan con tu búsqueda
+                    </p>
+                }
+            </div>
+        } @else {
+            @for (candidato of obtenerCandidatosPaginados(); track $index) {
+                <div class="tarjeta-candidato" (click)="irADetalle(candidato.id!)" role="button">
+                    <div class="foto-container">
+                        <img [src]="candidato.usuario?.urlFotoUsuario" 
+                            class="foto"
+                            alt="Foto de {{ candidato.nombreCandidato }} {{ candidato.apellidoCandidato }}" />
+                    </div>
+                    <div class="contenido">
+                        <div class="header">
+                            <h5 class="nombre-candidato">{{ candidato.nombreCandidato }} {{ candidato.apellidoCandidato }}</h5>
+                            <span
+                                class="badge"
+                                [ngClass]="{
+                                    'no-disponible': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'No disponible',
+                                    'escucho-ofertas': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Escucho ofertas',
+                                    'buscando-activamente': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Buscando activamente'
+                                }"
+                                >
+                                    {{ candidato.estadoBusqueda?.nombreEstadoBusqueda?.toUpperCase() }}
+                            </span>
+                        </div>
+                        <div class="ubicacion">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <p>{{ candidato.provincia?.nombreProvincia }}, {{ candidato.provincia?.pais?.nombrePais }}</p>
+                        </div>
+                        <div class="habilidades">
+                            @for (hab of obtenerHabilidadesAleatorias(candidato); track $index) {
+                                <span class="tag"> {{hab.habilidad?.nombreHabilidad}} </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        </ng-template>
+    </div>
+    
+    <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>

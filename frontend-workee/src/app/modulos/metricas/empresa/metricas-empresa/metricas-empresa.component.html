@@ -1,0 +1,120 @@
+<div class="metricas-wrapper">
+
+  <!-- HEADER Y FILTROS -->
+  <div class="metricas-filtro">
+    <div class="metricas-header">
+      <h1>Estadísticas de la Empresa</h1>
+    </div>
+
+    <div class="filtros-header">
+      <div class="filtro-fechas">
+        <div class="campo-fecha">
+          <label>Fecha desde: </label>
+          <input type="date" [(ngModel)]="filtro.fechaDesde">
+        </div>
+        <div class="campo-fecha">
+          <label>Fecha hasta: </label>
+          <input type="date" [(ngModel)]="filtro.fechaHasta">
+        </div>
+      </div>
+
+      <div class="botones">
+        <button class="boton filtros" (click)="aplicarFiltro()">
+          <span class="material-symbols-outlined">filter_alt</span>
+          Aplicar filtros
+        </button>
+        <button class="boton limpiar" (click)="limpiarFiltros()" *ngIf="filtro.fechaDesde || filtro.fechaHasta">
+          <span class="material-symbols-outlined">filter_alt_off</span>
+          Limpiar filtros
+        </button>
+        <button class="boton descargar" (click)="descargarPDF()" title="Descargar PDF con métricas">
+          <span class="material-symbols-outlined">vertical_align_bottom</span>
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPINNER DE CARGA -->
+  <div *ngIf="cargando" class="overlay-cargando">
+    <div class="spinner"></div>
+    <p>Actualizando métricas...</p>
+  </div>
+
+  <!-- DASHBOARD DE MÉTRICAS -->
+  <div class="dashboard">
+
+    <!-- Cantidad de ofertas abiertas -->
+    <div *ngIf="hayDatosCantidadOfertasAbiertas; else sinDatosOfertas" class="card metric-card nro">
+      <div class="info-metrica">
+        <h5>Ofertas abiertas</h5>
+        <h2>{{ metricas.cantidadOfertasAbiertas }}</h2>
+        <p>Total de ofertas publicadas actualmente</p>
+      </div>
+      <span class="material-symbols-outlined icono-metrica">work_history</span>
+    </div>
+    <ng-template #sinDatosOfertas>
+      <div class="mensaje-sin-datos">
+        <h5>Ofertas abiertas</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Tasa de abandono -->
+    <div *ngIf="hayDatosTasaAbandono; else sinDatosAbandono" class="card metric-card nro">
+      <div class="info-metrica">
+        <h5>Tasa de abandono</h5>
+        <h2>{{ metricas.tasaAbandono | number:'1.2' }} %</h2>
+        <p>Porcentaje de candidatos que abandonaron el proceso</p>
+      </div>
+      <span class="material-symbols-outlined icono-metrica abandono">exit_to_app</span>
+    </div>
+    <ng-template #sinDatosAbandono>
+      <div class="mensaje-sin-datos">
+        <h5>Tasa de abandono</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Distribución por género -->
+    <div *ngIf="hayDatosGeneros; else sinDatosGeneros" class="card chart-card">
+      <h5>Género de candidatos postulados</h5>
+      <canvas #chartGeneros></canvas>
+    </div>
+    <ng-template #sinDatosGeneros>
+      <div class="mensaje-sin-datos">
+        <h5>Distribución de postulaciones por género</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Distribución por país -->
+    <div *ngIf="hayDatosPaises; else sinDatosPaises" class="card chart-card">
+      <h5>Localización de candidatos postulados</h5>
+      <canvas #chartPaises></canvas>
+    </div>
+    <ng-template #sinDatosPaises>
+      <div class="mensaje-sin-datos">
+        <h5>Distribución de postulaciones por país</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Tiempo promedio de contratación -->
+    <div *ngIf="hayDatosTiempoContratacion; else sinDatosTiempo" class="card metric-card nro">
+      <div class="info-metrica">
+        <h5>Tiempo promedio de contratación</h5>
+        <h2>{{ metricas.tiempoPromedioContratacion | number:'1.2' }} días</h2>
+        <p>Demora de la empresa en contratar un candidato</p>
+      </div>
+      <span class="material-symbols-outlined icono-metrica tiempo">schedule</span>
+    </div>
+    <ng-template #sinDatosTiempo>
+      <div class="mensaje-sin-datos">
+        <h5>Tiempo promedio de contratación</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

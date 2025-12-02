@@ -1,0 +1,12 @@
+<div class="error-container">
+  <h1 class="error-code">404</h1>
+  <h2 class="error-message">¡Ups! No encontramos lo que buscabas</h2>
+  <p class="error-description">
+    Puede que la página haya sido movida, eliminada o que no tengas permisos para acceder.
+  </p>
+
+  <button (click)="volver()" class="btn-volver">
+    {{ isLoggedIn ? 'Volver' : 'Volver al inicio' }}
+  </button>
+
+</div>

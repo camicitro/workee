@@ -1,0 +1,40 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Modificar rol</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="actual">
+            <p>Rol actual</p>
+            <div class="badge-rol">
+                {{usuario.rolActualusuario}}
+            </div>
+        </div>
+
+        <div class="nuevo">
+            <p>Seleccionar nuevo rol</p>
+            <select 
+            class="form-control"
+            [(ngModel)]="rolSeleccionado"
+            [ngModelOptions]="{ standalone: true }"
+            >
+            <option [ngValue]="null" disabled>Selecciona el nuevo rol</option>
+            @for (rol of roles; track rol.id) {
+                <option [ngValue]="rol.id">
+                {{ rol.nombreRol }}
+                </option>
+            }
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="boton-volver-gris" (click)="dismissModal()">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Volver
+            </button>
+            <button type="button" class="boton-guardar ml-auto" (click)="volverAPerfil()" >
+                <span class="material-symbols-outlined">save</span>
+                Guardar cambios
+            </button>
+        </div>
+    </div>
+</div>

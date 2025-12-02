@@ -1,0 +1,59 @@
+body {
+    background-color: #2b6a78;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+#meet {
+    height: 100%;
+    width: 100%;
+}
+
+.iconos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+i {
+    margin-top: 10px;
+    padding: 12px;
+    color: white;
+    border: solid 2px #199de8;
+    border-radius: 20px;
+    background-color: #199de8;
+    cursor: pointer;
+}
+
+#boton-finalizar {
+    background-color: #493e3e;
+    border-color: #957575;
+    cursor: pointer;
+}
+
+iframe {
+    border: solid 2px white !important;
+    border-radius: 20px !important;
+}
+
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

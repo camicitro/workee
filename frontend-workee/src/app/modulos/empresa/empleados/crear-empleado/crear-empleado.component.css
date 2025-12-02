@@ -1,0 +1,56 @@
+.perfil-wrapper {
+    background-color: #ffffff;
+    padding: 3rem;
+    padding-bottom: 1rem;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.icon-button {
+    color: #31A5DD;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.nuevo-empleado {
+    font-size: 18px;
+    font-weight: 500;
+    color: #31A5DD;
+    align-items: center;
+    display: flex;
+}
+
+.required {
+    color: #FF0000;
+}
+
+.boton-crear {
+    background-color: #31A5DD;
+    color: #ffffff;
+    border: 2px solid #31A5DD;    
+    border-radius: 8px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.perfil-final {
+    display: flex;
+    justify-content: end;
+    flex-direction: row;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

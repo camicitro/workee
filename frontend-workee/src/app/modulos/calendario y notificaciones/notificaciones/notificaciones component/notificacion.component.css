@@ -1,0 +1,215 @@
+/* Importá la fuente Lato desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+/* Aplica Lato a todo el contenido del componente */
+:host {
+  font-family: 'Lato', sans-serif;
+}
+
+/* 🔹 Contenedor principal */
+.notificaciones-container {
+  margin: 40px auto 0 auto;
+  background-color: #ffffff; /* azul muy suave */
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+/* 🔹 Título de la sección */
+.titulo-seccion {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* 🔹 Lista de notificaciones */
+.notificacion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 🔹 Cada tarjeta */
+.notif-card {
+  display: flex;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #E6E8EB;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.06);
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;        /* elimina el subrayado */
+  color: inherit; 
+}
+
+.notif-card:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.icon-badge .material-symbols-outlined {
+  font-size: 22px;
+  line-height: 1;
+  color: #1F2937; /* contraste sobre colores pastel */
+}
+
+.right {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.titulo {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: #111827;
+}
+
+.hora {
+  font-size: 12px;
+  color: #6B7280;
+  white-space: nowrap;
+}
+
+.descripcion {
+  margin: 0;
+  color: #4B5563;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* 🔹 Texto cuando no hay notificaciones */
+.sin-notificaciones {
+  text-align: center;
+  color: #6B7280;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+
+.notif-card.no-leida {
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 18%, #fff); /* leve tinte */
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--tone) 35%, transparent);
+}
+.notif-card.no-leida .icon-badge {
+  outline: 2px solid color-mix(in srgb, var(--tone) 45%, transparent);
+}
+
+.notif-card.leida {
+  opacity: .8;
+  border-color: #E6E8EB;
+}
+.notif-card.leida:hover { opacity: .95; }
+
+.badge-nueva {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tone);   
+  color: #fff;
+  vertical-align: middle;
+}
+
+.paginator{
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;     /* 👉 a la derecha */
+  gap: 10px;
+}
+
+.paginator .hint{
+  order: 0;
+  margin-right: auto;            /* queda a la izquierda */
+  color: #6B7280;
+  font-size: 13px;
+}
+
+/* Controles */
+.controls{
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pg-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow .15s ease, background .15s ease, transform .04s ease;
+}
+
+.pg-btn:hover{ background:#F3F4F6; }
+.pg-btn:active{ transform: translateY(1px); }
+
+.pg-btn:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+.pg-btn[disabled]{
+  opacity: .45;
+  cursor: not-allowed;
+  background: #fafafa;
+}
+
+/* “1 / 5” badge */
+.pg-page{
+  min-width: 60px;
+  height: 34px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #F3F4F6;
+  color: #111827;
+  font-weight: 700;
+  border: 1px solid #E5E7EB;
+}
+
+/* Responsive: esconder el texto “Mostrando…” en móvil */
+@media (max-width: 620px){
+  .paginator .hint{ display:none; }
+}

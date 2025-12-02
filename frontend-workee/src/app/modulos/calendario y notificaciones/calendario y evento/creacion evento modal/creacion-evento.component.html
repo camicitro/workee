@@ -1,0 +1,95 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Agendar nuevo evento</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="eventoForm">
+      <div class="form-group">
+        <label>Tipo de evento <span class="required">*</span></label>
+        <select
+          class="form-select"
+          formControlName="idTipoEvento"
+          [ngClass]="{ 'is-invalid': isCampoInvalido('idTipoEvento') }">
+          <option [ngValue]="null" disabled>Selecciona un tipo de evento</option>
+          @for (t of tiposEventos; track t.id) {
+            <option [ngValue]="t.id">{{ t.nombreTipoEvento }}</option>
+          }
+        </select>
+        @if (isCampoInvalido('idTipoEvento')) {
+          <div class="invalid-feedback d-block">Selecciona un tipo de evento</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Nombre del evento <span class="required">*</span></label>
+        <input type="text" class="form-control"
+               formControlName="nombreEvento"
+               placeholder="Ingresar..."
+               [ngClass]="{ 'is-invalid': isCampoInvalido('nombreEvento') }" />
+        @if (isCampoInvalido('nombreEvento')) {
+          <div class="invalid-feedback">El nombre es obligatorio</div>
+        }
+      </div>
+
+      <!-- <div class="form-group">
+        <label>Fecha <span class="required">*</span></label>
+        <input type="date" class="form-control"
+               formControlName="fecha"
+               placeholder="AAAA-MM-DD"
+               [ngClass]="{ 'is-invalid': isCampoInvalido('fecha') }" />
+        @if (isCampoInvalido('fecha')) {
+          <div class="invalid-feedback">La fecha es obligatoria</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Hora <span class="required">*</span></label>
+        <input type="time" class="form-control"
+               formControlName="hora"
+               placeholder="HH:MM"
+               [ngClass]="{ 'is-invalid': isCampoInvalido('hora') }" />
+        @if (isCampoInvalido('hora')) {
+          <div class="invalid-feedback">La hora es obligatoria</div>
+        }
+      </div> -->
+      <div class="fechas">
+        <div class="form-group fecha">
+          <label>Inicio del evento <span class="required">*</span></label>
+          <input type="datetime-local"
+                 class="form-control"
+                 formControlName="fechaHoraInicioEvento"
+                 [attr.min]="minDateTime"
+                 [ngClass]="{ 'is-invalid': isCampoInvalido('fechaHoraInicioEvento') }" />
+          @if (isCampoInvalido('fechaHoraInicioEvento')) {
+            <div class="invalid-feedback">La fecha y hora de inicio son obligatorias</div>
+          }
+        </div>
+  
+        <div class="form-group fecha">
+          <label>Fin del evento <span class="required">*</span></label>
+          <input type="datetime-local"
+                 class="form-control"
+                 formControlName="fechaHoraFinEvento"
+                 [attr.min]="eventoForm.get('fechaHoraInicioEvento')?.value || minDateTime"
+                 [ngClass]="{ 'is-invalid': isCampoInvalido('fechaHoraFinEvento') }" />
+          @if (isCampoInvalido('fechaHoraFinEvento')) {
+            <div class="invalid-feedback">La fecha y hora de fin son obligatorias y deben ser posteriores al inicio</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea rows="3" class="form-control" formControlName="descripcionEvento" placeholder="Ingresar..."></textarea>
+      </div>
+    </form>
+
+    <div class="botones">
+      <button type="button" class="btn btn-secondary">Volver</button>
+      <button type="button" class="btn-guardar" (click)="guardar()">Agendar evento</button>
+    </div>
+  </div>
+</div>
+ 

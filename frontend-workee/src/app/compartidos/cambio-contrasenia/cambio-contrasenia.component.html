@@ -1,0 +1,89 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Cambiar contraseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    <form [formGroup]="form">
+        <div class="mb-3">
+            <label class="form-label">Contraseña actual</label>
+            <div class="input-group">
+                <input [type]="verContrasenia ? 'text' : 'password'"
+                        class="form-control" 
+                        formControlName="actual" 
+                        [class.is-invalid]="isCampoInvalido('actual')" />
+                <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                  <span class="material-symbols-outlined">
+                    {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                  </span>
+                </span>
+              </div>
+              @if (form.get('actual')?.hasError('required') && isCampoInvalido('actual')) {
+                <div class="invalid-feedback d-block">
+                  El campo "Contraseña actual" no puede estar vacío
+                </div>
+              }
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nueva contraseña</label>
+            <div class="input-group">
+                <input [type]="verContrasenia ? 'text' : 'password'"
+                        class="form-control" 
+                        formControlName="nueva" 
+                        [class.is-invalid]="isCampoInvalido('nueva')" />
+                <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                  <span class="material-symbols-outlined">
+                    {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                  </span>
+                </span>
+            </div>
+            @if (form.get('nueva')?.hasError('required') && isCampoInvalido('nueva')) {
+              <div class="invalid-feedback d-block">
+                El campo "Nueva contraseña" no puede estar vacío
+              </div>
+            }
+            @if (form.get('nueva')?.hasError('minlength') && isCampoInvalido('nueva')) {
+              <div class="invalid-feedback d-block">
+                La nueva contraseña debe tener al menos 8 caracteres
+              </div>
+            }
+          </div>
+            <div class="mb-3">
+            <label class="form-label">Repetir contraseña</label>
+            <div class="input-group">
+                <input [type]="verContrasenia ? 'text' : 'password'"
+                        class="form-control" 
+                        formControlName="repetir" 
+                        [class.is-invalid]="isCampoInvalido('repetir') || form.hasError('contraseniasNoCoinciden')" />
+                <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                  <span class="material-symbols-outlined">
+                    {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                  </span>
+                </span>
+            </div>
+            @if (form.get('repetir')?.hasError('required') && isCampoInvalido('repetir')) {
+              <div class="invalid-feedback d-block">
+                El campo "Repetir contraseña" no puede estar vacío
+              </div>
+            }
+            @if (form.get('repetir')?.hasError('minlength') && isCampoInvalido('repetir')) {
+              <div class="invalid-feedback d-block">
+                La contraseña debe tener al menos 8 caracteres
+              </div>
+            }
+            @if (form.hasError('contraseniasNoCoinciden') && (form.get('repetir')?.touched || submitForm)) {
+              <div class="invalid-feedback d-block">
+                Las contraseñas no coinciden
+              </div>
+            }
+        </div>
+    </form>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="boton-guardar ml-auto" (click)="volverAPerfil()">
+        <span class="material-symbols-outlined">save</span>
+            Guardar cambios
+        </button>
+    </div>
+</div>

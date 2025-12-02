@@ -1,0 +1,91 @@
+.nombre-oferta {
+  background-color: #31a5dd;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  font-size: large;
+  margin-bottom: 6px;
+}
+
+.titulo-seccion-etapa {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.etapa-actual {
+  border-left: 4px solid #31A5DD;
+  padding: 8px;
+  padding-left: 12px;
+}
+
+.etapa-card {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.etapa-card:hover {
+  background-color: #f7fafb;
+  transform: scale(1.001);
+}
+
+.seleccionada-general {
+  background-color: #E1F0FA;
+  border: 2px solid #31A5DD;
+}
+
+.seleccionada-seleccionado {
+  background-color: #E8FCEF;
+  border: 2px solid #10C036;
+}
+
+.seleccionada-rechazado {
+  background-color: #FFEBEE;
+  border: 2px solid #EB1F1F;
+}
+
+.texto-etapa-seleccionado {
+  color: #10C036;
+  font-size: 14px;
+}
+
+.texto-etapa-rechazado {
+  color: #EB1F1F;
+  font-size: 14px;
+}
+
+.boton-guardar {
+  background-color: #10C036;
+  color: #ffffff;
+  border: 2px solid #10C036;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-volver-gris {
+  background-color: #FFFFFF;
+  color: #697077;
+  border: 2px solid #697077;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.required {
+  color: #FF0000;
+}

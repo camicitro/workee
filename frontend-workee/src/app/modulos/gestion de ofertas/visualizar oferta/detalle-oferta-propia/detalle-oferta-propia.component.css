@@ -1,0 +1,449 @@
+.perfil-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 3rem auto;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.perfil-header h1 {
+  font-size: 1.8rem;
+  color: black;
+}
+
+.perfil-header p {
+  font-size: large;
+  color: black;
+  margin: 0;
+}
+
+
+.input-search-wrapper {
+  position: relative;
+  width: 300px;
+  margin-bottom: 18px;
+}
+
+.input-search {
+  width: 100%;
+  padding: 8px 36px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+#icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.busqueda-acciones {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+p-multiselect {
+  width: 250px;
+}
+
+.boton {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-enviar-oferta {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  border: 2px solid #31A5DD;    
+  border-radius: 30px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  text-decoration: none; 
+  cursor: pointer;
+  height: auto;
+  white-space: nowrap; 
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch; 
+}
+
+.nombre-boton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.datos {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.datos p {
+  font-size: 16px;
+
+}
+
+
+.habilidades {
+  display: flex;
+  gap: 0.8rem;
+  row-gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.habilidades .tag {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.publicacion-oferta {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.publicacion-oferta p {
+    font-size: 16px;
+}
+
+.datos-general {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.datos-boton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 8px;
+    margin-top: 4px; */
+    flex-direction: row;
+}
+
+.seccion-habilidades {
+    margin-bottom: 16px;
+}
+
+.estado-oferta {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  min-width: 120px;
+}
+
+.estado-oferta.ABIERTA {
+  color: #22c55e;
+  background-color: #d7f591;
+}
+
+.estado-oferta.CERRADA {
+  color: #f59e0b;
+  background-color: #fde68a;
+}
+
+.estado-oferta.FINALIZADA {
+  color: #ef4444;
+  background-color: #fecaca;
+}
+
+.estado-oferta.OTRO {
+  color: #67726a;
+  background-color: #e5e7eb;
+}
+
+.estado-select {
+  margin-left: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+
+/*lo del chat v2*/
+.custom-select-wrapper {
+  position: relative;
+  width: 220px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.selected-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  
+}
+
+.options-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 0; /* Oculto por defecto */
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  z-index: 100;
+  background-color: #fff;
+}
+
+.options-container.show {
+  max-height: 200px; /* Suficiente altura para mostrar las opciones */
+  border-left: 1px solid #d1d5db;
+  border-right: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+}
+
+/* Mostrar el menú */
+.options-container.show {
+  max-height: 200px; /* Suficiente altura para mostrar las opciones */
+}
+
+/* Estilos de las opciones */
+.option {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+.option.selected {
+  font-weight: 600;
+  background-color: #e1f0fa;
+  color: #31A5DD;
+}
+
+/* Colores dinámicos del "botón" */
+.custom-select-wrapper.ABIERTA .selected-option {
+  color: #22c55e;
+  background-color: #d7f591;
+}
+
+.custom-select-wrapper.CERRADA .selected-option {
+  color: #f59e0b;
+  background-color: #fde68a;
+}
+
+.custom-select-wrapper.FINALIZADA .selected-option {
+  color: #ef4444;
+  background-color: #fecaca;
+}
+
+.custom-select-wrapper.OTRO .selected-option {
+  color: #67726a;
+  background-color: #e5e7eb;
+}
+
+/* Flecha del dropdown */
+.dropdown-arrow {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.estado-label{
+  font-size: 1.1rem;
+}
+
+.candidatos-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 3rem auto;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 24px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: #f1f1f1;
+}
+
+.tab.active {
+  background: #ffffff;
+  border-bottom: 3px solid #31A5DD;
+  color: #31A5DD;
+}
+
+.tab-content {
+  padding-top: 20px;
+}
+
+.candidatos-section {
+  min-height: 150px;
+}
+
+.placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.contenido-boton {
+  display: flex;
+  flex-direction: column;
+}
+
+.foto-usuario {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 8px;
+}
+
+.sin-resultados {
+  text-align: center;
+  background-color: white;
+}
+
+.sin-resultados-img {
+  width: 200px;
+  max-width: 100%;
+}
+
+.sin-resultados-txt {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin-top: 10px;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* height: 100%; */
+}
+
+.boton-rechazar {
+  background-color: #FF5252;
+  color: #ffffff;
+  border: #FF5252;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-aceptar {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.etapa {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: default;
+  width: auto;
+  max-width: max-content;
+}
+
+.selected-option.disabled {
+  cursor: default;
+  pointer-events: none; 
+}

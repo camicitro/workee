@@ -1,0 +1,214 @@
+body {
+  background-color: #E1F0FA;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.titulo-login {
+  text-align: center;
+  font-size: 32px;
+  color: #111827;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.subtitulo-login {
+  text-align: center;
+  font-size: 18px;
+  color: #6b7280;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E1F0FA;
+  height: 100vh;
+  padding: 20px;
+  font-family: 'Lato', sans-serif;
+
+}
+
+.login-form {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+  font-size: 26px;
+  color: #111827;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-form p {
+  text-align: center;
+  color: #31A5DD;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: #31A5DD;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Nuevo contenedor para el campo de contraseña y el icono */
+.password-input-container {
+  position: relative; /* Es el contenedor del icono, permite posicionamiento absoluto */
+}
+
+.password-input-container .form-control {
+  padding-right: 40px; /* Aumenta el padding para que el texto no se oculte debajo del icono */
+}
+
+/* Estilo para el icono de visibilidad */
+.password-toggle-icon {
+  position: absolute;
+  right: 12px; /* Alineado a la derecha del input */
+  top: 50%; /* Centrado verticalmente */
+  transform: translateY(-50%); /* Ajuste fino para el centrado */
+  cursor: pointer;
+  color: #6b7280; /* Un color más sutil, como en tu imagen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Opcional, para asegurar el clic en toda el área */
+}
+
+/* Ajuste para el enlace de contraseña olvidada */
+.forgot-password {
+  display: block; /* Asegura que el enlace ocupe su propia línea */
+  text-align: right;
+  margin-top: 8px; /* Pequeño espacio entre el input y el enlace */
+  font-size: 13px;
+  color: #31A5DD;
+  text-decoration: none;
+}
+
+.form-group .invalid-feedback {
+    margin-top: 5px; /* Ajusta el espacio entre el input y el mensaje de error */
+}
+
+/* Estilos para el campo con error */
+.form-group input.is-invalid {
+  border-color: #dc3545;
+  padding-right: 40px; /* Asegura que el padding se mantenga con el estado de error */
+  background-image: url('data:image/svg+xml,...'); /* Si tienes un ícono de error, lo puedes añadir aquí */
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #31A5DD;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-top: 200px;
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.bottom-text a {
+  color: #31A5DD;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.botoniniciarsesion {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #31A5DD;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botoniniciarsesion:hover {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #002a3e;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* navbarlogin.component.css */
+
+.icon-container {
+  background-color: #e0f2f7; /* Light blue background for the circle */
+  border-radius: 50%; /* Makes it a circle */
+  width: 48px; /* Adjust size as needed */
+  height: 48px; /* Adjust size as needed */
+  display: flex; /* Use flexbox to center the icon inside the circle */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-shrink: 0; /* Prevent the icon container from shrinking */
+}
+
+.icon-container .material-symbols-outlined {
+  font-size: 24px; /* Adjust icon size as needed */
+  color: #31a5dd; /* Blue color for the icon */
+  /* You can also use variable font properties here if you want more control: */
+  /* font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; */
+}
+
+.ayudalogin p {
+  /* You might have existing styles for <p> tags, adjust as needed */
+  margin-bottom: 0; /* Remove default paragraph margin if it interferes */
+}
+
+.ayudalogin a {
+  color: #31a5dd; /* Set link color to match your blue */
+  /* Add any other link styling you need */
+}
+
+/* Optional: Style the card itself if you want a specific border color or shadow */
+.card {
+  border: 1px solid #e0f2f7; /* Light blue border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+}

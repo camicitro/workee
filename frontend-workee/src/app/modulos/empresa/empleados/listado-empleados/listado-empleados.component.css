@@ -1,0 +1,110 @@
+.listado-wrapper {
+    background-color: #ffffff;
+    padding: 3rem;
+    /* padding-bottom: 1rem; */
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 3rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.listado-header {  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
+}
+
+.listado-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+
+.listado-header p {
+  font-size: 0.95rem;
+  color: #777;
+  margin: 0;
+}
+
+.listado-contenido {
+    padding: 6px;
+    margin-top: 6px;
+    justify-content: center;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card {
+    border-radius: 8px;
+    /*nuevo que agregue para lo del estado: */
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 1.5rem;
+}
+
+.texto-nombre {
+    font-size: 17px !important;
+}
+
+.boton-nuevo {
+    background-color: #31A5DD;
+    color: #ffffff;
+    border: 2px solid #31A5DD;    
+    border-radius: 8px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.paginador {
+    margin-top: 24px;
+}
+
+.sin-resultados {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sin-resultados-img {
+  width: 200px;
+  max-width: 100%;
+}
+
+.sin-resultados-txt {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin-top: 10px;
+}
+
+/*Lo de habilitado y deshabilitado*/
+.estado-badge {
+    position: absolute;
+    right: 1rem;       /* pegado al borde derecho */
+    bottom: 0.8rem;    /* más hacia abajo */
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.habilitado {
+    background-color: #e6f7ed; /* Verde muy claro */
+    color: #38a169; /* Verde oscuro */
+    border: 1px solid #38a169;
+}
+
+.deshabilitado {
+    background-color: #fcebeb; /* Rojo muy claro */
+    color: #e53e3e; /* Rojo oscuro */
+    border: 1px solid #e53e3e;
+}

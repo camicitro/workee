@@ -1,0 +1,160 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Etapas</h1>
+            <p>Gestiona las etapas de tus ofertas</p>
+        </div>
+    </div>
+    <div class="busqueda-acciones">
+        <div class="input-search-wrapper">
+            <input 
+            type="text" 
+            placeholder="Buscar..." 
+                class="input-search"
+                [(ngModel)]="filtro"
+                (input)="buscarEtapas()" />
+                <button id="icon-button" (click)="buscarEtapas()">
+                    <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+        </div>
+        <button type="button" class="boton-nuevo" (click)="crearEtapa()">
+            <span class="material-symbols-outlined">add</span>
+            Nueva Etapa
+        </button>
+    </div>
+    
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        <div *ngIf="isLoading">
+            <app-spinner type="inline" message="Cargando etapas..."></app-spinner>
+        </div>
+        <ng-container *ngIf="!isLoading && etapaList.length > 0; else noEtapas">
+        <table class="table align-middle table-hover">
+            <thead>
+            <tr>
+                <th scope="col">ETAPA</th>
+                <th scope="col">DESCRIPCIÓN</th>
+                <th scope="col">ACCIONES</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for (etapa of obtenerEtapasPaginadas(); track $index) {
+                @if (!etapa.esPredeterminada) {
+                <tr>
+                    <td>{{ etapa.nombreEtapa }}</td>
+                    <td [title]="etapa.descripcionEtapa">{{ etapa.descripcionEtapa }}</td>
+                    <td>
+                    <button id="icon-button" class="icon-button-celeste" (click)="modificarEtapa(etapa.id!)" title="Modificar">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    @if (!etapa.fechaHoraBaja) {
+                        <button id="icon-button" class="icon-button-rojo" (click)="eliminarEtapa(etapa.id!)" title="Eliminar">
+                        <span class="material-symbols-outlined">disabled_by_default</span>
+                        </button>
+                    }
+                    </td>
+                </tr>
+                } @else {
+                <tr>
+                    <td>{{ etapa.nombreEtapa }}</td>
+                    <td [title]="etapa.descripcionEtapa">{{ etapa.descripcionEtapa }}</td>
+                    <td></td>
+                </tr>
+                }
+            }
+            </tbody>
+        </table>
+        </ng-container>
+        <ng-template #noEtapas>
+        <div *ngIf="!isLoading && etapaList.length === 0" class="alert alert-warning">
+            ¡No hay etapas cargadas en el sistema!
+        </div>
+        </ng-template>
+
+
+
+        <!-- @if (etapaList.length === 0) {
+                <div class="alert alert-warning">
+                    ¡No hay etapas cargadas en el sistema!
+                </div>
+        } @else {
+            <table class="table align-middle table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ETAPA</th>
+                        <th scope="col">DESCRIPCIÓN</th>
+                        <th scope="col">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (etapa of obtenerEtapasPaginadas(); track $index) {
+                        @if (!etapa.esPredeterminada) {
+                            <tr>
+                                <td>
+                                    {{ etapa.nombreEtapa }}
+                                </td>
+                                <td [title]="etapa.descripcionEtapa"> 
+                                    {{ etapa.descripcionEtapa }}    
+                                </td>
+                                <td>
+                                    <button id="icon-button" class="icon-button-celeste" (click)="modificarEtapa(etapa.id!)" title="Modificar">
+                                        <span class="material-symbols-outlined">
+                                            edit
+                                        </span>
+                                    </button>
+                                    @if (!etapa.fechaHoraBaja) {
+                                        <button id="icon-button" class="icon-button-rojo" (click)="eliminarEtapa(etapa.id!)" title="Eliminar" >
+                                            <span class="material-symbols-outlined">
+                                                disabled_by_default
+                                            </span>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        } @else {
+                            <tr>
+                                <td>
+                                    {{ etapa.nombreEtapa }}
+                                </td>
+                                <td [title]="etapa.descripcionEtapa"> 
+                                    {{ etapa.descripcionEtapa }}    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                        }   
+                    }
+                </tbody>
+            </table>
+        } -->
+    </div>
+    <!-- tuve que usar ngIf porque no me funcionaba solo con @if -->
+        <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>

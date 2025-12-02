@@ -1,0 +1,325 @@
+@if (cargandoPerfil) {
+  <div class="spinner-pantalla-completa">
+    <app-spinner type="overlay"></app-spinner>
+  </div>
+} @else {
+  
+  <div class="perfil-wrapper">
+    <div class="perfil-header">
+      <div>
+        <h1>Mi perfil</h1>
+        <p>Gestiona tu información personal</p>
+      </div>
+      @if (!modoEdicion) {
+        <button type="button" class="boton" (click)="modificarCandidato()">
+          <span class="material-symbols-outlined">edit</span>
+          Editar
+        </button>
+      } @else {
+        <button type="button" class="boton" (click)="volver()">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Volver
+        </button>
+      }
+    </div>
+  
+      <form [formGroup]="candidatoForm">
+        <div class="form-grid-foto">
+          <div class="foto-seccion">
+            <div class="foto-container">
+              @if(cargandoFoto){
+                <div class="spinner-overlay">
+                  <app-spinner type="inline"></app-spinner>
+                </div>
+              } @else {
+                <img 
+                  [src]="fotoTemporal || candidato.usuario?.urlFotoUsuario" 
+                  alt="foto" 
+                  class="foto" 
+                />
+                @if (modoEdicion) {
+                  <label for="fileInput" class="icono-editar" title="Editar foto">
+                    <span class="material-symbols-outlined icono-foto">photo_camera</span>
+                  </label>
+                  <input 
+                    type="file"
+                    id="fileInput"
+                    accept="image/jpg, image/jpeg, image/png"
+                    hidden
+                    (change)="onFileSelectedFoto($event)" 
+                  /> 
+                }
+              }
+            </div>
+          </div>
+          <div class="al-lado m-0 p-0">
+            <div class="form-group">
+              <label for="nombreCandidato" class="p-0 my-0 mb-2">Nombre</label>
+              <input 
+                maxlength="50"
+                type="text"
+                class="form-control"
+                name="nombreCandidato"
+                formControlName="nombreCandidato"
+                [readonly]="!modoEdicion"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('nombreCandidato') }">
+                @if (isCampoInvalido('nombreCandidato')) {
+                  <div class="invalid-feedback">El campo “Nombre” no puede estar vacío</div>
+                }
+              </div>
+              <div class="form-group">
+                <label for="apellidoCandidato" class="p-0 my-0 mb-2 mt-3">Apellido</label>
+                <input 
+                maxlength="50"
+                type="text"
+                class="form-control"
+                name="apellidoCandidato"
+                formControlName="apellidoCandidato"
+                [readonly]="!modoEdicion"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('apellidoCandidato') }">
+                @if (isCampoInvalido('apellidoCandidato')) {
+                  <div class="invalid-feedback">El campo “Apellido” no puede estar vacío</div>
+                }
+              </div>
+            </div>
+            <div class="abajo m-0 full-width">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fechaNacimientoCandidato" class="p-0 my-0 mb-2">Fecha de nacimiento</label>
+                <input 
+                type="text"
+                class="form-control"
+                name="fechaNacimientoCandidato"
+                readonly
+                [value]="formatearFecha(candidato.fechaDeNacimiento)"
+                lang="es">
+              </div>
+              <div class="form-group">
+              <label for="generoCandidato" class="p-0 my-0 mb-2">Género</label>
+                <select
+                  class="form-select"
+                  id="generoCandidato"
+                  formControlName="generoCandidato"
+                  [compareWith]="compararGenero">
+                  @for (genero of generos; track genero.id) {
+                    <option [ngValue]="genero">
+                      {{ genero.nombreGenero }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+              <label for="paisCandidato" class="p-0 my-0 mb-2">País</label>
+                <select
+                  class="form-select"
+                  id="paisCandidato"
+                  formControlName="paisCandidato"
+                  (change)="filtrarProvinciasPorPais(candidatoForm.get('paisCandidato')?.value)"
+                  [compareWith]="compararPais">
+                  @for (pais of paises; track pais.id) {
+                    <option [ngValue]="pais">
+                      {{ pais.nombrePais }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="provinciaCandidato" class="p-0 my-0 mb-2">Provincia</label>
+                <select
+                  class="form-select"
+                  id="provinciaCandidato"
+                  formControlName="provinciaCandidato"
+                  [compareWith]="compararProvincia">
+                  @for (provincia of provinciasDePais; track provincia.id) {
+                    <option [ngValue]="provincia">
+                      {{ provincia.nombreProvincia }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="emailCandidato" class="p-0 my-0 mb-2">Correo Electrónico</label>
+                <input 
+                  type="text"
+                  class="form-control"
+                  name="emailCandidato"
+                  readonly
+                  [value]="candidato.usuario?.correoUsuario">
+              </div>
+              <div class="form-group">
+                <label for="cambiarContrasenia" class="p-0 my-0 mb-2">Contraseña</label>
+                <button
+                    type="button"
+                    class="boton-cambio-contrasenia"
+                    [class.disabled-btn]="!modoEdicion"
+                    [disabled]="!modoEdicion"
+                    (click)="abrirModalContrasenia()" >
+                    <span class="material-symbols-outlined">
+                      {{ modoEdicion ? 'lock_open_right' : 'lock' }}
+                    </span>
+                    Cambiar contraseña
+                  </button>
+              </div>
+            </div>
+            <!-- <div class="form-group full-width">
+              <label for="contrasenia" class="p-0 my-0 mb-2">Contraseña</label>
+              <div class="input-group">
+                <input 
+                  [type]="verContrasenia ? 'text' : 'password'"
+                  class="form-control"
+                  name="contrasenia"
+                  [readonly]="!modoEdicion"
+                  [(ngModel)]="candidato.usuario!.contraseniaUsuario"
+                  (input)="mostrarCampoRepetir = !!candidato.usuario?.contraseniaUsuario">
+                <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                  <span class="material-symbols-outlined">
+                    {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                  </span>
+                </span>
+              </div>
+            </div>
+            @if (mostrarCampoRepetir) {
+              <div class="form-group full-width">
+                <label for="repetirContrasenia" class="p-0 my-0 mb-2">Repetir contraseña</label>
+                <div class="input-group">
+                  <input
+                    [type]="verContrasenia ? 'text' : 'password'"
+                    class="form-control"
+                    name="repetirContrasenia"
+                    [(ngModel)]="repetirContrasenia"
+                    [readonly]="!modoEdicion"/>
+                  <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                    <span class="material-symbols-outlined">
+                      {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            } -->
+            <div class="form-grid">
+              <div class="form-group cv-wrapper">
+                <label class="p-0 my-0 mb-2" for="cv">Curriculum Vitae</label>
+                @if (candidato.candidatoCV && candidato.candidatoCV.fechaHoraBaja === null) {
+                  <div class="cv-box-contenedor">
+                    @if(cargandoCv){
+                      <div class="spinner-overlay" >
+                        <app-spinner type="inline"></app-spinner>
+                      </div>
+                    } @else {
+                      <div class="cv-box">
+                        <span class="material-symbols-outlined icono-pdf">description</span>
+                        <div class="cv-detalle">
+                          <p>
+                            <a [href]="candidato.candidatoCV.enlaceCV" target="_blank">
+                              {{ mostrarNombreArchivoCV(candidato.candidatoCV.enlaceCV) }}
+                            </a>
+                          </p>
+                          <small>Actualizado el {{ candidato.candidatoCV.fechaHoraAlta | date:'dd/MM/yyyy' }}</small>
+                        </div>
+                      </div>
+                      <div class="cv-acciones">
+                        @if (modoEdicion) {
+                          <button id="icon-button" [disabled]="!modoEdicion" (click)="fileInputCV.click()">
+                            <span class="material-symbols-outlined editar-cv" title="Editar">edit</span>
+                          </button>
+                          <button id="icon-button" [disabled]="!modoEdicion" (click)="eliminarCV()">
+                            <span class="material-symbols-outlined eliminar-cv" title="Eliminar">delete</span>
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+              
+                  <input 
+                    type="file" 
+                    #fileInputCV 
+                    accept="application/pdf" 
+                    style="display: none"
+                    (change)="onFileSelectedCV($event)"/>
+                } @else {
+                  @if(cargandoCv){
+                    <div class="spinner-overlay" >
+                        <app-spinner type="inline"></app-spinner>
+                      </div>
+                  } @else {
+                    <button 
+                      type="button"
+                      class="boton-subir-cv"
+                      (click)="fileInputCV.click()"
+                      [class.disabled-btn]="!modoEdicion">
+                      <span class="material-symbols-outlined">upload_file</span>
+                      Agregar CV
+                    </button>
+                    <input 
+                      type="file" 
+                      #fileInputCV 
+                      accept="application/pdf" 
+                      style="display: none"
+                      (change)="onFileSelectedCV($event)"/>
+  
+                  }
+                }
+            </div>
+            <div class="form-group">
+              <label class="p-0 my-0 mb-2">Estado de búsqueda laboral</label>
+              @if (!modoEdicion) {
+                <span
+                class="badge"
+                [ngClass]="{
+                  'no-disponible': candidato.estadoBusqueda?.codigoEstadoBusqueda === 'NO_DISPONIBLE',
+                  'escucho-ofertas': candidato.estadoBusqueda?.codigoEstadoBusqueda === 'ESCUCHO_OFERTAS',
+                  'buscando-activamente': candidato.estadoBusqueda?.codigoEstadoBusqueda === 'BUSCANDO_ACTIVAMENTE'
+                }"
+                >
+                  {{ candidato.estadoBusqueda?.nombreEstadoBusqueda?.toUpperCase() }}
+                </span>
+              } @else {
+                <select 
+                class="form-select"
+                name="estadoBusqueda"
+                id="estadoBusqueda"
+                formControlName="estadoBusquedaCandidato"
+                [compareWith]="compararEstadoBusqueda">
+                @for (estado of estados; track estado.id) {
+                  <option [ngValue]="estado">
+                    {{ estado.nombreEstadoBusqueda }}
+                  </option>
+                }
+                </select>
+              }
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="titulo-habilidades">
+              <label>Habilidades</label>
+              @if (modoEdicion) {
+                <button id="icon-button" (click)="seleccionarHabilidades()">
+                  <span class="material-symbols-outlined editar-cv" title="Editar habilidades">edit</span>
+                </button>
+              }
+            </div>
+            <div class="habilidades">
+              @for (hab of habilidadesParaMostrar; track $index) {
+                  <span class="tag"> {{hab.habilidad?.nombreHabilidad}} </span>
+              }
+            </div>
+          </div> 
+        </div>
+      </div>
+    </form>
+    <div class="modo-edicion">
+      @if (modoEdicion) {
+      <button type="button" class="boton-eliminar" (click)="eliminarCuenta()">
+        <span class="material-symbols-outlined">delete</span>
+        Eliminar cuenta
+      </button>
+      <button type="button" class="boton-guardar ml-auto" (click)="enviarDatos()">
+        <span class="material-symbols-outlined">save</span>
+        Guardar cambios
+      </button>
+      }
+    </div>
+  </div>
+
+}  
+

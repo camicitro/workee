@@ -1,0 +1,33 @@
+<div class="perfil-wrapper">
+    <button type="button" class="boton" (click)="volverAListado()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+  <div class="perfil-header">
+    <div class="logo-seccion">
+      <img [src]="usuario.urlFotoUsuario" alt="foto" class="foto" />
+    </div>
+    <div class="info">
+      <div class="nombre-rol">
+        <h1>{{usuario.nombreEntidad}}</h1>
+          <div class="badge-rol">
+            {{usuario.rolActualusuario}}
+          </div>
+      </div>
+        <div class="datos">
+            <p>{{usuario.correoUsuario}}</p>
+        </div>
+    </div>
+  </div>
+  <div class="botones">
+    <button type="button" class="boton-editar ml-auto" (click)="modificarRol()">
+      <span class="material-symbols-outlined">edit</span>
+      Modificar rol
+    </button>
+
+    <button type="button" class="boton-eliminar" (click)="eliminarCuenta()">
+      <span class="material-symbols-outlined">delete</span>
+      Eliminar usuario
+    </button>
+  </div>
+</div>

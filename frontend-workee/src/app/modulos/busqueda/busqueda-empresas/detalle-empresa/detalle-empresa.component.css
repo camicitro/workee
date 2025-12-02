@@ -1,0 +1,218 @@
+.perfil-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 3rem auto;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.perfil-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: black;
+}
+
+.perfil-header p {
+  font-size: large;
+  color: black;
+  margin: 0;
+}
+
+.boton {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logo-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-seccion .foto {
+  width: 160px;
+  height: 160px;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  object-fit: cover;
+  margin-bottom: 0.8rem;
+}
+
+.ubicacion {
+    display: flex;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.ubicacion p {
+    font-size:large;
+}
+
+.boton-sitio-web {
+    background-color: #E1F0FA;
+    color: #31A5DD;
+    border: 2px solid #31A5DD;    
+    border-radius: 32px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    text-decoration: none; 
+    cursor: pointer;
+    height: auto;
+    white-space: nowrap; 
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.descripcion-empresa p {
+  margin: 0;
+}
+
+.ofertas-empresa {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 2rem auto;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.scroll {
+  max-height: 900px; 
+  overflow-y: auto; 
+}
+
+.ofertas-empresa h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.tarjeta-oferta {
+  display: flex;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6; 
+  margin-bottom: 15px;
+  align-items: flex-start;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+.logo-container {
+  width: 80px;
+  height: 80px;     
+  overflow: hidden;  
+  border-radius: 8px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contenido {
+  flex: 1;
+}
+
+.nombre-oferta {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.oferta-header {
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+}
+
+.publicacion-oferta {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.publicacion-oferta p {
+  margin-bottom: 0;
+  font-size:medium;
+}
+
+.rubro-ubicacion {
+  color: black;
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.ubicacion-oferta p {
+  font-size: 0.95rem;
+}
+
+.ubicacion-oferta {
+  display: flex;
+  gap: 6px;
+}
+
+.descripcion-oferta {
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.descripcion-oferta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* si no tiene ofertas abiertas*/
+.sin-ofertas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #666;
+  margin-top: 20px;
+  text-align: center;
+}
+.sin-ofertas .material-symbols-outlined {
+  font-size: 48px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,61 @@
+.modal-content {
+  width: 100%;
+}
+
+.badge-rol {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  /* border: 2px solid #31A5DD;     */
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  text-decoration: none;
+  height: auto;
+  white-space: nowrap; 
+}
+
+.boton-guardar {
+  background-color: #10C036;
+  color: #ffffff;
+  border: 2px solid #10C036;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fin-modal {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.boton-volver-gris {
+  background-color: #FFFFFF;
+  color: #697077;
+  border: 2px solid #697077;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+p {
+  font-size: large;
+  margin-bottom: 8px;
+}
+
+.nuevo p {
+  margin-top: 16px;
+}

@@ -1,0 +1,357 @@
+/* Fondo de la vista */
+.evento-wrapper {
+  background-color: #E1F0FA; /* celestito suave como la captura */
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Card principal */
+.evento-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  max-width: 920px;
+  width: 100%;
+}
+
+/* Título azul */
+.card-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #31A5DD;
+}
+
+/* Fila fecha/hora (icono + texto) */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 0.98rem;
+  color: #2f2f2f;
+}
+
+/* Personas (dos chips con ícono y nombre) */
+.people-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: .25rem 0 1.25rem;
+  flex-wrap: wrap;
+}
+
+.person {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 0.95rem;
+  color: #3a3a3a;
+}
+
+.people-sep {
+  color: #9aa8bf;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Secciones */
+.section-title {
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+  color: #1c1c1c;
+  font-size: 1rem;
+}
+
+/* Párrafo de descripción (respeta saltos de línea si vienen) */
+.descripcion {
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-line;
+  margin-bottom: .75rem;
+}
+
+/* Pill de enlace como aviso */
+.info-pill {
+  display: inline-block;
+  padding: .6rem .9rem;
+  border-radius: 10px;
+  background: #E9F2FF;
+  border: 1px solid #CFE1FF;
+  color: #2A6AD8;
+  font-size: 0.95rem;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  font-size: 20px;
+  color: #5b708f;
+}
+
+
+/* --- Anti-overflow global dentro del card --- */
+.evento-card {
+  box-sizing: border-box;
+  overflow: hidden;                 /* recorta cualquier overflow visual */
+  word-break: break-word;           /* corta palabras largas si hace falta */
+  overflow-wrap: anywhere;          /* permite romper en cualquier punto */
+}
+
+.evento-card * {
+  max-width: 100%;                  /* ningún hijo puede ensanchar el card */
+  box-sizing: border-box;
+  min-width: 0;                     /* clave para hijos flex que se estiran */
+}
+
+/* Filas flex: permitir saltos de línea sin romper layout */
+.meta-row,
+.people-row {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Párrafos y títulos: envolver SIEMPRE, respetando saltos */
+.descripcion {
+  white-space: pre-wrap;            /* respeta \n y permite wrap */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* “Pill” de enlace: que envuelva y no empuje el ancho */
+.info-pill {
+  white-space: normal;              /* permite múltiples líneas */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Iconos alineados sin forzar ancho */
+.material-symbols-outlined {
+  flex: 0 0 auto;
+}
+
+
+.boton {
+  background-color: #31A5DD;         /* azul base */
+  color: #ffffff;
+  border: none;                      /* sin borde visible */
+  border-radius: 12px;               /* bordes más redondeados */
+  padding: 8px 16px;               /* más alto y ancho */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Ícono dentro del botón */
+.boton .material-symbols-outlined {
+  font-size: 22px;
+  color: #ffffff !important;
+  transition: color 0.2s ease;
+}
+
+/* Hover: azul más intenso y sombra más marcada */
+.boton:hover {
+  background-color: #2795C7;
+  transform: translateY(-1px);
+}
+
+/* Click (active): baja levemente */
+.boton:active {
+  background-color: #1E86B5;
+  transform: translateY(1px);
+}
+
+/* Estado deshabilitado */
+.boton:disabled {
+  background-color: #A7D7EB;
+  color: #e9f6fb;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+.boton-eliminar {
+  background-color: #FF5252;
+  color: #ffffff;
+  border: 2px solid #FF5252;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+  margin-top: .5rem;
+}
+.form-field { display: flex; flex-direction: column; gap: .35rem; }
+.form-field.two-col { grid-column: span 1; }
+.form-field:not(.two-col) { grid-column: 1 / -1; }
+
+.form-field input,
+.form-field textarea {
+  border: 1px solid #DDE1E6;
+  border-radius: 10px;
+  padding: .6rem .75rem;
+  font-size: .95rem;
+  outline: none;
+}
+.form-field input.invalid,
+.form-field textarea.invalid {
+  border-color: #F04438;
+}
+.form-field small { color: #F04438; }
+
+.btn-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: .75rem;
+  margin-top: .25rem;
+  justify-content: flex-end; /* 🔹 alinea los botones a la derecha */
+}
+
+.boton-secundario {
+  background: #E4F2FA;
+  color: #124C69;
+  border: none;
+  border-radius: 12px;
+  padding: .55rem .9rem;
+  cursor: pointer;
+}
+
+/* Botón Volver - arriba de la card */
+.volver-btn {
+  margin-bottom: 1.25rem;        /* separa del card */
+  align-self: flex-start;        /* lo alinea a la izquierda */
+  transition: transform 0.1s ease;
+}
+
+.volver-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Flecha blanca dentro del botón Volver */
+.volver-btn .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+
+/* Contenedor de botones Editar / Eliminar en la parte inferior derecha */
+.botones-acciones {
+  display: flex;
+  justify-content: flex-end;  /* los empuja a la derecha */
+  gap: 0.75rem;               /* separación entre botones */
+  margin-top: 1rem;           /* espacio con respecto al contenido anterior */
+}
+
+.btones-acciones .material-symbols-outlined{
+  color: #ffffff !important;
+}
+
+/* Asegura que los botones mantengan su tamaño visual actual */
+.botones-acciones .boton,
+.botones-acciones .boton-eliminar {
+  min-width: 130px;
+  justify-content: center;
+}
+
+
+.boton-eliminar {
+  background-color: #FF5252;      /* rojo base */
+  color: #ffffff;
+  border: 2px solid #FF5252;
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;        /* centra el texto y el ícono */
+  gap: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Ícono dentro del botón rojo */
+.boton-eliminar .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* Hover: rojo más oscuro y leve levantamiento */
+.boton-eliminar:hover {
+  background-color: #E04646;      /* tono más oscuro */
+  transform: translateY(-1px);
+}
+
+/* Estado activo (click): baja un poco */
+.boton-eliminar:active {
+  background-color: #D13E3E;
+  transform: translateY(1px);
+}
+
+
+/* Leyenda minimal y discreta */
+.people-legend.minimal {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: .15rem 0 .35rem;
+  color: #5b6e84;
+  font-size: .82rem;
+}
+
+.legend-item.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .18rem .5rem;
+  border-radius: 999px;
+  background: #f6f9fe;         /* fantasma */
+  border: 1px solid #e6eef8;   /* borde muy suave */
+  line-height: 1;
+}
+
+.legend-icon {
+  font-size: 16px;
+  color: #6c8ab5;
+}
+
+.legend-sep {
+  color: #a7b5c8;
+  margin: 0 .1rem;
+}
+
+/* Ajustes para que todo quede bien alineado y chico */
+.people-legend .material-symbols-outlined {
+  vertical-align: middle;
+}
+
+/* Fila de personas: un poco más de espacio con la leyenda */
+.people-row { margin-top: .15rem; }
+
+.meta-item strong{color:#0f172a;font-weight:700}
+.meta-item span time{font-weight:500;color:#2f2f2f}
+.meta-row{gap:2rem}
+@media (max-width:640px){
+  .meta-row{flex-direction:column;gap:.5rem}
+}

@@ -1,0 +1,24 @@
+/* navbarlogin.component.css */
+
+/* Asegura alineación de los elementos del menú */
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+}
+
+/* Espaciado entre ítems del menú derecho */
+.navbar-nav .nav-item {
+  margin-left: 0.5rem;
+}
+
+.btnregistrarse {
+  padding: 10px 70px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-registro{
+  color: #31A5DD;
+}

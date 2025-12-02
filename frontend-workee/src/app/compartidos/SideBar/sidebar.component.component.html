@@ -1,0 +1,64 @@
+<div class="sidebar">
+  <!-- Logo -->
+  <div class="logo">
+    <img src="assets/logoo.png" alt="Workee Logo" />
+  </div>
+
+  <!-- Menu dinámico -->
+  <nav class="menu">
+    <ng-container *ngFor="let item of menuItems">
+      <a *ngIf="!item.children"
+        [routerLink]="item.ruta"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="menu-item"
+        [ngClass]="{'has-pending': isNotificacionesItem(item) && pendientesCount > 0}">
+
+        <span class="material-symbols-outlined">{{ item.icono }}</span>
+        <span>{{ item.titulo }}</span>
+
+        <span *ngIf="isNotificacionesItem(item) && pendientesCount > 0"
+              class="badge-dot"
+              [attr.aria-label]="pendientesCount + ' notificaciones pendientes'">
+        </span>
+      </a>
+
+      <!-- Opción con submenú -->
+      <div *ngIf="item.children" class="submenu">
+        <div class="menu-item" (click)="toggleSubmenu(item)">
+          <span class="material-symbols-outlined">{{ item.icono }}</span>
+          <span>{{ item.titulo }}</span>
+          <span class="material-symbols-outlined arrow">
+            {{ item.open ? 'expand_less' : 'expand_more' }}
+          </span>
+        </div>
+
+        <div class="submenu-items" *ngIf="item.open">
+          <a *ngFor="let child of item.children"
+             [routerLink]="child.ruta"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }"
+             class="submenu-item">
+            {{ child.titulo }}
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </nav>
+  
+
+  <!-- Logout fijo -->
+  <div class="logout">
+    <a (click)="logout()" class="menu-item">
+      <span class="material-symbols-outlined">logout</span>
+      <span>Cerrar Sesión</span>
+    </a>
+  </div>
+
+  <!-- Info de usuario -->
+  <div class="usuario-info">
+    <div class="correo">{{ correoUsuario }}</div>
+    <div class="rol">{{ nombreRol }}</div>
+  </div>
+  
+</div>

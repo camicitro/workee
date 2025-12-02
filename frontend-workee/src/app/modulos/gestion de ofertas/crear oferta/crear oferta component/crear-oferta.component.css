@@ -1,0 +1,421 @@
+.oferta-card {
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  max-width: 1000px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.boton {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  max-width: 13%;
+  margin-bottom: 1.5rem;
+}
+.oferta-header {
+  background-color: white;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+
+}
+.oferta-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+.oferta-header p{
+  font-size: 0.95rem;
+  color: #777;
+}
+
+.oferta-wrapper{
+  background-color: #ffffff;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-bottom: #cccccc solid 1px;
+  margin: 1rem;
+  margin-bottom: 3rem;
+  /* padding-bottom: 3rem; */
+}
+
+#ultimo {
+  border-bottom: none;
+}
+
+
+.oferta-wrapper-header{
+  display: flex;
+  width: fit-content;
+  border-bottom: 1px solid #31A5DD;
+  margin: 0 auto;
+}
+
+.oferta-wrapper h3{
+  font-size: 1.5rem;
+  color: #31A5DD;
+  text-align: center;
+}
+
+.campo-texto{
+  border: 1px solid #E5E7EB; 
+  border-radius: 8px; 
+  padding: 12px; 
+  height: 140px;
+  resize: vertical;
+}
+
+.form-text.regla-longitud {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form-text.regla-longitud .contador {
+  font-variant-numeric: tabular-nums;
+  opacity: .8;
+}
+
+
+.required {
+  color: red;
+}
+.oferta-label {
+  margin-bottom: 1rem;
+}
+
+#icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.editar-doc {
+  color: #31A5DD;
+}
+
+.editar-doc:hover {
+  color: #1c8fc5;
+}
+
+
+form .habilidades {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+form .habilidades .tag {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.titulo-habilidades {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  margin-bottom: 16px;
+}
+.texto-habilidades{
+font-size: 0.8rem;
+color: #6b7280;
+}
+
+.etapa-disponible .tarjeta-etapa.etapa-seleccionada {
+  border-color: #31A5DD;
+  background: #EAF5FE;
+  box-shadow: 0 0 0 3px rgba(49,165,221,.15);
+}
+.etapa-disponible .tarjeta-etapa.etapa-seleccionada:hover {
+  border-color: #31A5DD;
+  background: #EAF5FE;
+}
+
+.btn-empleados {
+  background-color: #31A5DD;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 0;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.etapa-icono-seleccionada {
+  color: #31A5DD;
+} 
+.etapa-titulo {
+  color: #31A5DD;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.botones {
+  text-align: right;
+  padding-top: 20px;
+}
+
+.guardar {
+  background-color: #31A5DD;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.disponible-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+/* Estilos para el número de etapa */
+.etapa-numero {
+  background-color: #31A5DD;
+  color: white;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+
+.text-error {
+  color: #B91C1C;
+}
+
+
+
+
+/* Títulos y subtítulos */
+.oferta-wrapper .seccion-sub{color:#6b7280;margin:.2rem 0 1rem}
+.oferta-wrapper .seccion-subtitulo{font-weight:600;color:#374151;margin:1.2rem 0 .8rem}
+
+/* Grid de etapas disponibles */
+.etapas-disponibles{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1rem;
+}
+.etapa-disponible .tarjeta-etapa{
+  width:100%;
+  text-align:left;
+  background:#fff;
+  border:1px solid #E5EAF1;
+  border-radius:12px;
+  padding:16px 18px;
+  box-shadow:0 1px 0 rgba(16,24,40,.02);
+  transition:border-color .2s, box-shadow .2s, background-color .2s;
+  cursor:pointer;
+}
+.etapa-disponible .tarjeta-etapa:hover{
+  border-color:#8BD1F1;
+  background:#EAF5FE;
+  box-shadow:0 0 0 3px rgba(49,165,221,.15);
+}
+.tarjeta-etapa .tarjeta-titulo{display:block;font-weight:700;color:#111827;margin-bottom:4px}
+.tarjeta-etapa .tarjeta-subtitulo{display:block;color:#111827;margin-bottom:4px}
+.tarjeta-etapa .tarjeta-desc{display:block;font-size:.9rem;color:#6b7280}
+
+/* Contenedor de seleccionadas: sólo estilo, no lógica */
+.seleccionadas{background:transparent;box-shadow:none;padding:0}
+
+/* Card de etapa seleccionada (igual a la imagen) */
+.etapa-card{
+  position:relative;
+  background:#fff;
+  border:2px solid #8BD1F1;
+  border-radius:14px;
+  padding:18px;
+  margin:18px 0;
+  box-shadow:0 2px 6px rgba(17,24,39,.04);
+}
+.etapa-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.icon-tip::before{content:"💡";display:inline-block;font-size:18px}
+
+/* Botón cerrar arriba a la derecha, usando tu mismo botón (click) */
+.btn-cerrar{
+  position:absolute;top:10px;right:10px;
+  background:transparent !important;border:none !important;
+  color:#9CA3AF;padding:0;width:28px;height:28px;line-height:28px;
+  text-indent:-9999px;
+}
+.btn-cerrar::after{
+  content:"✕";position:absolute;inset:0;text-indent:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.btn-cerrar:hover{color:#6B7280;filter:none}
+
+/* Campos y labels */
+.campo{margin:12px 0}
+.campo-label{display:block;font-weight:600;color:#374151;margin-bottom:6px}
+
+
+
+/* Adjuntar documentos */
+.adjuntar-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:24px;
+  border:1px dashed #CFD8E3;background:#F5F7FA;cursor:pointer;user-select:none
+}
+.adjuntar-btn .paperclip::before{content:"📎"}
+.adjuntar-btn input[type="file"]{display:none}
+.ayuda{font-size:12px;color:#6B7280;margin-top:6px}
+
+/* Checkbox final */
+.check-row{display:flex;align-items:center;gap:8px;margin-top:10px;color:#374151}
+.check-row input[type="checkbox"]{width:16px;height:16px;accent-color:#31A5DD}
+
+
+/* Contenedor del uploader (estado previo a carga) */
+.doc-uploader{
+  display:flex;
+  flex-direction:column;
+  gap:.35rem;
+}
+
+/* Botón estilo “pill” con borde punteado */
+.doc-upload-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.55rem 1rem;
+  border-radius:14px;
+  border:1px dashed #CFD8E3;
+  background:#F7F9FC;
+  color:#475569;
+  font-weight:600;
+  cursor:pointer;
+  transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.doc-upload-btn .material-symbols-outlined{
+  font-size:18px;
+  line-height:1;
+}
+
+.doc-upload-btn:hover{
+  background:#EEF2F7;
+  border-color:#8BD1F1;
+  box-shadow:0 0 0 3px rgba(49,165,221,.15);
+}
+
+/* Leyenda de formatos */
+.doc-help{
+  font-size:.78rem;
+  color:#6B7280;
+  margin-left:.15rem;
+}
+
+
+/* Card del archivo subido */
+.doc-card{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 16px;
+  border:1px solid #E5EAF1; border-radius:12px;
+  background:#ffffff;
+  box-shadow:0 1px 2px rgba(16,24,40,.06);
+  transition:border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+.doc-card:hover{
+  border-color:#8BD1F1;
+  box-shadow:0 0 0 3px rgba(49,165,221,.12);
+}
+
+/* Icono del documento */
+.doc-icon{
+  width:44px; height:44px; border-radius:10px;
+  background:linear-gradient(180deg,#EAF5FE, #F5FBFF);
+  display:flex; align-items:center; justify-content:center;
+  flex:0 0 44px;
+}
+.doc-icon .material-symbols-outlined{
+  font-size:24px; color:#1c7fb9;
+}
+
+/* Info */
+.doc-info{ min-width:0; flex:1; }
+.doc-name{
+  display:block; font-weight:600; color:#0f172a;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.doc-name:hover{ color:#1c7fb9; text-decoration:underline; }
+
+.doc-meta{
+  display:flex; align-items:center; gap:.4rem;
+  font-size:.82rem; color:#6b7280; margin-top:2px;
+}
+.doc-badge{
+  background:#E1F0FA; color:#1c7fb9;
+  font-weight:700; border-radius:6px;
+  padding:.08rem .4rem; font-size:.72rem;
+}
+.doc-meta .dot{ opacity:.6 }
+
+/* Acciones */
+.doc-actions{ display:flex; gap:.45rem; }
+.btn-ghost{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.45rem .65rem; border-radius:8px;
+  border:1px solid #E5EAF1; background:#fff; color:#374151;
+  transition:border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+.btn-ghost .material-symbols-outlined{ font-size:18px; line-height:1; }
+.btn-ghost:hover{ border-color:#8BD1F1; background:#F8FAFC; box-shadow:0 0 0 3px rgba(49,165,221,.08); }
+
+.btn-ghost.danger{ border-color:#fde2e2; color:#B91C1C; }
+.btn-ghost.danger:hover{ background:#FEF2F2; border-color:#FCA5A5; box-shadow:none; }
+
+/* Responsivo */
+@media (max-width: 620px){
+  .doc-card{ align-items:flex-start; }
+  .doc-actions{ flex-wrap:wrap; justify-content:flex-end; }
+}
+
+.tarjeta-desc-corta {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; 
+  color: #6b7280; 
+  font-size: 0.9rem;
+}

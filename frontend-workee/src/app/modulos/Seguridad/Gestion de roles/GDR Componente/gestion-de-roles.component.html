@@ -1,0 +1,95 @@
+<div class="listado-wrapper">
+  <div class="listado-header">
+    <div>
+      <h1>Gestión de Roles</h1>
+      <p>Gestiona los roles de Workee</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="busqueda-acciones">
+        <button type="button" class="boton-nuevo" (click)="crearRol()">
+            <span class="material-symbols-outlined">add</span>
+            Añadir Rol
+        </button>
+    </div>
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+      @if (rolList.length === 0){
+        <div class="alert alert-warning">
+            ¡No hay roles cargados en el sistema!
+        </div>
+      } @else {
+        <table class="table align-middle table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ROLES DEL SISTEMA</th>
+              <th scope="col">CATEGORÍA</th>
+              <th scope="col">ESTADO</th>
+              <th scope="col">ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (rol of obtenerRolesPaginados(); track $index) {
+              <tr>
+                <td>
+                    {{ rol.nombreRol }}
+                    
+                </td>
+                <td>
+                    {{ rol.categoriaRol?.nombreCategoriaRol || '-' }}
+                </td>
+                <td>
+                    <span class="estado-badge"
+                        [ngClass]="{ 'habilitado': !rol.fechaHoraBaja, 'deshabilitado': rol.fechaHoraBaja }">
+                    {{ rol.fechaHoraBaja ? 'DESHABILITADO' : 'HABILITADO' }}
+                    </span>
+                </td>
+                <td>
+                  <button id="icon-button" class="icon-button-celeste"
+                        (click)="modificarRol(rol.id!)"
+                        title="Modificar">
+                        <span class="material-symbols-outlined">edit</span>
+                  </button>
+
+                  @if (!rol.fechaHoraBaja) {
+                    <button id="icon-button" class="icon-button-rojo"
+                            (click)="deshabilitarRol(rol.id!)"
+                            title="Deshabilitar">
+                      <span class="material-symbols-outlined">disabled_by_default</span>
+                    </button>
+                  } @else {
+                    <button id="icon-button" class="icon-button-verde"
+                            (click)="habilitarRol(rol.id!)"
+                            title="Habilitar">
+                      <span class="material-symbols-outlined">check_box</span>
+                    </button>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+    @if(totalPaginas > 1){
+      <nav class="paginador">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="paginaActual === 1">
+                    <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+                </li>
+                <li 
+                *ngFor="let pagina of paginas"
+                class="page-item" 
+                [class.active]="paginaActual === pagina">
+                    <button class="page-link" (click)="irAPagina(pagina)">
+                        {{ pagina }}
+                    </button>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                    <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    }
+  </div>
+</div>

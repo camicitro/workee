@@ -1,0 +1,152 @@
+<div class="metricas-wrapper">
+
+  <!-- HEADER Y FILTROS -->
+  <div class="metricas-filtro">
+    <div class="metricas-header">
+      <h1>Estadísticas del Candidato</h1>
+    </div>
+
+    <div class="filtros-header">
+      <div class="filtro-fechas">
+        <div class="campo-fecha">
+          <label>Fecha desde: </label>
+          <input type="date" [(ngModel)]="filtro.fechaDesde">
+        </div>
+        <div class="campo-fecha">
+          <label>Fecha hasta: </label>
+          <input type="date" [(ngModel)]="filtro.fechaHasta">
+        </div>
+      </div>
+
+      <div class="botones">
+        <button class="boton filtros" (click)="aplicarFiltro()">
+          <span class="material-symbols-outlined">filter_alt</span>
+          Aplicar filtros
+        </button>
+        <button class="boton limpiar" (click)="limpiarFiltros()" *ngIf="filtro.fechaDesde || filtro.fechaHasta">
+                    <span class="material-symbols-outlined">filter_alt_off</span>
+                    Limpiar filtros
+                </button>
+        <button class="boton descargar" (click)="descargarPDF()" title="Descargar PDF con métricas">
+          <span class="material-symbols-outlined">vertical_align_bottom</span>
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPINNER DE CARGA -->
+  <div *ngIf="cargando" class="overlay-cargando">
+    <div class="spinner"></div>
+    <p>Actualizando métricas...</p>
+  </div>
+
+  <!-- DASHBOARD DE MÉTRICAS -->
+  <div class="dashboard">
+
+    <!-- Postulaciones en curso -->
+    <div *ngIf="hayDatosCantidadPostulacionesEnCurso; else sinDatosPostulacionesEnCurso" class="card metric-card nro">
+      <div class="info-metrica">
+        <h5>Postulaciones en curso</h5>
+        <h2>{{ metricas.cantidadPostulacionesEnCurso }}</h2>
+        <p>Cantidad de postulaciones activas actualmente</p>
+      </div>
+      <span class="material-symbols-outlined icono-metrica">pace</span>
+    </div>
+    <ng-template #sinDatosPostulacionesEnCurso>
+      <div class="mensaje-sin-datos">
+        <h5>Postulaciones en curso</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Postulaciones rechazadas -->
+    <div *ngIf="hayDatosCantidadPostulacionesRechazadas; else sinDatosPostulacionesRechazadas" class="card metric-card nro">
+      <div class="info-metrica">
+        <h5>Postulaciones rechazadas</h5>
+        <h2>{{ metricas.cantidadPostulacionesRechazadas }}</h2>
+        <p>Total de postulaciones no exitosas</p>
+      </div>
+      <span class="material-symbols-outlined icono-metrica rechazada">cancel</span>
+    </div>
+    <ng-template #sinDatosPostulacionesRechazadas>
+      <div class="mensaje-sin-datos">
+        <h5>Postulaciones rechazadas</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Rubros de interés -->
+    <div *ngIf="hayDatosRubros; else sinDatosRubros" class="card chart-card">
+      <h5>Rubros de interés laboral</h5>
+      <p>Áreas donde más has postulado</p>
+      <canvas #chartRubros></canvas>
+    </div>
+    <ng-template #sinDatosRubros>
+      <div class="mensaje-sin-datos">
+        <h5>Rubros de interés laboral</h5>
+        <p>No hay datos para el período seleccionado</p>
+      </div>
+    </ng-template>
+
+    <!-- Países más postulados -->
+    <div *ngIf="hayDatosPaises; else sinDatosPaises" class="card chart-card">
+      <h5>Países más postulados</h5>
+      <p>Países de las empresas a las que más has postulado</p>
+      <canvas #chartPaises></canvas>
+    </div>
+    <ng-template #sinDatosPaises>
+      <div class="mensaje-sin-datos">
+        <h5>Países más postulados</h5>
+        
+      </div>
+    </ng-template>
+
+    <!-- HABILIDADES BLANDAS -->
+<div class="card metric-card" *ngIf="hayDatosHabilidadesBlandas; else sinDatosBlandas">
+  <div class="habilidades">
+    <h5>Top habilidades blandas del momento</h5>
+    <p>Habilidades blandas más demandadas en las ofertas</p>
+    <ol class="lista-habilidades items-blandas">
+      <li *ngFor="let habilidad of metricas.topHabilidadesBlandas">
+        {{ habilidad.nombreHabilidad }}
+      </li>
+    </ol>
+  </div>
+  <span class="material-symbols-outlined icono-metrica blandas">psychology</span>
+</div>
+<ng-template #sinDatosBlandas>
+  <div class="card metric-card">
+    <div class="habilidades sin-datos">
+        <h5>Top habilidades blandas del momento</h5>
+        <p>No hay datos para el período seleccionado</p>
+    </div>
+  </div>
+</ng-template>
+
+<!-- HABILIDADES TÉCNICAS -->
+<div class="card metric-card hab-contenedor" *ngIf="hayDatosHabilidadesTecnicas; else sinDatosTecnicas">
+  <div class="habilidades">
+    <h5>Top habilidades técnicas del momento</h5>
+    <p>Habilidades técnicas más demandadas en las ofertas</p>
+    <ol class="lista-habilidades items-tecnicas">
+      <li *ngFor="let habilidad of metricas.topHabilidadesTecnicas">
+        {{ habilidad.nombreHabilidad }}
+      </li>
+    </ol>
+  </div>
+  <span class="material-symbols-outlined icono-metrica tecnicas">handyman</span>
+</div>
+<ng-template #sinDatosTecnicas>
+  <div class="card metric-card">
+    <div class="habilidades sin-datos">
+        <h5>Top habilidades técnicas del momento</h5>
+        <p>No hay datos para el período seleccionado</p>
+    </div>
+  </div>
+</ng-template>
+
+
+  </div>
+
+</div>

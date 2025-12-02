@@ -1,0 +1,323 @@
+.listado-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 1100px;
+  margin: 3rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.listado-header {  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.listado-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+
+.listado-header p {
+  font-size: 0.95rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+.p-multiselect {
+  width: 300px;
+}
+
+.busqueda-acciones {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 1px solid #eee;  
+}
+
+.listado-contenido {
+  padding: 6px;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.empresa-logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-body h5 {
+  font-size: 19px;
+  margin: 0;
+}
+
+.card-body .empresa {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.card-body .fecha {
+  font-size: 12px;
+  color: #777;
+}
+
+.material-symbols-outlined  {
+  font-size: 18px;
+  color: #777;
+}
+
+#detalle {
+  font-size: 24px;
+  color: #777;
+}
+
+.etapa {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  background-color: #E1F0FA; 
+  color: #31a5dd;
+}
+
+/* Colores personalizados por etapa  */
+
+/* Seleccionado */
+.badge-seleccionado {
+  background-color: #E8F8F0;
+  color: #2ECC71;
+  border-color: #2ECC71;
+}
+
+/* Pendiente */
+.badge-pendiente {
+  background-color: #FFF9E6;
+  color: #C9A400;
+  border-color: #F1C40F;
+}
+
+/* Rechazado */
+.badge-rechazado {
+  background-color: #FDECEA;
+  color: #E74C3C;
+  border-color: #E74C3C;
+}
+
+/* No aceptado (rechazo del candidato) */
+.badge-no-aceptado {
+  background-color: #F4F6F7;
+  color: #7F8C8D;
+  border-color: #7F8C8D;
+}
+
+/* Abandonado */
+.badge-abandonado {
+  background-color: #F4ECF7;
+  color: #9B59B6;
+  border-color: #9B59B6;
+}
+
+/* Etapas intermedias */
+.badge-entrevista {
+  background-color: #E1F0FA;
+  color: #31a5dd;
+  border-color: #31a5dd;
+}
+
+
+.card-footer {
+  background: none;
+  border: none;
+  padding: 12px;
+  padding-top: 0;
+  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ver-detalles {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #555;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 4px 8px;   
+}
+
+.ver-detalles:hover {
+  background: #f2f2f2;     /* efecto hover */
+}
+
+.btn-ver {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
+.btn-ver:hover {
+  color: #31a5dd;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+.card-header img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.card-body {
+  padding: 12px;
+  flex: 1;
+}
+
+.card-body .empresa {
+  font-size: 14px;
+  color: #555;
+}
+.card-body .fecha {
+  font-size: 12px;
+  color: #888;
+}
+.card-body .etapa {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #e6f0ff;
+  color: #31a5dd;
+  font-size: 14px;
+}
+
+.sin-resultados-txt {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin: 0px;
+}
+
+.sin-resultados {
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.sin-resultados-img {
+  width: 180px;
+  max-width: 100%;
+}
+
+/* Que el paginador siempre quede abajo */
+.listado-wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh; /* ajustá a gusto */
+}
+
+.grid-container{
+  flex: 1; /* el grid ocupa el alto y empuja el paginador abajo */
+}
+
+.paginator{
+  padding-top: 15px;
+  margin-top: auto;            /* baja al fondo */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.paginator .hint{
+  margin-right: auto;
+  color: #6B7280;
+  font-size: 13px;
+}
+
+.controls{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pg-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow .15s ease, background .15s ease, transform .04s ease;
+}
+.pg-btn:hover{ background:#F3F4F6; }
+.pg-btn:active{ transform: translateY(1px); }
+.pg-btn[disabled]{ opacity:.45; cursor:not-allowed; background:#fafafa; }
+
+.pg-page{
+  min-width: 60px;
+  height: 34px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #F3F4F6;
+  color: #111827;
+  font-weight: 700;
+  border: 1px solid #E5E7EB;
+}
+
+@media (max-width: 620px){
+  .paginator .hint{ display:none; }
+}
+
+

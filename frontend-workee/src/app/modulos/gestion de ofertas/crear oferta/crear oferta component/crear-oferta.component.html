@@ -1,0 +1,281 @@
+<div class="oferta-card">
+  <div class="oferta-header">
+    <button type="button" class="boton" [routerLink]="['/visualizar-oferta']">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Volver
+    </button>
+    <h1>Crear nueva oferta de empleo</h1>
+    <p>Completa el formulario para publicar una nueva oferta de empleo en tu empresa</p>
+  </div>
+
+
+  <form [formGroup]="crearofertaForm">
+    
+      <div class="oferta-wrapper">
+
+      <div class="oferta-wrapper-header">
+        <h3>Información básica</h3>
+      </div>  
+        <div class="form-group">
+          <label for="titulo" class="oferta-label">Título de la oferta <span class="required">*</span></label>
+          <input
+            id="titulo"
+            type="text"
+            class="form-control"
+            formControlName="titulo"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('titulo') }"
+          />
+          @if (isCampoInvalido('titulo')) {
+            <div class="invalid-feedback">
+              {{ getMensajeError('titulo') }}
+            </div>
+          }
+        </div>
+
+            <div class="form-group">
+                <label class="oferta-label">Tipo de contrato <span class="required">*</span></label>
+              <select class="form-select"
+                  formControlName="tipocontrato"
+                  [ngClass]="{ 'is-invalid': isCampoInvalido('tipocontrato') }"
+                >
+                  @for (tipocontrato of tipocontratos; track tipocontrato.id) {
+                    <option [ngValue]="tipocontrato">{{ tipocontrato.nombreTipoContratoOferta }}</option>
+                  }
+                </select>
+                  @if (isCampoInvalido('tipocontrato')) {
+                    <div class="invalid-feedback">El campo "Tipo de contrato" es obligatorio.</div>
+                  }
+              </div>
+              <div class="form-group">
+                <label class="oferta-label">Modalidad <span class="required">*</span></label>
+              <select class="form-select"
+                      formControlName="modalidad"
+                      [ngClass]="{ 'is-invalid': isCampoInvalido('modalidad') }">
+                @for (modalidad of modalidades; track modalidad.id) {
+                  <option [ngValue]="modalidad">{{ modalidad.nombreModalidadOferta }}</option>
+                }
+              </select>
+                @if (isCampoInvalido('modalidad')) {
+                  <div class="invalid-feedback">El campo "Modalidad" es obligatorio.</div>
+                }
+              </div>
+    </div>
+      <div class="oferta-wrapper">
+        <div class="oferta-wrapper-header">
+          <h3>Detalle de la oferta</h3>
+        </div> 
+          <div class="form-group">
+            <label class="oferta-label">Descripción <span class="required">*</span></label>
+            <textarea class="form-control campo-texto"
+                      formControlName="descripcionOferta"
+                      [attr.minlength]="5"
+                      [attr.maxlength]="350"
+                      [ngClass]="{ 'is-invalid': isCampoInvalido('descripcionOferta') }"></textarea>
+
+            <!-- Aviso permanente + contador -->
+            <div class="form-text regla-longitud">
+              <span class="contador">{{ lenTrim('descripcionOferta') }}/350</span>
+            </div>
+
+            @if (isCampoInvalido('descripcionOferta')) {
+              <div class="invalid-feedback">
+                {{ getMensajeError('descripcionOferta') }}
+              </div>
+            }
+          </div>
+          <div class="form-group">
+            <label class="oferta-label">Responsabilidades de la oferta <span class="required">*</span></label>
+            <textarea class="form-control campo-texto"
+                      formControlName="responsabilidadesOferta"
+                      [attr.minlength]="5"
+                      [attr.maxlength]="350"
+                      [ngClass]="{ 'is-invalid': isCampoInvalido('responsabilidadesOferta') }"></textarea>
+
+            <!-- Aviso permanente + contador -->
+            <div class="form-text regla-longitud">
+              <span class="contador">{{ lenTrim('responsabilidadesOferta') }}/350</span>
+            </div>
+
+            @if (isCampoInvalido('responsabilidadesOferta')) {
+              <div class="invalid-feedback">
+                {{ getMensajeError('responsabilidadesOferta') }}
+              </div>
+            }
+          </div>
+          <div class="form-group">
+              <div class="titulo-habilidades">
+                  <label >Habilidades</label>
+                  
+                  <button id="icon-button" (click)="seleccionarHabilidades()">
+                      <span class="material-symbols-outlined editar-doc" title="Editar habilidades">edit</span>
+                  </button>                  
+              </div>
+              <p class="texto-habilidades">Añade las habilidades blandas y técnicas requeridas para tu puesto</p>
+              <div class="habilidades">
+                  @for (hab of habilidadesParaMostrar; track $index) {
+                  <span class="tag"> {{hab.habilidad.nombreHabilidad}} </span>
+                  }
+              </div>
+          </div> 
+      </div>
+      
+          <div class="oferta-wrapper" id="ultimo">
+              <div class="oferta-wrapper-header">
+                <h3 class="seccion-titulo">Proceso de selección</h3>
+              </div> 
+          <p class="seccion-sub">Selecciona las etapas que conformarán el proceso de selección para esta oferta.</p>
+
+          <p class="seccion-subtitulo">Etapas disponibles</p>
+          <div class="form-group">
+            <div class="etapas-disponibles">
+              @for (etapa of etapasDisponibles; track etapa.id) {
+                <div class="etapa-disponible" (click)="agregarEtapa(etapa)">
+                  <button type="button" class="tarjeta-etapa" [ngClass]="{ 'etapa-seleccionada': isEtapaSeleccionada(etapa) }">
+                    <div class="disponible-header">
+                      @if(isEtapaSeleccionada(etapa) && etapa.id != undefined){ 
+                        <span class="etapa-numero"> {{ getNumeroEtapa(etapa.id) }}</span>
+                      } 
+                      <span class="tarjeta-titulo">{{ etapa.nombreEtapa }}</span>
+                    </div>
+                    <span class="tarjeta-subtitulo tarjeta-desc-corta" [title]="etapa.descripcionEtapa">
+                      {{ etapa.descripcionEtapa }}
+                    </span>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="oferta-wrapper seleccionadas" id="ultimo" *ngIf="etapasSeleccionadas.length > 0">
+            <p class="seccion-subtitulo">Etapas seleccionadas</p>
+
+            @for (etapa of etapasSeleccionadas; track etapa.numeroEtapa; let i = $index) {
+              <div class="etapa-card">
+                <div class="etapa-header">
+                  <span class="material-symbols-outlined etapa-icono-seleccionada">emoji_objects</span> 
+                    <h5 class="etapa-titulo">
+                      {{ i + 1 }}. {{ getNombreEtapa(etapa.idEtapa) }}
+                    </h5>
+                  
+                  <button type="button" class="btn btn-danger btn-cerrar" (click)="quitarEtapa(i)">Quitar</button>
+                </div>
+                <div class="form-group">
+                      <label class="campo-label">Asignar Empleado</label>   
+                    <div class="titulo-habilidades">
+                        <!-- donde listás cada etapa -->
+                          @if (!etapasSeleccionadas[i].idEmpleadoEmpresa) { 
+                            <button type="button" class="material-symbols-outlined btn-empleados" (click)="seleccionarEmpleado(i)">
+                            add
+                          </button>
+                          } 
+                          
+                          @if (etapasSeleccionadas[i].idEmpleadoEmpresa) {
+                            <button type="button" class="material-symbols-outlined btn-empleados" (click)="borrarEmpleado(i)">
+                            check_indeterminate_small
+                            </button>
+                            <div >
+                              {{ empleadosPorId[etapasSeleccionadas[i].idEmpleadoEmpresa] || ('Empleado ' + etapasSeleccionadas[i].idEmpleadoEmpresa) }}
+                            </div>
+                            
+                          }
+                    
+                    </div>
+                </div> 
+                <div class="campo">
+                  <label class="campo-label oferta-label">Descripción</label>
+                  <div class="editor-simulador">
+                    <textarea class="form-control campo-texto"
+                              [(ngModel)]="etapasSeleccionadas[i].descripcionAdicional" [ngModelOptions]="{ standalone: true }"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group doc-wrapper">
+                <label for="fileCV" class="p-0 my-0 mb-2 oferta-label">Documentos Adjuntos</label>
+
+                @if (!previewPorEtapa[i]) {
+                  <div class="doc-uploader">
+                    <button type="button" class="doc-upload-btn" (click)="abrirSelectorArchivoEtapa(i)">
+                      <span class="material-symbols-outlined">attach_file</span>
+                      Adjuntar Documentos
+                    </button>
+                    <div class="doc-help">
+                      Formato permitido: <strong>PDF</strong> (máx 5MB)
+                    </div>
+                  </div>
+                }
+
+                @if (previewPorEtapa[i]) {
+                  <div class="doc-box doc-card" role="group" aria-label="Archivo adjunto">
+                    <div class="doc-icon">
+                      <span class="material-symbols-outlined">description</span>
+                    </div>
+
+                    <div class="doc-info">
+                      <a class="doc-name" [href]="previewPorEtapa[i]" target="_blank" rel="noopener">
+                        {{ nombresArchivoPorEtapa[i] }}
+                      </a>
+                      <div class="doc-meta">
+                        <span class="doc-badge">PDF</span>
+                      </div>
+                    </div>
+
+                    <div class="doc-actions">
+                      <!-- Usa tu misma función para reabrir el selector y reemplazar -->
+                      <button type="button" class="btn-ghost" (click)="abrirSelectorArchivoEtapa(i)">
+                        <span class="material-symbols-outlined">edit</span>
+                        Cambiar
+                      </button>
+
+                      <button type="button" class="btn-ghost danger" (click)="eliminarArchivoEtapa(i)">
+                        <span class="material-symbols-outlined">delete</span>
+                        Eliminar
+                      </button>
+                    </div>
+                  </div>
+                }
+
+                <input
+                  type="file"
+                  [id]="'fileArchivoEtapa_'+i"
+                  accept="application/pdf"
+                  hidden
+                  (change)="onArchivoEtapaSelected($event, i)"
+                />
+
+                @if (erroresArchivo[i]?.formato) {
+                  <p class="text-error">El formato del archivo seleccionado no es válido. Debe ser .pdf</p>
+                }
+                @if (erroresArchivo[i]?.tamanioInvalido) {
+                  <p class="text-error">El documento no debe superar los 5MB.</p>
+                }
+
+              </div>
+
+              <label class="check-row">
+                <input
+                  #adjuntaCheckbox
+                  type="checkbox"
+                  [checked]="etapasSeleccionadas[i].adjuntaEnlace"
+                  (change)="toggleAdjuntaEnlace(i, adjuntaCheckbox.checked)"
+                />
+                El candidato podrá adjuntar un enlace
+              </label>
+              </div>
+            }
+            
+          </div>
+          <div class="botones">
+              <button type="button"
+                      class="btn btn-primary guardar"
+                      [disabled]="crearofertaForm.invalid || !etapasSeleccionadas.length"
+                      (click)="enviarDatos()">
+                <span type="button" class="material-symbols-outlined">add</span>
+                Crear oferta
+              </button>
+            </div>
+        </div>
+    
+    
+
+  </form>
+</div>

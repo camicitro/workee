@@ -1,0 +1,95 @@
+<div class="listado-wrapper">
+    <button type="button" class="boton" (click)="volverAListado()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="listado-header">
+        <div>
+            <h1>Tipos de habilidad</h1>
+            <p>Gestiona los parámetros de Workee</p>
+        </div>
+    </div>
+    <div class="busqueda-acciones">
+        <button type="button" class="boton-nuevo" (click)="crearTipoHabilidad()">
+            <span class="material-symbols-outlined">add</span>
+            Nuevo Tipo de habilidad
+        </button>
+    </div>
+    @if (tipoList.length === 0) {
+            <div class="alert alert-warning">
+                ¡No hay tipos de habilidad cargados en el sistema!
+            </div>
+    } @else {
+        <table class="table align-middle table-hover">
+        <thead>
+            <tr>
+                <th scope="col">TIPO DE HABILIDAD</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">ACCIONES</th>
+            </tr>
+        </thead>
+                <tbody>
+                    @for (tipo of obtenerTiposPaginados(); track $index) {
+                        <tr>
+                            <td> {{ tipo.nombreTipoHabilidad }} </td>
+                            <td> 
+                                <span class="estado-badge"
+                                [ngClass]=" { 'habilitado': !tipo.fechaHoraBaja, 'deshabilitado': tipo.fechaHoraBaja }">
+                                    {{ tipo.fechaHoraBaja ? 'DESHABILITADO' : 'HABILITADO'}}
+                                </span>
+                            </td>
+                            <td>
+                                <button id="icon-button" class="icon-button-celeste" (click)="modificarTipoHabilidad(tipo.id!)" title="Modificar">
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                </button>
+                                @if (!tipo.fechaHoraBaja) {
+                                    <button id="icon-button" class="icon-button-rojo" (click)="deshabilitarTipoHabilidad(tipo.id!)" title="Deshabilitar" >
+                                        <span class="material-symbols-outlined">
+                                            disabled_by_default
+                                        </span>
+                                    </button>
+                                } @else {
+                                    <button id="icon-button" class="icon-button-verde" (click)="habilitarTipoHabilidad(tipo.id!)" title="Habilitar" >
+                                        <span class="material-symbols-outlined">
+                                            check_box
+                                        </span>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>
+        }
+    <!-- tuve que usar ngIf porque no me funcionaba solo con @if -->
+    <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>

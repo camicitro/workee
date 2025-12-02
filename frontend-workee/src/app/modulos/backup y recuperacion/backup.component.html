@@ -1,0 +1,71 @@
+
+  <div class="backup-card">
+    <h1 class="title-main">Gestión de Backup</h1>
+  
+    <!-- Realizar backup -->
+    <section class="section">
+      <h2 class="section-title">Realizar backup</h2>
+      <p class="section-sub">Crea una copia de seguridad completa del estado actual de la base de datos.
+        Este proceso puede tardar unos minutos dependiendo del tamaño de los datos.</p>
+  
+      <div class="callout callout-info">
+        <span class="material-symbols-outlined callout-icon">info</span>
+        <div>
+          <p class="callout-text">
+            Realiza copias de seguridad periódicas para garantizar la integridad de tus datos.
+            Las copias se guardan con la fecha y hora de su creación
+          </p>
+        </div>
+      </div>
+  
+      <button type="button" class="btn-action" (click)="generarBakcup()">
+          <span class="material-symbols-outlined btn-icon">upload</span>
+        
+        Realizar backup
+      </button>
+    </section>
+  
+    <!-- Restaurar backup -->
+    <section class="section">
+      <h2 class="section-title">Restaurar backup</h2>
+      <p class="section-sub">Selecciona una copia de seguridad de la lista para restaurar la base de datos a ese estado.
+        Esta acción reemplazará los datos actuales.</p>
+  
+      <div class="callout callout-warn">
+        <span class="material-symbols-outlined callout-icon">warning</span>
+        <div>
+          <p class="callout-text">
+            <strong>Advertencia:</strong> La restauración de una copia de seguridad reemplazará todos los
+            datos actuales. Esta acción no se puede deshacer.
+          </p>
+        </div>
+      </div>
+  
+      <form class="form">
+        <label for="backupSelect" class="form-label">Seleccionar backup</label>
+        <select id="backupSelect"
+                class="form-select select-full"
+                [(ngModel)]="selectedBackup"
+                name="selectedBackup">
+          <option [ngValue]="undefined" disabled selected>Selecciona una copia de seguridad</option>
+          @for (backup of listadoBackups; track $index) {
+            <option [value]="backup">{{ backup }}</option>
+          }
+        </select>
+      </form>
+  
+      <button type="button"
+              class="btn-restore"
+              [disabled]="!selectedBackup"
+              (click)="restaurarBackup(selectedBackup)">
+          <span class="material-symbols-outlined btn-icon">sync</span>
+        Restaurar
+      </button>
+    </section>
+  </div>
+
+@if (isLoading) {
+  <div class="loading-overlay">
+    <div class="spinner-large"></div>
+  </div>
+}

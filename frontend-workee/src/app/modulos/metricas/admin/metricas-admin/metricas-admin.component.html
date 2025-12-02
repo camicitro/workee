@@ -1,0 +1,124 @@
+<div class="metricas-wrapper">
+    <div class="metricas-filtro">
+        <div class="metricas-header">
+            <h1>Estadísticas</h1>
+        </div>
+        <div class="filtros-header">
+            <div class="filtro-fechas">
+                <div class="campo-fecha">
+                  <label>Fecha desde: </label>
+                  <input type="date" [(ngModel)]="filtro.fechaDesde">
+                </div>
+                
+                <div class="campo-fecha">
+                  <label>Fecha hasta: </label>
+                  <input type="date" [(ngModel)]="filtro.fechaHasta">
+                </div>
+            </div>
+            
+            <div class="botones">
+                <button class="boton filtros" (click)="aplicarFiltro()">
+                    <span class="material-symbols-outlined">filter_alt</span>
+                    Aplicar filtros
+                </button>
+                <button class="boton limpiar" (click)="limpiarFiltros()" *ngIf="filtro.fechaDesde || filtro.fechaHasta">
+                    <span class="material-symbols-outlined">filter_alt_off</span>
+                    Limpiar filtros
+                </button>
+                 <button class="boton descargar" (click)="descargarPDF()" title="Descargar PDF con listado de usuarios">
+                    <span class="material-symbols-outlined">vertical_align_bottom</span>
+                    Descargar PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="cargando" class="overlay-cargando">
+        <div class="spinner"></div>
+        <p>Actualizando métricas...</p>
+    </div>
+    
+    <div class="dashboard">
+          <div *ngIf="hayDatosCantidadUsuarios; else sinDatosCantidadUsuarios" class="card metric-card">
+                <div class="info-metrica">
+                    <h5>Total histórico de usuarios</h5>
+                    <h2>{{ cantidadHistoricaUsuarios }}</h2>
+                    <p>Cantidad total de usuarios registrados desde el inicio del sistema</p>
+                </div>
+                <span class="material-symbols-outlined icono-metrica">account_circle</span>
+          </div>
+          <ng-template #sinDatosCantidadUsuarios>
+            <div class="mensaje-sin-datos">
+                <h5>Total histórico de usuarios</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+          </ng-template>
+          <div *ngIf="hayDatosTasaExito; else sinDatosTasaExito" class="card metric-card">
+            <div class="info-metrica">
+                <h5>Tasa de éxito de ofertas</h5>
+                <h2>{{ tasaExitoOfertas | number:'1.0-2' }} %</h2>
+                <p>Porcentaje de ofertas que finalizaron con contratación éxitosa</p>
+            </div>
+            <span class="material-symbols-outlined icono-metrica">task_alt</span>
+          </div>
+          <ng-template #sinDatosTasaExito>
+            <div class="mensaje-sin-datos">
+                <h5>Tasa de éxito de ofertas</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+          </ng-template>
+          
+          <div *ngIf="hayDatosRoles; else sinDatosRoles" class="card chart-card">
+            <h5>Tipos de usuarios</h5>
+            <p>Distribución de usuarios registrados por rol</p>
+            <canvas #chartRoles></canvas>
+          </div>
+          <ng-template #sinDatosRoles>
+            <div class="mensaje-sin-datos">
+                <h5>Tipo de usuarios</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+          </ng-template>
+       
+        <!-- Distribución por país -->
+        <div *ngIf="hayDatosPaises; else sinDatosPaises" class="card chart-card">
+            <h5>Distribución geográfica de usuarios</h5>
+            <p>Países con mayor cantidad de usuarios registrados</p>
+            <canvas #chartPaises></canvas>
+        </div>
+        <ng-template #sinDatosPaises>
+            <div class="mensaje-sin-datos">
+                <h5>Distribución geográfica de usuarios</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+        </ng-template>
+    
+        <!-- Empresas con más ofertas -->
+        <div *ngIf="hayDatosEmpresas; else sinDatosEmpresas" class="card chart-card">
+            <h5>Empresas más activas</h5>
+            <p>Empresas con mayor cantidad de ofertas publicadas  </p>
+            <canvas #chartEmpresas></canvas>
+        </div>
+        <ng-template #sinDatosEmpresas>
+            <div class="mensaje-sin-datos">
+                <h5>Empresas más activas</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+        </ng-template>
+    
+        <!-- Evolución de usuarios -->
+        <div *ngIf="hayDatosEvolucionRegistro; else sinDatosEvolucionRegistro" class="card chart-card">
+            <h5>Evolución del registro de usuarios</h5>
+            <p>Nuevos usuarios registrados en el sistema en el periodo de tiempo seleccionado</p>
+            <canvas #chartEvolucion></canvas>
+        </div>
+        <ng-template #sinDatosEvolucionRegistro>
+            <div class="mensaje-sin-datos">
+                <h5>Evolución del registro de usuarios</h5>
+                <p>No hay datos para el período seleccionado</p> 
+            </div>
+        </ng-template>
+    </div>
+
+</div>    

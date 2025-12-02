@@ -1,0 +1,75 @@
+.custom-modal {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  padding: 20px 25px;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.modal-body {
+  padding-top: 10px;
+}
+
+.modal-body p {
+  font-size: 15px;
+  color: #666;
+}
+
+.custom-input {
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.custom-input:focus {
+  border-color: #29a9f3;
+  box-shadow: 0 0 0 3px rgba(41, 169, 243, 0.2);
+  outline: none;
+}
+
+.custom-btn {
+  background: linear-gradient(90deg, #29a9f3, #1d8dd4);
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+  background: linear-gradient(90deg, #1d8dd4, #1773ad);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(29, 141, 212, 0.3);
+}
+
+.btn-close {
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666'%3E%3Cpath d='M2 2 L14 14 M14 2 L2 14' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/1em auto no-repeat;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.btn-close:hover {
+  opacity: 1;
+  filter: brightness(0.8);
+}
+

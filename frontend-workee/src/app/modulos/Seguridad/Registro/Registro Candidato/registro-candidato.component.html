@@ -1,0 +1,358 @@
+<app-spinner 
+  *ngIf="isLoading; else loginFormTemplate"
+  type="overlay"
+  message="Cargando..."
+></app-spinner>
+<ng-template #loginFormTemplate>
+<form [formGroup]="candidatoForm">
+    @if (numeropaginaregistro == 1) {
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nombre <span class="required">*</span></label>
+                    <input type="text" required placeholder="Ingresar..." class="form-control"
+                        formControlName="nombreCandidato"
+                        [ngClass]="{ 'is-invalid': isCampoInvalido('nombreCandidato') }" />
+                    @if (isCampoInvalido('nombreCandidato')) {
+                    <div class="invalid-feedback">El campo “Nombre” no puede estar vacío</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label>Fecha de nacimiento <span class="required">*</span></label>
+                    <input type="date" required placeholder="AAAA-MM-DD" class="form-control"
+                        formControlName="fechaDeNacimiento"
+                        [ngClass]="{ 'is-invalid': isCampoInvalido('fechaDeNacimiento') }" />
+                    <div class="invalid-feedback" *ngIf="isFechaInvalida() && candidatoForm.get('fechaDeNacimiento')?.errors?.['required']">
+                        El campo “Fecha de nacimiento” no puede estar vacío
+                    </div>
+
+                    <div class="invalid-feedback" *ngIf="isFechaMenorDeEdad()">
+                        Debes tener al menos 18 años
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Apellido <span class="required">*</span></label>
+                    <input type="text" required placeholder="Ingresar..." class="form-control"
+                        formControlName="apellidoCandidato"
+                        [ngClass]="{ 'is-invalid': isCampoInvalido('apellidoCandidato') }" />
+                    @if (isCampoInvalido('apellidoCandidato')) {
+                    <div class="invalid-feedback d-block">El campo “Apellido” no puede estar vacío</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label>Género <span class="required">*</span></label>
+                    <select 
+                        class="form-select" 
+                        formControlName="generoCandidato" 
+                        [compareWith]="compararGenero" 
+                        [ngClass]="{ 'is-invalid': isCampoInvalido('generoCandidato') }">
+                    @for (genero of generos; track genero.id) {
+                        <option [ngValue]="genero">{{ genero.nombreGenero }}</option>
+                    }
+                    </select>
+                    @if (isCampoInvalido('generoCandidato')) {
+                        <div class="invalid-feedback d-block">El campo “Género” no puede estar vacío</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Correo electrónico <span class="required">*</span></label>
+            <input type="email" required placeholder="ejemplo@gmail.com" class="form-control"
+                formControlName="correoCandidato"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('correoCandidato') }" />
+            @if (isCampoInvalido('correoCandidato')) {
+            <div class="invalid-feedback">
+                @if (candidatoForm.get('correoCandidato')?.hasError('required')) {
+                El campo “Correo electrónico” no puede estar vacío
+                } @else if (backendEmailInvalido) {
+                El correo electrónico ingresado no es válido
+                }
+            </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña <span class="required">*</span></label>
+            <div class="input-group">
+            <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                    formControlName="contrasenia"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('contrasenia') }" />
+            <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+            </span>
+            </div>
+            @if (isCampoInvalido('contrasenia')) {
+                <div class="invalid-feedback d-block">
+                    @if (candidatoForm.get('contrasenia')?.hasError('required')) {
+                    El campo “Contraseña” no puede estar vacío
+                    } @else if (backendContraseniaCorta) {
+                    La contraseña ingresada debe superar los 8 caracteres
+                    }
+                    @else if (candidatoForm.get('contrasenia')?.hasError('minlength')) {
+                    La contraseña debe tener al menos 8 caracteres
+                    }
+                </div>
+            }
+        </div>
+
+      <div class="form-group">
+        <label>Repetir contraseña <span class="required">*</span></label>
+        <div class="input-group">
+          <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                 formControlName="repetirContrasenia"
+                 [ngClass]="{ 'is-invalid': isCampoInvalido('repetirContrasenia') }" />
+          <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+            <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+          </span>
+        </div>
+        @if (isCampoInvalido('repetirContrasenia')) {
+          <div class="invalid-feedback d-block">
+            @if (candidatoForm.get('contrasenia')?.hasError('required')) {
+              El campo “Repetir contraseña” no puede estar vacío
+            } @else if (backendContraseniaCorta) {
+              La contraseña ingresada debe superar los 8 caracteres
+            }
+            @else if (candidatoForm.get('repetirContrasenia')?.hasError('minlength')) {
+              La contraseña debe tener al menos 8 caracteres
+            }
+          </div>
+        }
+      </div>
+      <div class="text-end mt-3">
+        <button style="background-color: white; border: none; color: #31A5DD; padding: 1px 1px; border-radius: 4px; cursor: pointer;">
+          <span class="material-symbols-outlined" (click)="siguientepagina()">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+    
+
+        
+    } @else {
+
+        <div class="form-group">
+            <div class="foto-seccion">
+                <label class="foto-label">Foto de perfil</label>
+
+                <div class="foto-container">
+                <img [src]="fotoTemporal || 'assets/img/foto-perfil.png'" alt="foto" class="foto" />
+                <label for="file" class="icono-editar" title="Editar foto">
+                    <span class="material-symbols-outlined icono-foto">photo_camera</span>
+                </label>
+
+                <input
+                    type="file"
+                    id="file"
+                    accept="image/jpg, image/jpeg, image/png"
+                    hidden
+                    class="form-control"
+                    formControlName="urlFotoPerfil"
+                    (change)="onFileSelected($event)"
+                />
+                </div>
+
+                @if (candidatoForm.get('urlFoto')?.hasError('required') && candidatoForm.get('urlFoto')?.touched) {
+                <div class="invalid-feedback d-block">
+                    Debe subir una foto de perfil.
+                </div>
+                }
+
+                @if (candidatoForm.get('urlFoto')?.hasError('formato')) {
+                <div class="invalid-feedback d-block">
+                    El formato del archivo seleccionado no es válido. Debe seleccionar una imagen con formato .jpg, .jpeg o .png
+                </div>
+                }
+
+                @if (candidatoForm.get('urlFoto')?.hasError('tamanioInvalido') && candidatoForm.get('urlFoto')?.touched) {
+                <div class="invalid-feedback d-block">
+                    La foto de perfil no debe superar los 5MB.
+                </div>
+                }
+            </div>
+        </div>
+
+
+
+        <div class="form-row-2col">
+            <div class="form-group">
+                <label for="paisCandidato" class="p-0 my-0 mb-2">País <span class="required">*</span></label>
+                <select 
+                    class="form-select"
+                    formControlName="paisCandidato" 
+                    (change)="filtrarProvinciasPorPais(candidatoForm.get('paisCandidato')?.value)"
+                    [compareWith]="compararPais"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('paisCandidato') }"
+                >
+                    <option *ngFor="let pais of paises" [ngValue]="pais">{{ pais.nombrePais }}</option>
+                </select>
+                @if (isCampoInvalido('paisCandidato')) {
+                   <div class="invalid-feedback d-block">
+                       El campo "País" no puede estar vacío.
+                   </div>
+                }
+            </div>
+            
+            <div class="form-group">
+                <label for="provinciaCandidato" class="p-0 my-0 mb-2">Provincia <span class="required">*</span></label>
+                <select 
+                class="form-select" 
+                formControlName="provinciaCandidato" 
+                [compareWith]="compararProvincia"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('provinciaCandidato') }"
+                >
+                <option *ngFor="let provincia of provinciasDePais" [ngValue]="provincia">{{ provincia.nombreProvincia }}</option>
+            </select>
+            @if (isCampoInvalido('provinciaCandidato')) {
+               <div class="invalid-feedback d-block">
+                   El campo "Provincia" no puede estar vacío.
+               </div>
+            }
+            </div>
+        </div>
+
+        <div class="form-group cv-wrapper">
+
+            <label for="fileCV" class="p-0 my-0 mb-2">Currículum Vitae</label>
+
+            <!-- 🔧 Mostrar el drop SOLO si NO hay archivo -->
+            @if (!fileCV) {
+                <div class="cv-drop-area" (click)="abrirSelectorCV()">
+                <span class="material-symbols-outlined cloud-icon">cloud_upload</span>
+                <p class="cv-texto">Arrastra y suelta tu CV aquí o haz clic para buscar</p>
+                <small class="cv-subtexto">Formato aceptado: PDF (máximo 5MB).</small>
+                </div>
+            }
+
+            <!-- ✅ Cuando hay archivo, se muestra tu tarjeta y el drop desaparece -->
+            @if (fileCV) {
+                <div class="cv-box">
+                <span class="material-symbols-outlined icono-pdf">description</span>
+                <div class="cv-detalle">
+                    <p><a [href]="CVTemporal" target="_blank">{{ fileCV?.name }}</a></p>
+                    <small>Actualizado el {{ today | date:'dd/MM/yyyy' }}</small>
+                </div>
+                <div class="cv-acciones">
+                    <button id="icon-button" type="button" (click)="eliminarCV()">
+                    <span class="material-symbols-outlined eliminar-cv" title="Eliminar">delete</span>
+                    </button>
+                </div>
+                </div>
+            }
+
+            <input
+                type="file"
+                id="fileCV"
+                accept="application/pdf"
+                hidden
+                formControlName="enlaceCV"
+                (change)="onCVSelected($event)"
+            />
+
+            @if (candidatoForm.get('enlaceCV')?.hasError('formato')) {
+                <div class="invalid-feedback d-block">
+                    El formato del archivo seleccionado no es válido. Debe ser .pdf
+                </div>
+            }
+            @if (candidatoForm.get('enlaceCV')?.hasError('tamanioInvalido') && candidatoForm.get('enlaceCV')?.touched) {
+                <div class="invalid-feedback d-block">
+                    El documento no debe superar los 5MB.
+                </div>
+            }
+        </div>
+
+
+
+        <div class="form-group">
+          <div class="titulo-habilidades">
+            <label>Habilidades</label>
+            
+              <button id="icon-button" (click)="seleccionarHabilidades()">
+                <span class="material-symbols-outlined editar-cv" title="Editar habilidades">edit</span>
+              </button>
+            
+          </div>
+          <div class="habilidades">
+            @for (hab of habilidadesParaMostrar; track $index) {
+              <span class="tag"> {{hab.habilidad?.nombreHabilidad}} </span>
+            }
+          </div>
+        </div> 
+        <div class="form-group">
+            <label class="p-0 my-0 mb-2">Estado de búsqueda laboral</label>
+            <span
+                class="badge"
+                [ngClass]="{
+                'no-disponible': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'No disponible',
+                'escucho-ofertas': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Escucho ofertas',
+                'buscando-activamente': candidato.estadoBusqueda?.nombreEstadoBusqueda === 'Buscando activamente'
+                }"
+            >
+                {{ candidato.estadoBusqueda?.nombreEstadoBusqueda?.toUpperCase() }}
+            </span>
+
+            <select
+                class="form-select"
+                id="estadoBusqueda"
+                formControlName="estadoBusquedaCandidato"
+                [compareWith]="compararEstadoBusqueda"
+            >
+                @for (estado of estadosBusquedas; track estado.id) {
+                <option [ngValue]="estado">
+                    {{ estado.nombreEstadoBusqueda }}
+                </option>
+                }
+            </select>
+        </div>
+
+
+        <!-- Checkbox de Términos -->
+        <div class="form-check mb-3">
+            <input type="checkbox"
+                    class="form-check-input"
+                    id="terminosCondiciones"
+                    formControlName="terminosCondiciones"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('terminosCondiciones') }" />
+            <label class="form-check-label" for="terminosCondiciones">
+                Acepto los 
+                <a href="javascript:void(0);" (click)="verterminosycondiciones()">Términos y Condiciones</a>
+            </label>
+            @if (isCampoInvalido('terminosCondiciones')) {
+                <div class="invalid-feedback d-block">
+                    Debe aceptar los Términos y Condiciones para continuar
+                </div>
+            }
+        </div>
+
+
+        <!-- Botón de Enviar -->
+        <div class="text-center">
+            <button 
+                type="button" 
+                class="btn btn-primary boton-registro" 
+                (click)="enviarDatos()"
+                >
+                Registrarse
+            </button>
+        </div>
+
+
+         
+        <div class="d-grid gap-2">
+        <div class="botones-navegacion">
+            <button class="btn-navegacion" (click)="paginaAnterior()">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+        </div>
+        </div>
+
+
+
+    }
+
+</form>
+</ng-template>

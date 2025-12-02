@@ -1,0 +1,23 @@
+<body>
+    <div class="container mb-4">
+        <div class="align-content-center">
+            <div id="meet">
+
+                <div class="iconos">
+                    <i (click)="executeCommand('toggleAudio')" class="fas fa-2x mx-2"
+                    [ngClass]="isAudioMuted ? 'fa-microphone-slash' : 'fa-microphone'" aria-hidden="true"
+                    title="Mute / Unmute"></i>
+                    <i (click)="executeCommand('toggleVideo')" class="fas fa-2x mx-2"
+                    [ngClass]="isVideoMuted ? 'fa-video-slash' : 'fa-video'" aria-hidden="true"
+                    title="Start / Stop camera"></i>
+                    <i (click)="executeCommand('toggleShareScreen')" class="fas fa-display fa-2x mx-2" aria-hidden="true"
+                    title="Share your screen"></i>
+                    <i (click)="executeCommand('toggleChat')" class="fa-solid fa-message fa-2x mx-2" aria-hidden="true"
+                    title="Chat"></i>
+                    <i (click)="executeCommand('hangup')" id="boton-finalizar" class="fas fa-phone fa-2x mx-2"
+                    aria-hidden="true" title="Leave"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

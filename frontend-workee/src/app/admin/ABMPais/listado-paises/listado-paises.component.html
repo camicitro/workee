@@ -1,0 +1,119 @@
+<div class="listado-wrapper">
+    <button type="button" class="boton" (click)="volverAListado()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="listado-header">
+        <div>
+            <h1>Países</h1>
+            <p>Gestiona los parámetros de Workee</p>
+        </div>
+    </div>
+    <div class="busqueda-acciones">
+        <div class="input-search-wrapper">
+            <input 
+                type="text" 
+                placeholder="Buscar..." 
+                class="input-search"
+                [(ngModel)]="filtro"
+                (input)="buscarPaises()" />
+            <button id="icon-button" (click)="buscarPaises()">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+        </div>
+        <button type="button" class="boton-nuevo" (click)="crearPais()">
+            <span class="material-symbols-outlined">add</span>
+            Nuevo País
+        </button>
+    </div>
+    @if (paisListOriginal.length === 0) {
+            <div class="alert alert-warning">
+                ¡No hay países cargados en el sistema!
+            </div>
+        } @else if (paisList.length === 0) {
+            <div class="sin-resultados">
+                <img src="assets\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                <p class="sin-resultados-txt">
+                    No encontramos países que coincidan con tu búsqueda
+                </p>
+            </div>
+        } @else {
+            <table class="table align-middle table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">PAÍS</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">ACCIONES</th>
+                </tr>
+                    </thead>
+                    <tbody>
+                        @for (pais of obtenerPaisesPaginados(); track $index) {
+                            <tr>
+                                <td> {{pais.nombrePais}} </td>
+                                <td> 
+                                    <span class="estado-badge"
+                                    [ngClass]=" { 'habilitado': !pais.fechaHoraBaja, 'deshabilitado': pais.fechaHoraBaja }">
+                                        {{ pais.fechaHoraBaja ? 'DESHABILITADO' : 'HABILITADO'}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button id="icon-button" class="icon-button-celeste" (click)="modificarPais(pais.id!)" title="Modificar">
+                                        <span class="material-symbols-outlined">
+                                            edit
+                                        </span>
+                                    </button>
+                                    <button id="icon-button" class="icon-button-celeste" (click)="verProvincias(pais.id!)" title="Ver provincias" >
+                                        <span class="material-symbols-outlined">
+                                            globe
+                                        </span>
+                                    </button>
+                                    @if (!pais.fechaHoraBaja) {
+                                        <button id="icon-button" class="icon-button-rojo" (click)="deshabilitarPais(pais.id!)" title="Deshabilitar" >
+                                            <span class="material-symbols-outlined">
+                                                disabled_by_default
+                                            </span>
+                                        </button>
+                                    } @else {
+                                        <button id="icon-button" class="icon-button-verde" (click)="habilitarPais(pais.id!)" title="Habilitar" >
+                                            <span class="material-symbols-outlined">
+                                                check_box
+                                            </span>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+        }
+    <!-- tuve que usar ngIf porque no me funcionaba solo con @if -->
+    <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>
+

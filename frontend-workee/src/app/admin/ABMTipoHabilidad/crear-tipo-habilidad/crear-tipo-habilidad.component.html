@@ -1,0 +1,35 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Crear</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="tipoForm">
+        <div class="mb-3">
+          <label for="nombreTipo" class="col-form-label">Nombre</label>
+          <input 
+            required
+            id="nombreTipo"
+            type="text"
+            class="form-control"
+            formControlName="tipo"
+            placeholder="Ingrese el nombre del tipo de habilidad"
+            [ngClass]="{ 'is-invalid': isCampoInvalido() }">
+          @if (isCampoInvalido()) {
+            <div class="invalid-feedback">
+              El campo “Nombre” no puede estar vacío
+            </div>
+          }
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissModal()">
+          Volver
+        </button>
+        <button type="button" class="btn-guardar" (click)="enviarDatos()">
+          Guardar
+        </button>
+    </div>
+</div>

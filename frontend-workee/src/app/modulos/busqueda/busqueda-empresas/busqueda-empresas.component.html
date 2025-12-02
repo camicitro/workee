@@ -1,0 +1,150 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Empresas</h1>
+            <p>Encuentra las mejores oportunidades laborales</p>
+        </div>
+    </div>
+
+    <div class="buscador">
+        <div class="input-search-wrapper">
+            <input 
+                type="text" 
+                placeholder="Buscar..." 
+                class="input-search"
+                [(ngModel)]="textoEmpresa" />
+            <button id="icon-button" (click)="buscarPorNombre(textoEmpresa)">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+        </div>
+    </div>
+    <div class="seccion-filtros">
+        <div class="filtros">
+            <p-multiselect
+                [options]="filtrosUbicacion"
+                optionLabel="name"
+                optionValue="idProvincia"
+                placeholder="Ubicación"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Ubicación ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosUbicacion">
+            </p-multiselect>
+            <p-multiselect
+                [options]="filtrosRubro"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Rubros"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Rubros ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosRubros">
+            </p-multiselect>
+            <p-select 
+                [options]="filtrosOferta"
+                [checkmark]="true" 
+                optionValue="value"
+                optionLabel="name" 
+                [showClear]="true" 
+                placeholder="Ofertas abiertas"
+                class="filtro w-full md:w-56"
+                [(ngModel)]="filtrosSeleccionadosOfertas">
+            </p-select>
+        </div>
+        <div class="contenedor-boton">
+            <button 
+                [disabled]="!tieneFiltrosActivos()"
+                class="boton"
+                (click)="filtrarEmpresas()">
+                    Aplicar filtros
+            </button>
+
+            <button 
+                *ngIf="filtrosAplicados"
+                class="boton btn-limpiar"
+                (click)="limpiarFiltros()">
+                Limpiar filtros
+            </button>
+        </div>
+    </div>   
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        <div *ngIf="isLoading; else results">
+            <app-spinner type="inline" message="Cargando resultados..."></app-spinner>
+        </div>
+        <ng-template #results>
+        @if (empresaList.length === 0) {
+            <div class="sin-resultados">
+                @if (!busquedaRealizada) {
+                    <img src="assets\img\buscar.png" alt="Busca empresas" class="sin-resultados-img">
+                    <p class="sin-resultados-txt">
+                        Busca las empresas que te interesan en Workee
+                    </p>
+                } @else {
+                    <img src="assets\img\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                    <p class="sin-resultados-txt">
+                        No encontramos empresas que coincidan con tu búsqueda
+                    </p>
+                }
+            </div>
+        } @else {
+            @for (busqueda of obtenerEmpresasPaginadas(); track $index) {
+                <div class="tarjeta-empresa" (click)="irADetalle(busqueda.empresa.id!)" role="button">
+                    <div class="logo-container">
+                    <img [src]="busqueda.empresa.usuario?.urlFotoUsuario" alt="Logo de {{ busqueda.empresa.nombreEmpresa }}" />
+                    </div>
+                    <div class="contenido">
+                    <h5 class="nombre-empresa">{{ busqueda.empresa.nombreEmpresa }}</h5>
+                    <p class="rubro-ubicacion">
+                        {{ busqueda.empresa.rubro?.nombreRubro }} •
+                        {{ busqueda.empresa.provincia?.nombreProvincia }},
+                        {{ busqueda.empresa.provincia?.pais?.nombrePais }}
+                    </p>
+                    <div class="ofertas">
+                        <span class="material-symbols-outlined">business_center</span>
+                        @if (busqueda.cantidadOfertasAbiertas === 1) {
+                        <span>{{ busqueda.cantidadOfertasAbiertas }} oferta abierta</span>
+                        } @else if (busqueda.cantidadOfertasAbiertas > 1) {
+                        <span>{{ busqueda.cantidadOfertasAbiertas }} ofertas abiertas</span>
+                        } @else {
+                        <span>Sin ofertas abiertas</span>
+                        }
+                    </div>
+                    <p class="descripcion">{{ busqueda.empresa.descripcionEmpresa }}</p>
+                    </div>
+                </div>
+            }
+        }
+        </ng-template>
+    </div>
+    
+    <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>

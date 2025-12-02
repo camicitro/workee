@@ -1,0 +1,77 @@
+<div *ngIf="loading$ | async; else formTemplate" class="d-flex justify-content-center align-items-center vh-100">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+<ng-template #formTemplate>
+  <div class="login-container">
+    <div class="login-content">
+      <h1 class="titulo-login">¡Hola nuevamente!</h1>
+      <p class="subtitulo-login">Inicia sesión para continuar con tu experiencia Workee.</p>
+
+      
+      <form [formGroup]="loginForm" class="login-form">
+        <div class="form-group">
+          <label>Correo electrónico <span class="required"></span></label>
+          <input type="email" required placeholder="ejemplo@gmail.com" class="form-control"
+                formControlName="correo"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('correo') }" />
+          @if (isCampoInvalido('correo')) {
+            <div class="invalid-feedback">
+              @if (loginForm.get('correo')?.hasError('required')) {
+                El campo “Correo electrónico” no puede estar vacío
+              } @else if (backendEmailInvalido) {
+                El correo electrónico ingresado no es válido
+              }
+            </div>
+          }
+        </div>
+      
+        <div class="form-group">
+          <label>Contraseña <span class="required"></span></label>
+          <div class="password-input-container">
+            <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                  formControlName="contrasenia"
+                  [ngClass]="{ 'is-invalid': isCampoInvalido('contrasenia') }" />
+            <span class="password-toggle-icon" (click)="verContrasenia = !verContrasenia">
+              <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+            </span>
+          </div>
+          @if (isCampoInvalido('contrasenia')) {
+            <div class="invalid-feedback d-block">
+              @if (loginForm.get('contrasenia')?.hasError('required')) {
+                El campo “Contraseña” no puede estar vacío
+              }
+            </div>
+          }
+          <a (click)="irRestablecerContrasenia()" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button 
+          type="button" 
+          class="botoniniciarsesion"
+          (click)="enviarDatos()"
+          >
+          Iniciar sesión
+        </button>
+      </form>
+      
+      <div class="bottom-text">
+          ¿No tienes una cuenta? <a href="/registro">Regístrate</a>
+      </div>
+      <div class="card p-3 my-4 mx-auto" style="max-width: 500px;"> 
+        <div class="d-flex align-items-center">
+          <div class="icon-container me-3">
+            <span class="material-symbols-outlined">
+              info
+            </span>
+          </div>
+          <div class="text-content">
+            <p class="mb-1 fw-bold">¿Necesitas ayuda?</p>
+            <p class="mb-0 text-muted">Si tenés problemas para iniciar sesión, <a href="mailto:workee2025@gmail.com" class="text-decoration-none">contáctanos</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

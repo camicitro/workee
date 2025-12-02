@@ -1,0 +1,55 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Crear</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="habilidadForm">
+            <div class="mb-3">
+            <label for="nombreHabilidad" class="col-form-label">Nombre</label>
+            <input 
+                required
+                id="nombreHabilidad"
+                type="text"
+                class="form-control"
+                formControlName="habilidad"
+                placeholder="Ingrese el nombre de la habilidad"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('habilidad') }">
+            @if (isCampoInvalido('habilidad')) {
+                <div class="invalid-feedback">
+                El campo “Nombre” no puede estar vacío
+                </div>
+            }
+            </div>
+            <div class="mb-3">
+                <label for="tipoHabilidad" class="col-form-label">Tipo</label>
+                <select
+                    class="form-control"
+                    id="tipoHabilidad"
+                    formControlName="tipoHabilidad"
+                    [ngClass]="{
+                        'is-invalid': isCampoInvalido('tipoHabilidad'),
+                        'placeholder': habilidadForm.get('tipoHabilidad')?.value === null || habilidadForm.get('tipoHabilidad')?.value === ''
+                    }"
+                    >
+                    <option [ngValue]="null" disabled class="placeholder-option">Seleccione el tipo de habilidad</option>
+                    <option *ngFor="let tipo of tiposHabilidad" [ngValue]="tipo.id">{{ tipo.nombreTipoHabilidad }}</option>
+                </select>
+                @if (isCampoInvalido('tipoHabilidad')) {
+                    <div class="invalid-feedback">
+                        El campo “Tipo” no puede estar vacío
+                    </div>  
+                }
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissModal()">
+        Volver
+      </button>
+      <button type="button" class="btn-guardar" (click)="enviarDatos()">
+        Guardar
+      </button>
+    </div>
+</div>

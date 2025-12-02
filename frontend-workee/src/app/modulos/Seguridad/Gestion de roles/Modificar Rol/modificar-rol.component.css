@@ -1,0 +1,55 @@
+.permisos-container {
+border: 1px solid #ccc;
+padding: 10px;
+height: 200px; /* Adjust this value as needed */
+overflow-y: scroll;
+}
+
+.permisos-container .permiso-item {
+display: flex;
+align-items: center;
+margin-bottom: 5px;
+}
+
+.permisos-container .form-check-input {
+margin-right: 5px;
+}
+
+.permisos-container .form-check-label {
+margin-bottom: 0; /* Override default margin for better vertical alignment */
+}
+
+/* ------- BOTONES ------- */
+.btn-guardar {
+  background-color: #70DC73; 
+  color: #FFFFFF;
+  border: 1px solid #70DC73;    
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-guardar:hover {
+  background-color: #5AC45D; 
+  border-color: #5AC45D;
+}
+
+.btn-volver {
+  background-color: #6c757d; 
+  color: #fff;
+  border: 1px solid #6c757d;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #5a6268; 
+  border-color: #545b62;
+}

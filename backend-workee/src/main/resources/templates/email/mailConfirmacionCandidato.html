@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido a Workee</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; font-size: 14px; ">
+        <h2 style="color: #31A5DD;">¡Hola <span th:text="${nombreCandidato}"></span>!</h2>
+        <p>Gracias por registrarte en Workee.</p>
+        <p>
+            Actualmente, tu cuenta aun no está <b>confirmada</b>. Para hacerlo, por favor ingresa al siguiente enlace:
+        </p>
+        <p>
+            <a th:href="${urlConfirmacion}">Confirmar cuenta</a>
+        </p>
+        <p>
+            Si tienes alguna pregunta, no dudes en contactarnos.
+        </p>
+        <p>Atentamente,<br>El equipo de Workee</p>
+    </div>
+</body>
+</html>

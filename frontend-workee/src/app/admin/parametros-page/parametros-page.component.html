@@ -1,0 +1,115 @@
+<div class="parametros-container">
+  <div class="parametros-header">
+        <div>
+            <h1 class="titulo">Parámetros</h1>
+            <p>Gestiona los parámetros de Workee</p>
+        </div>
+    </div>
+  
+  
+  <div class="tarjetas-grid">
+    
+    <div class="tarjeta ubicacion" *ngIf="tienePermisosUbicacion()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Ubicación</h2>
+        <p class="tarjeta-subtitulo">Parámetros geográficos</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.paisesProvincias)" class="enlace-parametro" (click)="navegarA('paises')">
+          <span class="icono-tarjeta material-symbols-outlined">language</span>
+          Países y Provincias
+        </a>
+      </div>
+    </div>
+    
+    <div class="tarjeta datos-personales" *ngIf="tienePermisosDatosPersonales()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Datos personales</h2>
+        <p class="tarjeta-subtitulo">Información de usuarios</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.generos)" class="enlace-parametro" (click)="navegarA('generos')">
+          <span class="icono-tarjeta material-symbols-outlined">boy</span>
+          Géneros
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.rubros)" class="enlace-parametro" (click)="navegarA('rubros')">
+          <span class="icono-tarjeta material-symbols-outlined">domain</span>
+          Rubros
+        </a>
+      </div>
+    </div>
+    
+    <div class="tarjeta perfil-profesional" *ngIf="tienePermisosPerfilProfesional()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Perfil profesional</h2>
+        <p class="tarjeta-subtitulo">Habilidades y competencias</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.habilidades)" class="enlace-parametro" (click)="navegarA('habilidades')">
+          <span class="icono-tarjeta material-symbols-outlined">handyman</span>
+          Habilidades
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.tiposHabilidad)" class="enlace-parametro" (click)="navegarA('tiposHabilidad')">
+          <span class="icono-tarjeta material-symbols-outlined">sell</span>
+          Tipo de habilidad
+        </a>
+      </div>
+    </div>
+
+    <div class="tarjeta estados" *ngIf="tienePermisosEstados()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Estados</h2>
+        <p class="tarjeta-subtitulo">Estados y situaciones</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.estadosBusqueda)" class="enlace-parametro" (click)="navegarA('estadosBusqueda')">
+          <span class="icono-tarjeta material-symbols-outlined">work</span>
+          Estados de búsqueda laboral
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.estadosUsuario)" class="enlace-parametro" (click)="navegarA('estadosUsuario')">
+          <span class="icono-tarjeta material-symbols-outlined">flaky</span>
+          Estados de usuarios
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.estadosOferta)" class="enlace-parametro" (click)="navegarA('estadosOferta')">
+          <span class="icono-tarjeta material-symbols-outlined">work</span>
+          Estados de ofertas
+        </a>
+      </div>
+    </div>
+    
+    <div class="tarjeta eventos-procesos" *ngIf="tienePermisosEventosProcesos()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Eventos y procesos</h2>
+        <p class="tarjeta-subtitulo">Gestión de flujos</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.tiposEvento)" class="enlace-parametro" (click)="navegarA('tiposEvento')">
+          <span class="icono-tarjeta material-symbols-outlined">calendar_month</span>
+          Tipos de eventos
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.etapas)" class="enlace-parametro" (click)="navegarA('etapas')">
+          <span class="icono-tarjeta material-symbols-outlined">checklist</span>
+          Etapas
+        </a>
+      </div>
+    </div>
+
+    <div class="tarjeta informacion-laboral" *ngIf="tienePermisosInformacionLaboral()">
+      <div class="tarjeta-header">
+        <h2 class="tarjeta-titulo">Información laboral</h2>
+        <p class="tarjeta-subtitulo">Datos de empleo</p>
+      </div>
+      <div class="tarjeta-contenido">
+        <a *ngIf="tienePermiso(opcionesConPermisos.tiposContrato)" class="enlace-parametro" (click)="navegarA('tiposContrato')">
+          <span class="icono-tarjeta material-symbols-outlined">news</span>
+          Tipos de contrato
+        </a>
+        <a *ngIf="tienePermiso(opcionesConPermisos.modalidades)" class="enlace-parametro" (click)="navegarA('modalidades')">
+          <span class="icono-tarjeta material-symbols-outlined">cottage</span>
+          Modalidades de trabajo
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

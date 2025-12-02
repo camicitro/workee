@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Bienvenido a Workee!</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; font-size: 14px;">
+        <h2 style="color: #31A5DD;">¡Hola <span th:text="${nombreEmpresa}"></span>!</h2>
+        <p>¡Felicidades! Tu cuenta ya se encuentra habilitada.</p>
+       
+        <p>
+            Si deseas ingresar, haz click<a th:href="${urlApp}"> aquí </a> para ser redirigido a la página de inicio de sesión.
+        </p>
+        <p>
+            Si tienes alguna pregunta, no dudes en contactarnos.
+        </p>
+        <p>Atentamente,<br>El equipo de Workee</p>
+    </div>
+</body>
+</html>

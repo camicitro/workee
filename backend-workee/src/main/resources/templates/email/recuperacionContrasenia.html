@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperación de contraseña</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; font-size: 14px;">
+        <p>Si deseas recuperar tu contraseña, debes ingresar al enlace que se encuentra a continuación.</p>
+        
+        <p> 
+            <a th:href="${urlrecuperacion}">Enlace de recuperación</a>
+        </p>
+        <p>
+            Recuerda que tienes 30 minutos para cambiar la contraseña. Pasado ese tiempo, el link de recuperación expirará, por lo que no podrás volver a utilizarlo.
+        </p>
+        <p>
+            Si tienes alguna pregunta, no dudes en contactarnos.
+        </p>
+        <p>Atentamente,<br>El equipo de Workee</p>
+    </div>
+</body>
+</html>

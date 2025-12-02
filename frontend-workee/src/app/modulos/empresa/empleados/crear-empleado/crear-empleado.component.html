@@ -1,0 +1,168 @@
+<div class="perfil-wrapper">
+    <button type="button" class="boton-crear" (click)="volverAListado()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="perfil-titulo">
+        <span class="icon-button material-symbols-outlined">badge</span>
+        <p class="nuevo-empleado">Nuevo Empleado</p>
+    </div>
+    <p class="fw-bold">Información personal</p>
+    <form [formGroup]="empleadoForm">
+        <div class="row">
+            <div class="col">
+                <label for="nombreEmpleado" class="my-1">
+                    Nombre
+                    <span class="required">
+                        *
+                    </span>
+                </label>
+                <input 
+                    required
+                    type="text"
+                    class="form-control" 
+                    placeholder="Ingresar..."
+                    aria-label="Ingresar..."
+                    formControlName="nombreEmpleado"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('nombreEmpleado') }">
+                @if (isCampoInvalido('nombreEmpleado')) {
+                    <div class="invalid-feedback">
+                        El campo “Nombre” no puede estar vacío
+                    </div>
+                }
+            </div>
+            <div class="col">
+                <label for="apellidoEmpleado" class="my-1">
+                    Apellido
+                    <span class="required">
+                        *
+                    </span>
+                </label>
+                <input 
+                required
+                type="text"
+                class="form-control" 
+                placeholder="Ingresar..."
+                aria-label="Ingresar..."
+                formControlName="apellidoEmpleado"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('apellidoEmpleado') }">
+                @if (isCampoInvalido('apellidoEmpleado')) {
+                    <div class="invalid-feedback">
+                        El campo “Apellido” no puede estar vacío
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row m-0 pt-2">
+            <label for="puestoEmpleado" class="p-0 my-1">
+                Puesto dentro de la empresa
+                <span class="required">
+                    *
+                </span>
+            </label>
+            <input 
+            required
+            type="text"
+            class="form-control" 
+            placeholder="Ingresar..."
+            aria-label="Ingresar..."
+            formControlName="puestoEmpleado"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('puestoEmpleado') }">
+            @if (isCampoInvalido('puestoEmpleado')) {
+                <div class="invalid-feedback p-0">
+                    El campo “Puesto dentro de la empresa” no puede estar vacío
+                </div>
+            }
+        </div>
+        <div class="row m-0 pt-2">
+            <label for="correoEmpleado" class="p-0 my-1">
+                Correo electrónico
+                <span class="required">
+                    *
+                </span>
+            </label>
+            <input 
+            required
+            type="email"
+            class="form-control" 
+            placeholder="ejemplo@gmail.com"
+            aria-label="ejemplo@gmail.com"
+            formControlName="correoEmpleado"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('correoEmpleado') }">
+            @if (isCampoInvalido('correoEmpleado')) {
+                <div class="invalid-feedback p-0">
+                    @if (empleadoForm.get('correoEmpleado')?.hasError('required')) {
+                        El campo “Correo electrónico” no puede estar vacío
+                    } @else if (backendEmailInvalido) {
+                        El correo electrónico ingresado no es válido
+                    }
+                </div>
+            }
+        </div>
+        <div class="row m-0 pt-2">
+        <label for="contraseniaEmpleado" class="p-0 my-1">
+            Contraseña <span class="required">*</span>
+        </label>
+        <div class="input-group p-0">
+            <input
+            required
+            [type]="verContrasenia ? 'text' : 'password'"
+            class="form-control"
+            placeholder="Ingresar..."
+            aria-label="Ingresar..."
+            formControlName="contraseniaEmpleado"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('contraseniaEmpleado') }">
+            <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+                <span class="material-symbols-outlined">
+                    {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+                </span>
+            </span>
+        </div>
+        @if (isCampoInvalido('contraseniaEmpleado')) {
+            <div class="invalid-feedback d-block p-0">
+                @if (empleadoForm.get('contraseniaEmpleado')?.hasError('required')) {
+                    El campo “Contraseña” no puede estar vacío
+                } @else if (backendContraseniaCorta) {
+                    La contraseña ingresada debe superar los 8 caracteres
+                }
+            </div>
+        }
+        </div>
+        <div class="row m-0 pt-2">
+        <label for="repetirContraseniaEmpleado" class="p-0 my-1">
+            Repetir contraseña <span class="required">*</span>
+        </label>
+        <div class="input-group p-0">
+            <input
+            required
+            [type]="verContrasenia ? 'text' : 'password'"
+            class="form-control"
+            placeholder="Ingresar..."
+            aria-label="Ingresar..."
+            formControlName="repetirContraseniaEmpleado"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('repetirContraseniaEmpleado') }"
+            />
+            <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+            <span class="material-symbols-outlined">
+                {{ verContrasenia ? 'visibility' : 'visibility_off' }}
+            </span>
+            </span>
+        </div>
+        @if (isCampoInvalido('repetirContraseniaEmpleado')) {
+            <div class="invalid-feedback d-block p-0">
+                @if (empleadoForm.get('contraseniaEmpleado')?.hasError('required')) {
+                    El campo “Contraseña” no puede estar vacío
+                } @else if (backendContraseniaCorta) {
+                    La contraseña ingresada debe superar los 8 caracteres
+                }
+            </div>
+        }
+        </div>
+    </form>
+    <div class="perfil-final">
+        <button type="button" class="boton-crear" (click)="enviarDatos()">
+            <span class="material-symbols-outlined">person_add</span>
+            Crear empleado
+        </button>
+    </div>
+</div>

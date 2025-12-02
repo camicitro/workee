@@ -1,0 +1,118 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Usuarios</h1>
+            <p>Gestiona los usuarios de Workee</p>
+        </div>
+         <button class="boton descargar" (click)="descargarPDF()" title="Descargar PDF con listado de usuarios">
+                <span class="material-symbols-outlined">vertical_align_bottom</span>
+                Descargar PDF
+            </button>
+    </div>
+
+    <div class="buscador-filtro">
+        <div class="input-search-wrapper">
+            <input 
+                type="text" 
+                placeholder="Buscar..." 
+                class="input-search"
+                [(ngModel)]="texto"
+                (input)="buscarUsuarios()"  />
+            <button id="icon-button" (click)="buscarUsuarios()">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+        </div>
+        <div class="filtros">
+            <p-multiselect
+            [options]="filtrosRol"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Rol"
+                [maxSelectedLabels]="0"
+                [selectedItemsLabel]="'Rol ({0})'"
+                class="filtro w-full md:w-80"
+                [panelStyle]="{ 'background': '#fff' }"
+                [(ngModel)]="filtrosSeleccionadosRoles">
+            </p-multiselect>
+
+            <!-- [disabled]="!filtrosSeleccionadosRoles.length" -->
+            <button 
+                class="boton"
+                (click)="filtrarUsuarios()">
+                    Aplicar filtro
+            </button>
+        </div>
+    </div>
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        @if (usuarioList.length === 0) {
+            <div class="sin-resultados">
+                <img src="assets\img\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                <p class="sin-resultados-txt">
+                    No encontramos usuarios que coincidan con tu búsqueda
+                </p>
+            </div>
+        } @else {
+            <table class="table align-middle table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">USUARIO</th>
+                        <th scope="col">CORREO ELECTRÓNICO</th>
+                        <th scope="col">ROL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for (usuario of obtenerUsuariosPaginados(); track $index) {
+                        <tr (click)="irADetalle(usuario.idUsuario!)" style="cursor: pointer;">
+                            <td class="celda-foto-correo">
+                            <img class="foto-usuario" 
+                                [src]="usuario?.urlFotoUsuario || 'assets/img/foto-perfil.png'"  
+                                alt="{{ usuario.nombreEntidad || usuario.correoUsuario }}">   
+                                @if(usuario.nombreEntidad) {
+                                    <span class="nombre-usuario">{{ usuario.nombreEntidad }}</span>
+                                } @else {
+                                    <span class="nombre-usuario">Administrador del sistema</span>
+                                }
+                                <!-- {{ usuario.nombreEntidad || usuario.correoUsuario }} -->
+                            </td>
+                            <td> 
+                                {{ usuario.correoUsuario }}
+                            </td>
+                            <td> 
+                                {{ usuario.rolActualusuario }}
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    
+    <nav *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+                <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+            </li>
+
+            <li 
+            *ngFor="let pagina of paginasMostradas"
+            class="page-item"
+            [class.active]="paginaActual === pagina"
+            [class.disabled]="pagina === '...'">
+
+            <ng-container *ngIf="pagina !== '...'; else puntos">
+                <button class="page-link" (click)="irAPagina(+pagina)">
+                {{ pagina }}
+                </button>
+            </ng-container>
+
+            <ng-template #puntos>
+                <span class="page-link">...</span>
+            </ng-template>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+            </li>
+        </ul>
+    </nav>
+</div>

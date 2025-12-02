@@ -1,0 +1,205 @@
+.detalle-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 3rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.top-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.btn-volver {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.empresa-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empresa-info h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  margin-bottom: 1.6rem;
+}
+
+.empresa-info p {
+  margin: 0; 
+  font-size: 1rem;
+}
+
+.logo-empresa {
+  width: 148px;
+  height: 148px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #f5f5f5;
+  padding: 8px;
+}
+
+
+.btn-volver:hover {
+  background: #4daddd;
+}
+
+.detalle-section {
+  margin-bottom: 2rem;
+}
+
+.detalle-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.info-grid strong {
+  display: block;
+  margin-bottom: 0.8rem; 
+}
+
+
+.doc-legal {
+  margin-top: 1rem;
+}
+
+.btn-doc {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  background: #f9f9f9;
+}
+
+.btn-doc:hover {
+  background: #f0f0f0;
+}
+
+.detalle-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-rechazar {
+  background: #FF5252;
+  border: none;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center; 
+  gap: 8px;            
+  font-size: 15px; 
+}
+
+.btn-rechazar:hover {
+  background: #e14c4c;
+}
+
+.btn-habilitar {
+  background: #10C036;
+  border: none;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center; 
+  gap: 8px;            
+  font-size: 15px; 
+}
+
+.btn-habilitar:hover {
+  background: #43a047;
+}
+
+.separador-light {
+  border: none;
+  border-top: 1px solid #8a8989; 
+  margin: 1.5rem 0;
+}
+
+.doc-box-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 0.8rem 1rem;
+  margin-top: 0.6rem;
+  width: 25rem;
+}
+
+.doc-box {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  flex-grow: 1;
+}
+
+.doc-box .icono-pdf {
+  font-size: 1.5rem;
+  color: #697077;
+}
+
+.doc-detalle {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-detalle p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.doc-detalle p a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.doc-detalle p a:hover {
+  text-decoration: underline;
+}
+
+.doc-detalle small {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}

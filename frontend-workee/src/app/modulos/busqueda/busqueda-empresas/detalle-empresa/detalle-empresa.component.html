@@ -1,0 +1,77 @@
+<div class="perfil-wrapper">
+  <button type="button" class="boton" (click)="volver()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Volver
+  </button>
+  <div class="perfil-header">
+    <div class="logo-seccion">
+        <img [src]="empresa.usuario?.urlFotoUsuario" alt="foto" class="foto" />
+    </div>
+    <div class="info">
+      <div class="info-al-lado">
+          <h1>{{empresa.nombreEmpresa}}</h1>
+          <p>{{empresa.rubro?.nombreRubro}}</p>
+          <div class="ubicacion">
+              <span class="material-symbols-outlined">location_on</span>
+              <p>{{empresa.provincia?.nombreProvincia}}, {{empresa.provincia?.pais?.nombrePais}}</p>
+          </div>
+      </div>
+      <a 
+      [href]="getSitioWebConProtocolo(empresa.sitioWebEmpresa!)" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="boton-sitio-web">
+          <span class="material-symbols-outlined">link</span>
+          Sitio web
+      </a>
+    </div>
+  </div>
+  <div class="descripcion-empresa">
+    <h5>Acerca de la empresa</h5>
+    <p> {{empresa.descripcionEmpresa}} </p>
+  </div>
+</div>
+<div class="ofertas-empresa">
+  <h1>Ofertas abiertas</h1>
+  <div class="scroll">
+    @if (ofertasAbiertas.length > 0) {
+      @for (oferta of ofertas; track $index) {
+        @if (isOfertaAbierta(oferta) ) {
+          <div class="tarjeta-oferta" role="button" (click)="irADetalleOferta(oferta.id!)">
+            <div class="logo-container">
+                <img [src]="oferta.empresa.usuario!.urlFotoUsuario" alt="Logo de {{ empresa.nombreEmpresa }}" />
+            </div>
+            <div class="contenido">
+              <div class="oferta-header">
+                <h5 class="nombre-oferta">{{ oferta.titulo }}</h5>
+                <div class="publicacion-oferta">
+                  <span class="material-symbols-outlined">schedule</span>
+                  <p>Publicado: {{ oferta.fechaHoraAlta | date:'dd/MM/yyyy' }}</p>
+                </div>
+              </div>
+              <p class="rubro-ubicacion">
+                {{ oferta.empresa.nombreEmpresa }}
+              </p>
+              <p class="rubro-ubicacion">
+                {{ oferta.modalidadOferta.nombreModalidadOferta }} • {{ oferta.tipoContratoOferta.nombreTipoContratoOferta }}
+              </p>
+              <div class="ubicacion-oferta">
+                <span class="material-symbols-outlined">location_on</span>
+                <p>{{oferta.empresa.provincia?.nombreProvincia}}, {{oferta.empresa.provincia?.pais?.nombrePais}}</p>
+              </div>
+              <p class="descripcion-oferta">
+                  {{oferta.descripcion}}
+              </p>
+            </div>
+          </div>
+        }
+      }
+    }
+    @else {
+      <div class="sin-ofertas">
+        <span class="material-symbols-outlined">info</span>
+        <p>Esta empresa no tiene ofertas abiertas por el momento.</p>
+      </div>
+    }
+  </div>
+</div>

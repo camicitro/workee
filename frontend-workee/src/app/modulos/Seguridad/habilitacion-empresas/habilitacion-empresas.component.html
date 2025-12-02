@@ -1,0 +1,70 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Empresas pendientes de habilitación</h1>
+            <p>Gestiona las empresas de Workee</p>
+        </div>
+    </div>
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        @if (empresas.length === 0) {
+            <div class="sin-resultados">
+                <img src="assets\img\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                <p class="sin-resultados-txt">
+                    No encontramos empresas pendientes por habilitar
+                </p>
+            </div>
+        } @else {
+            <table class="table align-middle table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">EMPRESA</th>
+                        <th scope="col">CONTACTO</th>
+                        <th scope="col">FECHA DE REGISTRO</th>
+                        <th scope="col">ACCIONES</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                @for (empresa of obtenerEmpresasPaginadas(); track $index) {
+                        <tr  style="cursor: pointer;">
+                            <td class="celda-foto-correo">
+                                <!-- <img src="{{ usuario.urlFotoUsuario }}" alt="{{ usuario.nombreEntidad }}"> -->
+                                <img class="foto-usuario" src="{{ empresa.logoEmpresa }}" alt="{{ empresa.logoEmpresa }}">
+                                {{ empresa.nombreEmpresa }}
+                            </td>
+                            <td> 
+                                {{ empresa.correoEmpresa }}
+                            </td>
+                            <td> 
+                              {{ empresa.fechaHoraRegistroEmpresa | date:'dd/MM/yyyy' }}
+                            </td>
+                            <td>
+                                <button class="btn btn-detalle" (click)="verDetalleEmpresa(empresa.idEmpresa)">Ver detalle</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    
+    @if (totalPaginas > 1) {
+        <nav class="paginador">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="paginaActual === 1">
+                    <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+                </li>
+                <li 
+                *ngFor="let pagina of paginas"
+                class="page-item" 
+                [class.active]="paginaActual === pagina">
+                    <button class="page-link" (click)="irAPagina(pagina)">
+                        {{ pagina }}
+                    </button>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                    <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

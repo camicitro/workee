@@ -1,0 +1,16 @@
+<!-- Spinner Overlay -->
+<div *ngIf="type === 'overlay'" class="spinner-overlay">
+  <div class="spinner"></div>
+  <p *ngIf="message" class="mensaje">{{ message }}</p>
+</div>
+
+<!-- Spinner Inline (ej: en listados) -->
+<div *ngIf="type === 'inline'" class="spinner-inline">
+  <div class="spinner"></div>
+  <p *ngIf="message" class="mensaje">{{ message }}</p>
+</div>
+
+<!-- Spinner Small (ej: filtros, botones) -->
+<div *ngIf="type === 'small'" class="spinner-small">
+  <div class="spinner"></div>
+</div>

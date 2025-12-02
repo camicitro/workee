@@ -1,0 +1,46 @@
+<div class="modal-content custom-modal">
+  <div class="modal-header border-0">
+    <h5 class="modal-title w-100 text-center">Recupera tu contraseña</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p class="text-center text-muted mb-4">Introduce tu correo electrónico para recuperar tu contraseña.</p>
+
+    <form [formGroup]="recuperarForm" class="text-center">
+      <div class="mb-3">
+        <label for="emailRecuperacion" class="form-label d-block text-start">Correo electrónico</label>
+        <input 
+          type="email" 
+          id="emailRecuperacion" 
+          formControlName="correo"
+          class="form-control custom-input" 
+          placeholder="ejemplo@gmail.com">
+      </div>
+    </form>
+
+
+    @if (seenvio === 0) {
+    <div class="text-center mt-4">
+      <button type="button" class="btn custom-btn" (click)="solicitarRecuperacionContrasenia()">Enviar</button>
+    </div>
+    }
+
+
+  <!-- @if (seenvio > 0) {
+    <section *ngIf="mostrarContador">
+      <div class="coming-soon">
+        <div class="time-countdown">
+          <p class="text-center text-muted mb-4">Podrás reenviar el correo en</p>
+          <p class="text-center">{{ minutes }}:{{ seconds | number:'2.0' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="text-center mt-4" *ngIf="!mostrarContador">
+      <button type="button" class="btn custom-btn" (click)="solicitarRecuperacionContrasenia()">Reenviar Correo</button>
+    </div>
+  } -->
+
+
+  </div>
+</div>

@@ -1,0 +1,163 @@
+/* Bootstrap 5 (requerido por themeSystem: 'bootstrap5') */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+/* ====== Tarjeta / marco ====== */
+.fc {
+  background-color: #E1F0FA !important;
+  border: 1px solid #dbeafe;
+
+  padding: 10px 8px 14px;
+  box-shadow: 0 2px 10px rgba(2, 48, 71, .06);
+  box-sizing: border-box;
+
+  --fc-border-color: #e6ecf4;
+  --fc-neutral-text-color: #6b7280;
+  
+  --fc-today-bg-color: #fff6d5;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+}
+
+/* ====== Título centrado del header nativo ====== */
+.fc .fc-toolbar.fc-header-toolbar { margin-bottom: 8px; }
+.fc .fc-toolbar-title {
+  font-size: 32px;
+  font-weight: 10;
+  letter-spacing: .2px;
+  color: #0f172a;
+}
+/* Botones del header: minimalistas */
+.fc .fc-toolbar .btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 8px;
+}
+.fc .fc-toolbar .btn,
+.fc .fc-toolbar .btn:focus { color: #94a3b8 !important; }
+.fc .fc-toolbar .btn:hover { color: #0f172a !important; }
+.fc .fc-toolbar .btn .fc-icon { font-size: 1.1rem; }
+
+/* ====== Cabecera de días ====== */
+.fc .fc-col-header { border-bottom: 2px solid #d9e2f1; margin-bottom: 4px; }
+.fc .fc-col-header-cell { border: 0; }
+.fc .fc-col-header-cell-cushion {
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+/* ====== Vista MES ====== */
+.fc .fc-daygrid-day-frame { padding: 6px 8px 12px; border-radius: 10px; background: #f9fbff; }
+.fc .fc-daygrid-day-number { color: #334155; font-weight: 600; }
+
+/* Hoy con badge azul */
+.fc .fc-day-today .fc-daygrid-day-number {
+  background: #38bdf8;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0px 8px;
+}
+
+.fc .fc-timegrid-event { min-height: 28px !important;  }
+
+
+/* Evento “pill” */
+.fc .fc-daygrid-event {
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin: 2px 0;
+  border: 1px solid #31A5DD;
+  background: #E1F0FA;
+  color: #374151;
+  font-size: 12.5px;
+  line-height: 1.2;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* “Ver más” */
+.fc .fc-more-link {
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.fc .fc-more-link:hover { text-decoration: underline; }
+
+/* ====== Vista SEMANA (si la usás) ====== */
+.fc .fc-timegrid-axis-cushion { color: #94a3b8; font-weight: 600; }
+.fc .fc-timegrid-axis { background: transparent; }
+.fc .fc-timegrid-slot { height: 3rem; border-top-color: #e9eef5; }
+.fc .fc-timegrid-slot-minor { border-top-color: #f1f5fb; }
+.fc .fc-scrollgrid, .fc .fc-scrollgrid-section > * { border: 0; }
+.fc .fc-timegrid-col-frame { background: #f9fbff; }
+.fc .fc-day-today .fc-timegrid-col-frame { background: var(--fc-today-bg-color); }
+.fc .fc-timegrid-allday { background: #f5f7fb; }
+.fc .fc-timegrid-divider { display: none; }
+.fc .fc-timegrid-event {
+  border-radius: 10px;
+  border: 1px solid #31A5DD;
+  background: #31A5DD;
+  color: #374151;
+  padding: 2px 8px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Variantes por tipo de evento (opcional) */
+.fc .evt-entrevista { background:#fde2e2 !important; border-color:#fecaca !important; }
+.fc .evt-entrega    { background:#fef3c7 !important; border-color:#fde68a !important; }
+.fc .evt-reunion    { background:#e0f2fe !important; border-color:#bae6fd !important; }
+
+.fc-daygrid-day:hover,
+.fc-day-today {
+  background-color: #d4eaf7 !important; /* un tono más oscuro si querés diferenciar hoy */
+}
+
+.fc .fc-toolbar-title {
+  font-family: 'Lato', sans-serif;  /* fuente Lato */
+  font-size: 28px;                  /* un poquito más chico */
+  font-weight: 600;                 /* menos gordo que 800 */
+  letter-spacing: 1px;              /* más aire entre letras */
+  color: #0f172a;
+  text-transform: uppercase;        /* convierte a MAYÚSCULAS */
+}
+
+
+/* ===== All-day limpio ===== */
+.fc .fc-timegrid-allday {
+  background: #f7fbff;
+  border-radius: 12px;
+  margin: 4px 8px 8px;
+  padding: 6px 8px;
+  border: 1px dashed #e0e7f3;
+}
+
+/* ===== Columna de horas y spacing ===== */
+.fc .fc-timegrid-axis-cushion {
+  color: #8592a6;
+  font-weight: 600;
+}
+.fc .fc-timegrid-divider { display: none; }
+.fc .fc-timegrid-col-frame {
+  background: #f9fbff;
+}
+
+
+/* Multi-día (horizontales) en dayGrid */
+.fc .fc-h-event,
+.fc .fc-daygrid-block-event {
+  border: 1px solid #31A5DD !important;
+  border-radius: 10px !important;
+  background: #E1F0FA !important;
+}
+
+/* Forzar color del texto dentro del evento */
+.fc .fc-h-event .fc-event-main,
+.fc .fc-daygrid-block-event .fc-event-main,
+.fc .fc-h-event .fc-event-time,
+.fc .fc-h-event .fc-event-title,
+.fc .fc-daygrid-block-event .fc-event-time,
+.fc .fc-daygrid-block-event .fc-event-title {
+  color: #374151 !important;
+}
+

@@ -1,0 +1,77 @@
+<div class="perfil-wrapper">
+    <button type="button" class="boton" (click)="volver()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="perfil-header">
+        <div class="logo-seccion">
+            <img [src]="oferta.empresa.usuario?.urlFotoUsuario" alt="foto" class="foto" />
+        </div>
+        <div class="info">
+            <div class="nombre-boton">
+                <h1 class="m-0">{{ oferta.titulo }}</h1>
+                <div class="publicacion-oferta">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <p>Publicado: {{ oferta.fechaHoraAlta | date:'dd/MM/yyyy' }}</p>
+                </div>
+            </div>
+            <div class="datos-boton">
+                <h5 class="m-0">
+                    <a 
+                    [routerLink]="['/buscar-empresas/detalle', oferta.empresa.id]"
+                    [queryParams]="{ from: 'oferta', idOferta: oferta.id }"
+                    class="link-empresa">
+                        {{ oferta.empresa.nombreEmpresa }}
+                    </a>
+                </h5>
+                @if (esCandidato) {
+                    <div class="position-relative d-inline-block">
+                        @if (!estaPostulado) {
+                            <button 
+                            class="boton-enviar-oferta" (click)="postular()">
+                                <span class="material-symbols-outlined">app_registration</span>
+                                Postularme
+                            </button>
+                        } @else {
+                            <span class="etapa-actual">
+                                {{ etapaActualCandidato }}
+                            </span>
+                        }
+                    </div>
+                }
+            </div>
+                <div class="datos-general">
+                    <div class="datos">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <p>{{ oferta.empresa.provincia?.nombreProvincia }}, {{ oferta.empresa.provincia?.pais?.nombrePais }}</p>
+                    </div>
+                    <div class="datos">
+                        <span class="material-symbols-outlined">work</span>
+                        <p>{{ oferta.modalidadOferta.nombreModalidadOferta }}</p>
+                    </div>
+                    <div class="datos">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <p>{{ oferta.tipoContratoOferta.nombreTipoContratoOferta }}</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="seccion-abajo">
+        <h5 class="pb-10">Descripción</h5>
+        <p class="descripcion">
+            {{ oferta.descripcion }}
+        </p>
+        <div class="seccion-habilidades">
+            <h5 class="pb-10">Habilidades requeridas</h5>
+            <div class="habilidades">
+                @for (hab of oferta.habilidades; track $index) {
+                    <span class="tag"> {{ hab.habilidad.nombreHabilidad }} </span>
+                }
+            </div>
+        </div>
+        <h5 class="pb-10">Responsabilidades</h5>
+        <p class="descripcion">
+            {{ oferta.responsabilidades }}
+        </p>
+    </div>
+</div>

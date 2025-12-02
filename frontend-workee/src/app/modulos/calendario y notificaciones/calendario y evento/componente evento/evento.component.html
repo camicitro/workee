@@ -1,0 +1,161 @@
+<div class="evento-wrapper" *ngIf="evento as e; else estado">
+
+
+  <div class="evento-card modal-style">
+	  <div class="boton-volver" *ngIf="modoEdicion">
+	<button type="button" class="boton volver-btn" (click)="cancelarEdicion()" [disabled]="cargando">
+	  <span class="material-symbols-outlined">arrow_back</span>
+	  Volver
+	</button>
+  </div>
+	<button type="button" *ngIf="!modoEdicion" class="boton volver-btn" (click)="volver()">
+    <span class="material-symbols-outlined">arrow_back</span>
+    Volver
+  </button>
+		<h2 class="card-title">Evento: {{ e.nombreEvento }}</h2>
+		<div class="meta-row" *ngIf="!modoEdicion">
+		<div class="meta-item">
+		<span class="material-symbols-outlined">calendar_month</span>
+		<span><strong>Inicio: </strong> <time>{{ inicioFormateado }}</time></span>
+		</div>
+		<div class="meta-item">
+		<span class="material-symbols-outlined">event</span>
+		<span><strong>Fin: </strong> <time>{{ finFormateado }}</time></span>
+		</div>
+		</div>
+
+ 
+		@if (modoEdicion) {
+			<form [formGroup]="formEvento" class="form-grid" (ngSubmit)="guardarCambios()">
+
+			<div class="form-field two-col">
+			<label>Inicio del evento</label>
+			<input
+			type="datetime-local"
+			lang="es-AR"
+			step="60"
+			formControlName="fechaHoraInicioEvento"
+			[attr.min]="minDateTime"
+			[class.invalid]="formEvento.get('fechaHoraInicioEvento')?.invalid && formEvento.get('fechaHoraInicioEvento')?.touched"
+			/>
+			@if (isCampoInvalido('fechaHoraInicioEvento')) {
+				<div class="invalid-feedback">La fecha y hora de inicio son obligatorias</div>
+			}
+			<small *ngIf="formEvento.get('fechaHoraInicioEvento')?.hasError('required') && formEvento.get('fechaHoraInicioEvento')?.touched">
+				Requerido
+			</small>
+			</div>
+
+			<div class="form-field two-col">
+			<label>Fin del evento </label>
+			<input
+			type="datetime-local"
+			lang="es-AR"
+			step="60"
+			formControlName="fechaHoraFinEvento"
+			[attr.min]="formEvento.get('fechaHoraInicioEvento')?.value || minDateTime"
+			[class.invalid]="formEvento.get('fechaHoraFinEvento')?.invalid && formEvento.get('fechaHoraFinEvento')?.touched"
+			/>
+			@if (isCampoInvalido('fechaHoraFinEvento')) {
+				<div class="invalid-feedback">La fecha y hora de fin son obligatorias y deben ser posteriores al inicio</div>
+			}
+			<small *ngIf="formEvento.get('fechaHoraFinEvento')?.hasError('required') && formEvento.get('fechaHoraFinEvento')?.touched">
+				Requerido
+			</small>
+			</div>
+
+				<div class="form-field">
+					<label>Descripción</label>
+					<textarea rows="4" formControlName="descripcionEvento"></textarea>
+					<!-- <small *ngIf="formEvento.get('descripcionEvento')?.hasError('required') && formEvento.get('descripcionEvento')?.touched">Requerida</small> -->
+				</div>
+
+				<!-- <div class="form-field">
+					<label>Enlace</label>
+					<input type="url" formControlName="enlaceEvento">
+				</div> -->
+
+				<div class="btn-row">
+					<button type="submit" class="boton" [disabled]="cargando || formEvento.invalid">
+						<span class="material-symbols-outlined">save</span>
+						Guardar Cambios
+					</button>
+
+				</div>
+			</form>
+		}
+
+		@if (!modoEdicion) {
+			@if(nombreCategoriaUsuario == 'EMPRESA' || nombreCategoriaUsuario == 'EMPLEADO'){
+			<div class="people-row">
+				<div class="person" *ngIf="empleadoEncontrado">
+				<span class="material-symbols-outlined emp-icon">badge</span>
+				<span>{{ empleadoEncontrado.nombreEmpleadoEmpresa }} {{ empleadoEncontrado.apellidoEmpleadoEmpresa }}</span>
+				</div>
+				<span class="people-sep" *ngIf="empleadoEncontrado && candidatoEncontrado">•</span>
+				<div class="person" *ngIf="candidatoEncontrado">
+				<span class="material-symbols-outlined cand-icon">person_search</span>
+				<span>{{ candidatoEncontrado.nombreCandidato }} {{ candidatoEncontrado.apellidoCandidato }}</span>
+				</div>
+			</div>
+			}
+			@if(nombreCategoriaUsuario == 'CANDIDATO'){
+				<div class="people-row">
+					<div class="person" *ngIf="empleadoEncontrado">
+					<span class="material-symbols-outlined company-icon">domain</span>
+					<span>{{ empleadoEncontrado.empresa?.nombreEmpresa }}</span>
+					</div>
+					<span class="people-sep" *ngIf="empleadoEncontrado && candidatoEncontrado">•</span>
+					<div class="person" *ngIf="empleadoEncontrado">
+					<span class="material-symbols-outlined emp-icon">badge</span>
+					<span>{{ empleadoEncontrado.nombreEmpleadoEmpresa }} {{ empleadoEncontrado.apellidoEmpleadoEmpresa }}</span>
+					</div>
+				</div>
+			}
+			@if (hasDescripcion) {
+			<h3 class="section-title">Descripción</h3>
+			<p class="descripcion">{{ e.descripcionEvento }}</p>
+			}
+
+			@if (hasEnlace) {
+			<h3 class="section-title">
+				{{ linkVcall ? 'Enlace de videollamada' : 'Enlace' }}
+			</h3>
+
+			@if (linkVcall) {
+				<p class="info-pill">
+				<a
+                      class="btn-videollamada"
+                      target="_blank"
+                      rel="noopener noreferrer"
+					  [href]="e.videollamada?.enlaceVideollamada"
+					  >Ingresar a la llamada</a>
+                      <!-- [href]="'https://workeemeetings.online/2186c84b-851a-429b-9b16-53eaec697bc9'" -->
+				</p>
+			} @else if (linkEvt) {
+				<p class="info-pill">
+				<a [href]="linkEvt!" target="_blank" rel="noopener">{{ linkEvt }}</a>
+				</p>
+			}
+			}
+
+			@if (nombreCategoriaUsuario == 'EMPRESA' || nombreCategoriaUsuario == 'EMPLEADO') {
+				<div class="botones-acciones">
+					<button type="button" class="boton" (click)="modificarEmpleado()" [disabled]="cargando">
+						<span class="material-symbols-outlined">edit</span>
+						Editar
+					</button>
+					<button type="button" class="boton-eliminar" (click)="eliminarEvento()" [disabled]="cargando">
+						<span class="material-symbols-outlined">delete</span>
+						Eliminar evento
+					</button>
+				</div>
+			}
+		}
+  </div>
+</div>
+
+<ng-template #estado>
+  <p *ngIf="cargando">Cargando…</p>
+  <p *ngIf="!cargando && error">{{ error }}</p>
+</ng-template>

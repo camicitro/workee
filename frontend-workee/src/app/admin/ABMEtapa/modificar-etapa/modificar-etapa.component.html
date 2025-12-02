@@ -1,0 +1,48 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Modificar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="etapaForm">
+            <div class="mb-3">
+                <label for="nombreEtapa" class="col-form-label">Nombre</label>
+                <input 
+                    required
+                    id="nombreEtapa"
+                    type="text"
+                    class="form-control"
+                    formControlName="etapa"
+                    placeholder="Ingrese el nombre de la etapa"
+                    maxlength="50"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('etapa') }"> 
+                    @if (isCampoInvalido('etapa')) {
+                        <div class="invalid-feedback">
+                            El campo “Nombre” no puede estar vacío
+                        </div>
+                    }
+                <label for="descripcionEtapa" class="col-form-label">Descripción</label>
+                <textarea 
+                    required
+                    rows="3"
+                    id="descripcionEtapa"
+                    type="text"
+                    class="form-control"
+                    maxlength="200"
+                    formControlName="descripcion"
+                    placeholder="Ingrese la descripción de la etapa"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('descripcion') }">
+                </textarea>
+                    @if (isCampoInvalido('descripcion')) {
+                        <div class="invalid-feedback">
+                            El campo “Descripción” no puede estar vacío
+                        </div>
+                    }
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissModal()">Volver</button>
+        <button type="button" class="btn-guardar" (click)="enviarDatos()">Guardar</button>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Actualización de etapa</h5>
+    <button type="button" class="btn-close" (click)="dismissModal()" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="nombre-oferta">
+      {{ nombreCandidato || 'Candidato' }} - {{ nombreOferta || 'Oferta' }}
+    </div>
+
+    <div class="mb-3">
+      <div class="titulo-seccion-etapa">Etapa actual</div>
+      <div class="etapa-actual mt-2 bg-light rounded">
+        <strong>{{ etapaActual.etapa.nombreEtapa }}</strong>
+        <p class="mb-0">
+          <small class="text-muted">{{ etapaActual.etapa.descripcionEtapa }}</small>
+        </p>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="titulo-seccion-etapa">Seleccionar nueva etapa</div>
+
+      <div
+        *ngFor="let etapa of etapasPosibles"
+        class="etapa-card mb-2"
+        [ngClass]="{
+          'seleccionada-general': etapaSeleccionada === etapa && etapa.etapa.codigoEtapa !== 'SELECCIONADO' && etapa.etapa.codigoEtapa !== 'RECHAZADO',
+          'seleccionada-seleccionado': etapaSeleccionada === etapa && etapa.etapa.codigoEtapa === 'SELECCIONADO',
+          'seleccionada-rechazado': etapaSeleccionada === etapa && etapa.etapa.codigoEtapa === 'RECHAZADO'
+        }"
+        (click)="seleccionarEtapa(etapa)"
+      >
+        <strong>{{ etapa.etapa.nombreEtapa }}</strong><br />
+        <small class="text-muted">{{ etapa.etapa.descripcionEtapa }}</small>
+
+        <div *ngIf="etapaSeleccionada === etapa && etapa.etapa.codigoEtapa === 'SELECCIONADO'" class="texto-etapa-seleccionado mt-1">
+          Podrás seleccionar otro candidato o finalizar la oferta
+        </div>
+
+        <div *ngIf="etapaSeleccionada === etapa && etapa.etapa.codigoEtapa === 'RECHAZADO'" class="texto-etapa-rechazado mt-1">
+          Se le enviará una notificación de rechazo al candidato y deberá proporcionar retroalimentación
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="etapaSeleccionada?.etapa?.codigoEtapa === 'SELECCIONADO' || etapaSeleccionada?.etapa?.codigoEtapa === 'RECHAZADO'"
+      class="mb-3"
+    >
+      <label for="retro" class="form-label">
+        Retroalimentación 
+        <span class="required">
+          *
+        </span>
+      </label>
+      <textarea
+        id="retro"
+        class="form-control"
+        rows="5"
+        maxlength="350"
+        required
+        [(ngModel)]="retroalimentacion"
+      ></textarea>
+      <div *ngIf="requiereRetroalimentacionInvalida()" class="text-danger mt-1 small">
+        La retroalimentación es obligatoria.
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="boton-volver-gris" (click)="dismissModal()">Cancelar</button>
+    <button
+      type="button"
+      class="boton-guardar"
+      (click)="guardarCambios(etapaSeleccionada!)"
+      [disabled]="!etapaSeleccionada || requiereRetroalimentacionInvalida()"
+    >
+      Guardar cambios
+    </button>
+  </div>
+</div>

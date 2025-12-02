@@ -1,0 +1,35 @@
+<div class="detalle-wrapper">
+  @if (notificacion) {
+    <div class="detalle-card">
+      <div class="header">
+        <div class="icon-badge" [style.background-color]="getPillBg(notificacion.tipoNotificacion)">
+          <span class="material-symbols-outlined">{{ getIcon(notificacion.tipoNotificacion) }}</span>
+        </div>
+        <div class="head-text">
+          <h2 class="titulo"><strong>{{ getTitulo(notificacion.tipoNotificacion) }}</strong></h2>
+          <time class="fecha">{{ notificacion.fechaHoraEnvioNotificacion | date:'dd/MM/yyyy HH:mm' }}</time>
+        </div>
+      </div>
+
+      <p class="descripcion">{{ notificacion.descripcionNotificacion }}</p>
+
+      <div class="acciones">
+        @if (esInvitacionOferta && puedeResponderInvitacion) {
+          <button class="boton-rechazar" (click)="rechazarPostulacionPendiente()">Rechazar</button>
+          <button class="boton-aceptar" (click)="aceptarPostulacionPendiente()">Aceptar</button>
+        }
+
+        <button type="button" class="btn" (click)="volver()">Volver</button>
+
+        @if (notificacion?.eventoNotificacion?.id) {
+          <button type="button" class="btn primario" (click)="irEventoSeguro(notificacion)">
+            Ver evento
+          </button>
+        }
+      </div>
+
+    </div>
+  } @else {
+    <p class="sin-datos">No se encontró la notificación seleccionada.</p>
+  }
+</div>

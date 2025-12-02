@@ -1,0 +1,33 @@
+<div class="confirmation-container">
+    @if (clickear === 0) {
+        <div class="card">
+            <span class="material-symbols-rounded icon info">person_add</span>
+            <h1>Confirma tu cuenta</h1>
+            <p>Haz clic en el botón para activar tu cuenta y comenzar a usar Workee.</p>
+            <button 
+                type="button" 
+                class="btn btn-primary boton-registro" 
+                (click)="confirmarcuenta()">
+                Confirmar Cuenta
+            </button>
+        </div>
+    }
+
+    @if (estado === 'habilitado') {
+        <div class="card success">
+            <span class="material-symbols-outlined icon">check_circle</span>
+            <h1>¡Cuenta verificada!</h1>
+            <p>Ya podés iniciar sesión en Workee y comenzar a usar todas las funciones.</p>
+            <a href="/login" class="btn">Ir al login</a>
+        </div>
+    }
+
+    @if (estado === 'error') {
+        <div class="card error">
+            <span class="material-symbols-outlined icon">error</span>
+            <h1>Ocurrió un error</h1>
+            <p>El enlace podría ser inválido o haber expirado. Si pensas que es un problema ¡Contactanos!.</p>
+            <a href="/login" class="btn">Ir al login</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,64 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Modificar rol</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="RolForm">
+      <div class="mb-3">
+        <label>Categoria</label>
+        <!-- Mismo look & feel que Crear Rol, pero deshabilitado -->
+        <select class="form-select" [disabled]="true">
+          <option [ngValue]="categoriaId">{{ categoriaNombre }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="nombreRol" class="col-form-label">Nombre</label>
+        <input
+          required
+          id="nombreRol"
+          type="text"
+          class="form-control"
+          formControlName="nombreRol"
+          placeholder="Ej: candidato"
+          [ngClass]="{ 'is-invalid': isCampoInvalido() }">
+        @if (isCampoInvalido()) {
+          <div class="invalid-feedback">
+            El campo “Nombre del rol” no puede estar vacío
+          </div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label>Permisos</label>
+        <div class="permisos-container">
+          <div *ngFor="let permiso of permisosDeCategoria">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'permiso' + permiso.id"
+              [value]="permiso.id"
+              [checked]="permisosSeleccionadosID.includes(permiso.id!)"
+              (change)="onPermisoChange($event, permiso.id!)">
+            <label class="form-check-label" [for]="'permiso' + permiso.id">
+              {{ permiso.nombrePermiso }}
+            </label>
+          </div>
+        </div>
+        <!-- Control "técnico" para validar que haya al menos 1 -->
+        <input type="hidden" formControlName="permisosRol">
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissModal()">
+      Volver
+    </button>
+    <button type="button" class="btn-guardar" (click)="guardarCambios()">
+      Guardar
+    </button>
+  </div>
+</div>

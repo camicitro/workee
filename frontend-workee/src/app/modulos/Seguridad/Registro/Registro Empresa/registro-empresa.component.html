@@ -1,0 +1,331 @@
+<app-spinner 
+  *ngIf="isLoading; else loginFormTemplate"
+  type="overlay"
+  message="Cargando..."
+></app-spinner>
+<ng-template #loginFormTemplate>
+<form [formGroup]="empresaForm">
+  @if (numeropaginaregistro == 1) {
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Nombre de la empresa <span class="required">*</span></label>
+            <input type="text" required placeholder="Ingresar..." class="form-control"
+                   formControlName="nombreEmpresa"
+                   [ngClass]="{ 'is-invalid': isCampoInvalido('nombreEmpresa') }" />
+            @if (isCampoInvalido('nombreEmpresa')) {
+              <div class="invalid-feedback">El campo “Nombre” no puede estar vacío</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono de contacto <span class="required">*</span></label>
+            <input type="number" required placeholder="Ingresar..." class="form-control"
+                   formControlName="telefonoEmpresa"
+                   [ngClass]="{ 'is-invalid': isCampoInvalido('telefonoEmpresa') }" />
+            @if (isCampoInvalido('telefonoEmpresa')) {
+              <div class="invalid-feedback">El campo “Teléfono de contacto” no puede estar vacío</div>
+            }
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Rubro <span class="required">*</span></label>
+            <select class="form-select" formControlName="rubroEmpresa" [compareWith]="compararRubro"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('rubroEmpresa') }">
+              @for (rubro of rubros; track rubro.id) {
+                <option [ngValue]="rubro">{{ rubro.nombreRubro }}</option>
+              }
+            </select>
+            @if (isCampoInvalido('rubroEmpresa')) {
+              <div class="invalid-feedback">El campo "Rubro" no puede estar vacío</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Número de identificación fiscal (NIF) <span class="required">*</span></label>
+            <input type="number" required placeholder="Ingresar..." class="form-control"
+                   formControlName="numeroIdentificacionFiscal"
+                   [ngClass]="{ 'is-invalid': isCampoInvalido('numeroIdentificacionFiscal') }" />
+            @if (isCampoInvalido('numeroIdentificacionFiscal')) {
+              <div class="invalid-feedback">El campo “Número de identificación fiscal (NIF)” no puede estar vacío</div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico <span class="required">*</span></label>
+        <input type="email" required placeholder="ejemplo@gmail.com" class="form-control"
+               formControlName="emailEmpresa"
+               [ngClass]="{ 'is-invalid': isCampoInvalido('emailEmpresa') }" />
+        @if (isCampoInvalido('emailEmpresa')) {
+          <div class="invalid-feedback">
+            @if (empresaForm.get('emailEmpresa')?.hasError('required')) {
+              El campo “Correo electrónico” no puede estar vacío
+            } @else if (backendEmailInvalido) {
+              El correo electrónico ingresado no es válido
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña <span class="required">*</span></label>
+        <div class="input-group">
+          <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                 formControlName="contrasenia"
+                 [ngClass]="{ 'is-invalid': isCampoInvalido('contrasenia') }" />
+          <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+            <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+          </span>
+        </div>
+        @if (isCampoInvalido('contrasenia')) {
+          <div class="invalid-feedback d-block">
+            @if (empresaForm.get('contrasenia')?.hasError('required')) {
+              El campo “Contraseña” no puede estar vacío
+            } @else if (backendContraseniaCorta) {
+              La contraseña ingresada debe superar los 8 caracteres
+            }
+            @else if (empresaForm.get('contrasenia')?.hasError('minlength')) {
+              La contraseña debe tener al menos 8 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Repetir contraseña <span class="required">*</span></label>
+        <div class="input-group">
+          <input [type]="verContrasenia ? 'text' : 'password'" required placeholder="Ingresar..." class="form-control"
+                 formControlName="repetirContrasenia"
+                 [ngClass]="{ 'is-invalid': isCampoInvalido('repetirContrasenia') }" />
+          <span class="input-group-text" (click)="verContrasenia = !verContrasenia" style="cursor: pointer;">
+            <span class="material-symbols-outlined">{{ verContrasenia ? 'visibility' : 'visibility_off' }}</span>
+          </span>
+        </div>
+        @if (isCampoInvalido('repetirContrasenia')) {
+          <div class="invalid-feedback d-block">
+            @if (empresaForm.get('contrasenia')?.hasError('required')) {
+              El campo “Repetir contraseña” no puede estar vacío
+            } @else if (backendContraseniaCorta) {
+              La contraseña ingresada debe superar los 8 caracteres
+            }
+            @else if (empresaForm.get('repetirContrasenia')?.hasError('minlength')) {
+              La contraseña debe tener al menos 8 caracteres
+            }
+          </div>
+        }
+      </div>
+      <div class="text-end mt-3">
+        <button style="background-color: white; border: none; color: #31A5DD; padding: 1px 1px; border-radius: 4px; cursor: pointer;">
+          <span class="material-symbols-outlined" (click)="siguientepagina()">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  } @else if (numeropaginaregistro == 2) {
+    
+
+
+    <div class="form-group">
+            <div class="foto-seccion">
+                <label class="foto-label">Logo de la empresa <span class="required">*</span></label>
+                <div class="foto-container">
+                <img [src]="logoTemporal || 'assets/img/foto-perfil.png'" alt="foto" class="foto" />
+                <label for="file" class="icono-editar" title="Editar foto">
+                    <span class="material-symbols-outlined icono-foto">photo_camera</span>
+                </label>
+
+                <input
+                    type="file"
+                    id="file"
+                    accept="image/jpg, image/jpeg, image/png"
+                    hidden
+                    class="form-control"
+                    formControlName="urlFotoPerfil"
+                    (change)="onFileSelected($event)"
+                />
+                </div>
+
+                @if (empresaForm.get('urlFotoPerfil')?.hasError('required') && empresaForm.get('urlFotoPerfil')?.touched) {
+                <p class="text-error">Debe subir el logo de la empresa.</p>
+                }
+
+                @if (empresaForm.get('urlFotoPerfil')?.hasError('formato')) {
+                <p class="text-error">
+                    El formato del archivo seleccionado no es válido. Debe seleccionar una imagen con formato .jpg, .jpeg o .png
+                </p>
+                }
+
+                @if (empresaForm.get('urlFotoPerfil')?.hasError('tamanioInvalido') && empresaForm.get('urlFoto')?.touched) {
+                <p class="text-error">
+                    El logo de la empresa no debe superar los 5MB.
+                </p>
+                }
+            </div>
+        </div>
+
+    <div class="form-row-2col">
+        <div class="form-group">
+            <label for="paisEmpresa" class="p-0 my-0 mb-2">País <span class="required">*</span></label>
+            <select 
+                class="form-select"
+                formControlName="paisEmpresa" 
+                (change)="filtrarProvinciasPorPais(empresaForm.get('paisEmpresa')?.value)"
+                [compareWith]="compararPais"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('paisEmpresa') }"
+            >
+                <option *ngFor="let pais of paises" [ngValue]="pais">{{ pais.nombrePais }}</option>
+            </select>
+            @if (isCampoInvalido('paisEmpresa')) {
+              <div class="invalid-feedback">El campo "País" no puede estar vacío</div>
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="provinciaEmpresa" class="p-0 my-0 mb-2">Provincia <span class="required">*</span></label>
+            <select 
+                class="form-select" 
+                formControlName="provinciaEmpresa" 
+                [compareWith]="compararProvincia"
+                [ngClass]="{ 'is-invalid': isCampoInvalido('provinciaEmpresa') }"
+            >
+                <option *ngFor="let provincia of provinciasDePais" [ngValue]="provincia">{{ provincia.nombreProvincia }}</option>
+            </select>
+            @if (isCampoInvalido('provinciaEmpresa')) {
+              <div class="invalid-feedback">El campo “Provincia” no puede estar vacío</div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+            <label>Dirección Legal <span class="required">*</span></label>
+            <input type="text" required placeholder="Ingresar..." class="form-control"
+                   formControlName="direccionEmpresa"
+                   [ngClass]="{ 'is-invalid': isCampoInvalido('direccionEmpresa') }" />
+            @if (isCampoInvalido('direccionEmpresa')) {
+              <div class="invalid-feedback">El campo “Dirección Legal” no puede estar vacío</div>
+            }
+    </div>
+    <div class="form-group">
+        <label>Descripción <span class="required">*</span></label>
+        <textarea rows="4" placeholder="Ingresar..." class="form-control"
+            formControlName="descripcionEmpresa"
+            [ngClass]="{ 'is-invalid': isCampoInvalido('descripcionEmpresa') }"></textarea>
+        @if (isCampoInvalido('descripcionEmpresa')) {
+            <div class="invalid-feedback">El campo “Descripción” no puede estar vacío</div>
+        }
+    </div>
+
+    
+    <div class="botones-navegacion">
+    <button class="btn-navegacion" (click)="paginaAnterior()">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+
+    <button class="btn-navegacion" (click)="siguientepagina()">
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+    </div>
+
+
+  } @else if (numeropaginaregistro >= 3) {
+        <div class="form-group cv-wrapper">
+    <label for="fileCV" class="p-0 my-0 mb-2">Documento Legal</label>
+
+    <!-- 👇 Mostrar el drop SOLO si NO hay archivo -->
+    @if (!fileDocumentoLegal) {
+      <div class="cv-drop-area" (click)="abrirSelectorDocumentoLegal()">
+        <span class="material-symbols-outlined cloud-icon">cloud_upload</span>
+        <p class="cv-texto">
+          Ingresa algún documento legal de la empresa, para ello arrastra y suelta aquí o haz clic para buscar
+        </p>
+        <small class="cv-subtexto">Formato aceptado: PDF (máximo 5MB).</small>
+      </div>
+    }
+
+    <!-- 👇 Cuando hay archivo, el drop desaparece y se muestra tu tarjeta -->
+    @if (fileDocumentoLegal) {
+      <div class="cv-box">
+        <span class="material-symbols-outlined icono-pdf">description</span>
+        <div class="cv-detalle">
+          <p><a [href]="documentoLegalTemporal" target="_blank">{{ fileDocumentoLegal?.name }}</a></p>
+          <small>Actualizado el {{ today | date:'dd/MM/yyyy' }}</small>
+        </div>
+        <div class="cv-acciones">
+          <button id="icon-button" type="button" (click)="eliminarDocumentoLegal()">
+            <span class="material-symbols-outlined eliminar-cv" title="Eliminar">delete</span>
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- input real -->
+    <input
+      type="file"
+      id="fileDocumentoLegal"
+      accept="application/pdf"
+      hidden
+      formControlName="urlDocumentoLegal"
+      (change)="onDocumentoLegalSelected($event)"
+    />
+
+    <!-- errores -->
+    @if (empresaForm.get('urlDocumentoLegal')?.hasError('formato')) {
+      <p class="text-error">El formato del archivo seleccionado no es válido. Debe ser .pdf</p>
+    }
+    @if (empresaForm.get('urlDocumentoLegal')?.hasError('tamanioInvalido') && empresaForm.get('urlDocumentoLegal')?.touched) {
+      <p class="text-error">El documento no debe superar los 5MB.</p>
+    }
+  </div>
+
+        <div class="form-group">
+            <label>Sitio web oficial</label>
+            <input type="url" placeholder="Ingresar..." class="form-control"
+                    formControlName="sitioWebEmpresa"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('sitioWebEmpresa') }" />
+        </div>
+        <!-- Checkbox de Términos -->
+        <div class="form-check mb-3">
+            <input type="checkbox"
+                    class="form-check-input"
+                    id="terminosCondiciones"
+                    formControlName="terminosCondiciones"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido('terminosCondiciones') }" />
+            <label class="form-check-label" for="terminosCondiciones">
+                Acepto los 
+                <a href="javascript:void(0);" (click)="verterminosycondiciones()">Términos y Condiciones</a>
+            </label>
+            @if (isCampoInvalido('terminosCondiciones')) {
+                <div class="invalid-feedback d-block">
+                    Debe aceptar los Términos y Condiciones para continuar
+                </div>
+            }
+        </div>
+
+
+        <!-- Botón de Enviar -->
+        <div class="text-center">
+            <button 
+                type="button" 
+                class="btn btn-primary boton-registro" 
+                (click)="enviarDatos()"
+                >
+                Registrarse
+            </button>
+        </div>
+
+
+         
+        <div class="d-grid gap-2">
+        <div class="botones-navegacion">
+            <button class="btn-navegacion" (click)="paginaAnterior()">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+        </div>
+        </div>
+
+  }
+</form>
+</ng-template>

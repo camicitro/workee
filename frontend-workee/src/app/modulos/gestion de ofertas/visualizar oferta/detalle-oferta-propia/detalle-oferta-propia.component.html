@@ -1,0 +1,391 @@
+<div *ngIf="isLoading; else results">
+  <app-spinner type="inline" message="Cargando..."></app-spinner>
+</div>
+
+<ng-template #results>
+<div class="perfil-wrapper">
+  <button type="button" class="boton" [routerLink]="['/visualizar-oferta']">
+    <span class="material-symbols-outlined">arrow_back</span>
+    Volver
+  </button>
+
+  <div class="perfil-header">
+    <div class="info">
+      <div class="nombre-boton">
+        <h1 class="m-0">{{ oferta?.titulo }}</h1>
+        <div class="datos-boton">
+          <div class="estado-container">
+            <h5 class="estado-label">Estado de la oferta</h5>
+            <div class="custom-select-wrapper" [ngClass]="estadoActual?.codigo">
+              <div class="selected-option" (click)="toggleDropdown()" [class.disabled]="estadoActual?.codigo === 'FINALIZADA'">
+                <span>{{ estadoActual?.nombreEstadoOferta }}</span>
+                @if(estadoActual?.codigo !== 'FINALIZADA'){
+                  <span class="material-symbols-outlined dropdown-arrow" [ngClass]="{'rotated': isDropdownOpen}">expand_more</span>
+                }
+              </div>
+
+              <div class="options-container" [class.show]="isDropdownOpen">
+                @for (estado of estadosDisponibles; track $index) {
+                  <div 
+                    class="option"
+                    [class.selected]="estado.codigo === estadoActual?.codigo"
+                    (click)="selectEstado(estado)"
+                  >
+                    {{ estado.nombreEstadoOferta }}
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="publicacion-oferta">
+        <span class="material-symbols-outlined">schedule</span>
+        <p>Publicado: {{ oferta?.fechaHoraAlta | date: 'dd/MM/yyyy' }}</p>
+      </div>
+
+      <div class="datos-general">
+        <div class="datos">
+          <span class="material-symbols-outlined">location_on</span>
+          <p>
+            {{ oferta?.empresa!.provincia!.nombreProvincia }},
+            {{ oferta?.empresa!.provincia!.pais?.nombrePais }}
+          </p>
+        </div>
+        <div class="datos">
+          <span class="material-symbols-outlined">work</span>
+          <p>{{ oferta?.modalidadOferta!.nombreModalidadOferta }}</p>
+        </div>
+        <div class="datos">
+          <span class="material-symbols-outlined">schedule</span>
+          <p>{{ oferta?.tipoContratoOferta!.nombreTipoContratoOferta }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion-abajo">
+    <h5 class="pb-10">Descripción</h5>
+    <p class="descripcion">{{ oferta?.descripcion }}</p>
+
+    <div class="seccion-habilidades">
+      <h5 class="pb-10">Habilidades requeridas</h5>
+      <div class="habilidades">
+        @for (hab of oferta?.habilidades; track $index) {
+          <span class="tag"> {{ hab.habilidad.nombreHabilidad }} </span>
+        }
+      </div>
+    </div>
+
+    <h5 class="pb-10">Responsabilidades</h5>
+    <p class="descripcion">{{ oferta?.responsabilidades }}</p>
+  </div>
+</div>
+
+<div class="candidatos-wrapper">
+  <div class="tabs">
+    @if (estadoActual?.codigo === "FINALIZADA") {
+      <button 
+        class="tab"
+        [class.active]="selectedTab === 'seleccionados'" 
+        (click)="selectedTab = 'seleccionados'">
+        <div class="contenido-boton">
+          <span class="material-symbols-outlined">boy</span>
+          Candidatos seleccionados
+        </div>
+      </button>
+    } @else {
+      <button 
+        class="tab"
+        [class.active]="selectedTab === 'proceso'" 
+        (click)="selectedTab = 'proceso'">
+        <div class="contenido-boton">
+          <span class="material-symbols-outlined">boy</span>
+          Candidatos en proceso
+        </div>
+      </button>
+
+      <button 
+        class="tab" 
+        [class.active]="selectedTab === 'pendientes'" 
+        (click)="selectedTab = 'pendientes'">
+        <div class="contenido-boton">
+          <span class="material-symbols-outlined">alarm</span>
+          Candidatos pendientes
+        </div>
+      </button>
+
+      <button 
+        class="tab"
+        [class.active]="selectedTab === 'enviados'" 
+        (click)="selectedTab = 'enviados'">
+        <div class="contenido-boton">
+          <span class="material-symbols-outlined">send</span>
+          Solicitudes enviadas
+        </div>
+      </button>
+    }
+  </div>
+
+  <div class="tab-content">
+    <!--  -->
+    <!-- SELECCIONADOS -->
+    <!--  -->
+    <div *ngIf="selectedTab === 'seleccionados'" class="candidatos-section">
+      @if (seleccionados.length === 0) {
+        <div class="sin-resultados">
+          <img src="assets\img\sin-resultados-2.png" alt="No hay resultados" class="sin-resultados-img">
+          <p class="sin-resultados-txt">
+            No tienes candidatos seleccionados en esta oferta
+          </p>
+        </div>
+      } @else {
+        @if (seleccionados.length === 0) {
+          <div class="sin-resultados">
+            <img src="assets/sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+            <p class="sin-resultados-txt">
+              No se encuentran candidatos bajo ese nombre
+            </p>
+          </div>
+        } @else {
+        <table class="table seleccionados table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Candidato</th>
+              <th scope="col">Fecha de postulación</th>
+              <!-- <th scope="col">Fecha de selección</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            @for (seleccionado of seleccionados; track $index) {
+              <tr 
+                (click)="verDetallePostulacion(seleccionado.idPostulacion)"
+                style="cursor: pointer;">
+                <td class="celda-foto-correo">
+                  <img 
+                  class="foto-usuario" 
+                  [src]="seleccionado?.urlFotoPerfil || 'assets/img/foto-perfil.png'" 
+                  alt="{{ seleccionado.nombreCandidato }} {{ seleccionado.apellidoCandidato }}">
+                  {{ seleccionado.nombreCandidato }} {{ seleccionado.apellidoCandidato }}
+                </td>
+
+                <td style="cursor: pointer;"
+                  (click)="verDetallePostulacion(seleccionado.idPostulacion)">
+                  {{ seleccionado.fechaHoraPostulacion | date:'dd/MM/yyyy' }}
+                </td>
+
+                <!-- <td style="cursor: pointer;"
+                  (click)="verDetallePostulacion(seleccionado.idPostulacion)">
+                  {{ seleccionado. | date:'dd/MM/yyyy' }}
+                </td> -->
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    }
+    </div>
+    <!--  -->
+    <!-- POSTULADOS -->
+    <!--  -->
+    <div *ngIf="selectedTab === 'proceso'" class="candidatos-section">
+      @if (postulados.length === 0) {
+        <div class="sin-resultados">
+          <img src="assets\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+          <p class="sin-resultados-txt">
+            No tienes candidatos en proceso en esta oferta
+          </p>
+        </div>
+      } @else {
+        <div class="busqueda-acciones">
+          <div class="input-search-wrapper">
+            <input 
+                type="text" 
+                placeholder="Buscar..." 
+                class="input-search" 
+                [(ngModel)]="filtroPostulados"
+                (input)="buscarPostulados()" />
+            <button id="icon-button">
+                <span class="material-symbols-outlined search-icon">search</span>
+            </button>
+          </div>
+          <p-multiselect
+            [options]="filtrosEtapas"
+            placeholder="Etapa"
+            optionLabel="name"
+            optionValue="code"
+            [maxSelectedLabels]="0"
+            [selectedItemsLabel]="'Etapa ({0})'"
+            class="filtro"
+            [panelStyle]="{ 'background': '#fff' }"
+            [(ngModel)]="filtrosSeleccionadosEtapas"
+            (onChange)="onEtapasChange()">
+          </p-multiselect>
+        </div>
+
+        @if (postuladosFiltrados.length === 0) {
+          <div class="sin-resultados">
+            <img src="assets/sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+            <p class="sin-resultados-txt">
+              No se encuentran candidatos bajo ese nombre
+            </p>
+          </div>
+        } @else {
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Candidato</th>
+              <th scope="col">Etapa</th>
+              <th scope="col">Fecha de postulación</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (postulado of postuladosFiltrados; track $index) {
+              <tr 
+                (click)="verDetallePostulacion(postulado.idPostulacion)"
+                style="cursor: pointer;">
+                <td class="celda-foto-correo">
+                  <img 
+                  class="foto-usuario" 
+                  [src]="postulado?.urlFotoPerfil || 'assets/img/foto-perfil.png'" 
+                  alt="{{ postulado.nombreCandidato }} {{ postulado.apellidoCandidato }}">
+                  {{ postulado.nombreCandidato }} {{ postulado.apellidoCandidato }}
+                </td>
+                <td>
+                  <div class="etapa">
+                    {{ postulado.nombreEtapa }}
+                  </div>
+                </td>
+                <td>{{ postulado.fechaHoraPostulacion | date:'dd/MM/yyyy' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    }
+    </div>
+    
+    <!--  -->
+    <!-- PENDIENTES -->
+    <!--  -->
+    <div *ngIf="selectedTab === 'pendientes'" class="candidatos-section">
+      @if (pendientes.length === 0) {
+        <div class="sin-resultados">
+          <img src="assets\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+          <p class="sin-resultados-txt">
+            No tienes candidatos pendientes en esta oferta
+          </p>
+        </div>
+      } @else {
+        <div class="input-search-wrapper">
+          <input 
+              type="text" 
+              placeholder="Buscar..." 
+              class="input-search" 
+              [(ngModel)]="filtroPendientes"
+              (input)="buscarPendientes()" />
+          <button id="icon-button">
+              <span class="material-symbols-outlined search-icon">search</span>
+          </button>
+        </div>
+
+        @if (pendientesFiltrados.length === 0) {
+          <div class="sin-resultados">
+            <img src="assets/sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+            <p class="sin-resultados-txt">
+              No se encuentran candidatos bajo ese nombre
+            </p>
+          </div>
+        } @else {
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Candidato</th>
+              <th scope="col">Fecha de postulación</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (pendiente of pendientesFiltrados; track $index) {
+              <tr>
+                <td class="celda-foto-correo"
+                  style="cursor: pointer;"
+                  (click)="verDetalleCandidatoPendiente(pendiente.idCandidato)">
+                  <img 
+                  class="foto-usuario" 
+                  [src]="pendiente?.urlFotoPerfil || 'assets/img/foto-perfil.png'" 
+                  alt="{{ pendiente.nombreCandidato }} {{ pendiente.apellidoCandidato }}"
+                  (click)="verDetalleCandidatoPendiente(pendiente.idCandidato)"
+                  style="cursor: pointer;">
+                  {{ pendiente.nombreCandidato }} {{ pendiente.apellidoCandidato }}
+                </td>
+                <td style="cursor: pointer;"
+                  (click)="verDetalleCandidatoPendiente(pendiente.idCandidato)">
+                  {{ pendiente.fechaHoraPostulacion | date:'dd/MM/yyyy' }}
+                </td>
+                <td>
+                  <div class="acciones">
+                    <button 
+                      class="boton-rechazar"
+                      (click)="rechazarPostulacionPendiente(pendiente)">
+                        Rechazar
+                    </button>
+                    <button
+                      class="boton-aceptar"
+                      (click)="aceptarPostulacionPendiente(pendiente)">
+                        Aceptar
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    }
+    </div>
+    <!--  -->
+    <!-- ENVIADOS -->
+    <!--  -->
+    <div *ngIf="selectedTab === 'enviados'" class="candidatos-section">
+      @if (enviados.length === 0) {
+        <div class="sin-resultados">
+          <img src="assets/sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+          <p class="sin-resultados-txt">
+            No tienes candidatos a los cuales se haya enviado esta oferta
+          </p>
+        </div>
+      } @else {
+        <!-- <p>En esta sección se colocan los candidatos a los cuales se les ha enviado la oferta.</p> -->
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Candidato</th>
+              <th scope="col">Fecha de envío de solicitud</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (enviado of enviados; track $index) {
+              <tr (click)="verDetalleCandidatoEnviado(enviado.idCandidato)" style="cursor: pointer;">
+                <td class="celda-foto-correo">
+                  <img 
+                    (click)="verDetalleCandidatoEnviado(enviado.idCandidato)"
+                    class="foto-usuario"
+                    [src]="enviado?.urlFotoPerfil || 'assets/img/foto-perfil.png'" 
+                    alt="{{ enviado.nombreCandidato }} {{ enviado.apellidoCandidato }}">
+                  {{ enviado.nombreCandidato }} {{ enviado.apellidoCandidato }}
+                </td>
+                <td style="cursor: pointer;"
+                  (click)="verDetalleCandidatoEnviado(enviado.idCandidato)">
+                  {{ enviado.fechaHoraPostulacion | date:'dd/MM/yyyy' }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </div>
+</div>
+</ng-template>

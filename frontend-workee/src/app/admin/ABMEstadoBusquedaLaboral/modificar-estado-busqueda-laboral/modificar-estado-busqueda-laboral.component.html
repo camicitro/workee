@@ -1,0 +1,30 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Modificar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="estadoForm">
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nombre</label>
+                <input 
+                    required
+                    id="nombreEstado"
+                    type="text"
+                    class="form-control"
+                    formControlName="estado"
+                    placeholder="Ingrese el nombre del estado de búsqueda laboral"
+                    [ngClass]="{ 'is-invalid': isCampoInvalido() }">
+                @if (isCampoInvalido()) {
+                    <div class="invalid-feedback">
+                        El campo “Nombre” no puede estar vacío
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissModal()">Volver</button>
+        <button type="button" class="btn-guardar" (click)="enviarDatos()">Guardar</button>
+    </div>
+</div>

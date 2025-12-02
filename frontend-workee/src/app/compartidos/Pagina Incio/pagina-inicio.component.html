@@ -1,0 +1,126 @@
+<div *ngIf="loading$ | async; else formTemplate" class="d-flex justify-content-center align-items-center vh-100">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+<ng-template #formTemplate>
+
+<app-navbarlogin></app-navbarlogin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+<div class="inicio-container">
+  <section class="hero">
+    <h1>Conectamos talento con <span class="highlight-blue">oportunidades</span></h1>
+    <p>La plataforma integral para procesos de selección. Candidatos y empresas, unidos en una experiencia fluida y eficiente.</p>
+    <div class="hero-buttons">
+      <a class="btn-blue" routerLink="/registro">Registrarse gratis</a>
+      <a class="btn-outline-blue" (click)="scrollSmooth('funciona')">¿Cómo funciona?</a>
+
+    </div>
+
+    <div class="roles-cards">
+      <div class="card">
+        <h3 class="title-with-icon">
+            <span class="material-symbols-outlined">accessibility_new</span> Para candidatos
+        </h3>
+        <p>Participa en procesos completos de selección con seguimiento en tiempo real</p>
+      </div>
+      <div class="card">
+        <h3 class="title-with-icon">
+         <span class="material-symbols-outlined">domain</span> Para empresas
+        </h3>
+        <p>Gestiona y da seguimiento a todos tus procesos de selección</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="funciona" id="funciona">
+  <h2 class="funciona-title">¿Cómo funciona Workee?</h2>
+  
+  <div class="funciona-grid">
+    <!-- Columna Empresas -->
+    <div class="funciona-card empresas">
+      <h3 class="title-with-icon">
+        <span class="material-symbols-outlined">domain</span> Para empresas
+      </h3>
+      <ol class="step green">
+        <li>
+          <div class="step-content">
+            <h4>Publica tus vacantes</h4>
+            <p>Crea ofertas de empleo personalizadas y atractivas en minutos.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <h4>Gestiona candidatos</h4>
+            <p>Revisa perfiles, filtra y mueve candidatos a través de las etapas de tu proceso de selección.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <h4>Colabora y contrata</h4>
+            <p>Comunícate, entrevista y toma la mejor decisión de contratación.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Columna Candidatos -->
+    <div class="funciona-card candidatos">
+      <h3 class="title-with-icon-1">
+        <span class="material-symbols-outlined">accessibility_new</span> Para candidatos
+      </h3>
+      <ol class="step orange">
+        <li>
+          <div class="step-content">
+            <h4>Encuentra oportunidades</h4>
+            <p>Explora vacantes que se ajustan a tu perfil y aspiraciones.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <h4>Postula fácilmente</h4>
+            <p>Aplica a las ofertas con tu perfil completo y actualizado.</p>
+            <p></p>
+            
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <h4>Sigue tu proceso</h4>
+            <p>Mantente informado sobre el estado de tus postulaciones y comunícate con los reclutadores.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+    <div class="benefits">
+      <div class="benefit">
+  <span class="icon-circle">
+    <span class="material-symbols-outlined">schedule</span>
+  </span>
+  Ahorra tiempo
+</div>
+
+<div class="benefit">
+  <span class="icon-circle">
+    <span class="material-symbols-outlined">bar_chart</span>
+  </span>
+  Métricas reales
+</div>
+
+<div class="benefit">
+  <span class="icon-circle">
+    <span class="material-symbols-outlined">search_check_2</span>
+  </span>
+  Seguimiento completo
+</div>
+
+    </div>
+
+</div>
+
+</ng-template>

@@ -1,0 +1,205 @@
+@if (cargandoPerfil) {
+  <div class="spinner-pantalla-completa">
+    <app-spinner type="overlay"></app-spinner>
+  </div>
+} @else {
+  <div class="perfil-wrapper">
+    @if (!esEmpleado) {
+      <button type="button" class="boton" (click)="volverAListado()">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Volver
+      </button>
+    }
+      <div class="perfil-header" [class.mt-0]="esEmpleado">
+        <div>
+          @if (esEmpleado) {
+            <h1>Mi perfil</h1>
+          } @else {
+            <h1>{{empleado.nombreEmpleadoEmpresa}} {{empleado.apellidoEmpleadoEmpresa}}</h1>
+          }
+          @if (!esEmpleado) {
+            <p>Gestiona la información de tus empleados</p>
+          } @else {
+            <p>Gestiona tu información personal</p>
+          }
+        </div>
+        @if (!modoEdicion) {
+          <button type="button" class="boton" (click)="modificarEmpleado()">
+            <span class="material-symbols-outlined">edit</span>
+            Editar
+          </button>
+        } @else if (modoEdicion && esEmpleado) {
+          <button type="button" class="boton" (click)="volverAListado()">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Volver
+          </button>
+        }
+      </div>
+      <form [formGroup]="empleadoForm">
+      <div class="form-grid-logo">
+        <div class="foto-seccion">
+            <div class="foto-container">
+              @if(cargandoFoto){
+                <div class="spinner-overlay" *ngIf="cargandoFoto">
+                  <app-spinner type="inline"></app-spinner>
+                </div>
+              } @else {
+                <img 
+                  [src]="fotoTemporal ||  empleado.usuario?.urlFotoUsuario" 
+                  alt="foto" 
+                  class="foto" 
+                />
+                @if (modoEdicion && esEmpleado) {
+                  <label for="fileInput" class="icono-editar" title="Editar foto">
+                    <span class="material-symbols-outlined icono-foto">photo_camera</span>
+                  </label>
+                  <input 
+                    type="file"
+                    id="fileInput"
+                    accept="image/jpg, image/jpeg, image/png"
+                    hidden
+                    (change)="onFileSelectedFoto($event)" 
+                  /> 
+                }
+              }
+            </div>
+          </div>
+        <div class="al-lado m-0 p-0">
+          <div class="form-group">
+            <label for="nombreEmpleado" class="p-0 my-0 mb-2">Nombre</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="nombreEmpleado"
+              formControlName="nombreEmpleado"
+              maxlength="50"
+              [ngClass]="{ 'is-invalid': isCampoInvalido('nombreEmpleado') }"
+              [readonly]="!esEmpleado || !modoEdicion">
+              <!-- [(ngModel)]="empleado.nombreEmpleadoEmpresa" -->
+              @if (isCampoInvalido('nombreEmpresa')) {
+                <div class="invalid-feedback">El campo “Nombre” no puede estar vacío</div>
+              }
+          </div>
+          <div class="form-group">
+            <label for="apellidoEmpleado" class="p-0 my-0 mb-2 mt-3">Apellido</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="apellidoEmpleado"
+              maxlength="50"
+              formControlName="apellidoEmpleado"
+              [ngClass]="{ 'is-invalid': isCampoInvalido('apellidoEmpleado') }"
+              [readonly]="!esEmpleado || !modoEdicion">
+              <!-- [(ngModel)]="empleado.apellidoEmpleadoEmpresa" -->
+              @if (isCampoInvalido('apellidoEmpleado')) {
+                <div class="invalid-feedback">El campo "Apellido" no puede estar vacío</div>
+              }
+            </div>
+          </div>
+          <div class="abajo m-0 full-width">
+            <div class="form-group">
+              <label for="puestoEmpleado" class="p-0 my-0 mb-2">Puesto</label>
+              <input 
+              type="text"
+              class="form-control"
+              name="puestoEmpleado"
+              maxlength="80"
+              formControlName="puestoEmpleado"
+              [ngClass]="{ 'is-invalid': isCampoInvalido('puestoEmpleado') }"
+              [readonly]="esEmpleado || !modoEdicion">
+              <!-- [(ngModel)]="empleado.puestoEmpleadoEmpresa" -->
+              @if (isCampoInvalido('puestoEmpleado')) {
+                <div class="invalid-feedback">El campo "Puesto" no puede estar vacío</div>
+              }
+          </div>
+          <div class="form-group">
+            <label for="correoEmpleado" class="p-0 my-0 mb-2">Correo electrónico</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="correoEmpleado"
+              [value]="empleado.usuario?.correoUsuario"
+              readonly>
+          </div>
+        
+        @if (esEmpleado) {
+          <div class="form-group">
+            <label for="cambiarContrasenia" class="p-0 my-0 mb-2">Contraseña</label>
+            <button
+              type="button"
+              class="boton-cambio-contrasenia"
+              [class.disabled-btn]="!modoEdicion"
+              [disabled]="!modoEdicion"
+              (click)="abrirModalContrasenia()" >
+              <span class="material-symbols-outlined">
+                {{ modoEdicion ? 'lock_open_right' : 'lock' }}
+              </span>
+              Cambiar contraseña
+            </button>
+          </div>
+        }
+        </div>
+      </div>
+    </form>
+    @if (!esEmpleado) {
+      <h5 class="mt-8">Ofertas asociadas</h5>
+      <div class="ofertas-grid">
+        @if (!etapasEmpleado || etapasEmpleado.length === 0) {
+          <p>El empleado no está asociado a ninguna etapa de oferta.</p>
+        } @else {
+          @for (oferta of etapasEmpleado; track oferta.ofertaId) {
+            <article
+              class="oferta-card"
+              [ngClass]="estadoClase(oferta)"
+              (click)="irADetalle(oferta.ofertaId!)"
+              style="cursor: pointer"
+            >
+              <div class="oferta-card__head">
+                <h3 class="oferta-card__title">{{ oferta.titulo }}</h3>
+                <span class="pill" [ngClass]="estadoClase(oferta)">{{ estadoTexto(oferta) }}</span>
+              </div>
+              <p class="oferta-card__desc">
+                {{ oferta.descripcion }}
+              </p>
+              @if (oferta.nombresEtapas?.length === 1) {
+                <p class="oferta-card__desc">
+                  <b>Etapa:</b> {{ oferta.nombresEtapas![0] }}
+                </p>
+              } @else {
+                <p class="oferta-card__desc">
+                  <b>Etapa:</b> {{ oferta.nombresEtapas?.join(', ') }}
+                </p>
+              }
+              
+            </article>
+          }
+        }
+      </div>
+    }
+  
+    <div class="modo-edicion">
+    @if (modoEdicion) {
+      @if (!esEmpleado) {
+        @if (empleadoHabilitado) {
+          <!-- El empleado está HABILITADO -> Mostrar botón ELIMINAR -->
+          <button type="button" class="boton-eliminar" (click)="eliminarCuenta()">
+            <span class="material-symbols-outlined">cancel</span>
+            Deshabilitar empleado
+          </button>
+        } @else {
+          <!-- El empleado está DESHABILITADO -> Mostrar botón HABILITAR -->
+          <button type="button" class="boton-habilitar" (click)="habilitarEmpleado()">
+            <span class="material-symbols-outlined">check_circle</span>
+            Habilitar empleado
+          </button>
+        }
+      }  
+        <button type="button" class="boton-guardar ml-auto" (click)="enviarDatos()">
+          <span class="material-symbols-outlined">save</span>
+          Guardar cambios
+        </button>
+      }
+    </div>
+  </div>
+
+}

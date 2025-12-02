@@ -1,0 +1,121 @@
+<div class="detalle-wrapper">
+  <div class="detalle-card">
+    <div class="top-actions">
+      <button class="btn-volver" (click)="volver()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver</button>
+    </div>
+    
+    <div class="detalle-header">
+    <div class="empresa-info">
+      <img [src]="empresa.usuario?.urlFotoUsuario || 'assets/img/foto-perfil.png'" 
+           alt="{{ empresa.nombreEmpresa }}" 
+           class="logo-empresa">
+      <div>
+        <h2>{{ empresa.nombreEmpresa }}</h2>
+        <p><strong>Rubro:</strong> {{ empresa.rubro?.nombreRubro }}</p>
+      </div>
+    </div>
+  </div>
+  <hr class="separador-light" />
+
+    <div class="detalle-section">
+      <h4>Descripción</h4>
+      <p>{{ empresa.descripcionEmpresa }}</p>
+    </div>
+
+    <hr class="separador-light" />
+
+    <div class="detalle-section">
+      <h4>Información de contacto</h4>
+      <div class="info-grid">
+        <div>
+          <strong>Teléfono de contacto</strong>
+          <p>{{ empresa.telefonoEmpresa }}</p>
+        </div>
+        <div>
+          <strong>Correo Electrónico</strong>
+          <p>{{ empresa.usuario?.correoUsuario }}</p>
+        </div>
+      </div>
+    </div>
+    <hr class="separador-light" />
+
+    <div class="detalle-section">
+      <h4>Ubicación</h4>
+      <div class="info-grid">
+        <div>
+          <strong>Dirección Legal</strong>
+          <p>{{ empresa.direccionEmpresa }}</p>
+        </div>
+        <div>
+          <strong>País</strong>
+          <p>{{ nombrePais }}</p>
+        </div>
+        <div>
+          <strong>Provincia</strong>
+          <p>{{ empresa.provincia?.nombreProvincia }}</p>
+        </div>
+      </div>
+    </div>
+    <hr class="separador-light" />
+
+    <div class="detalle-section">
+      <h4>Datos para validación</h4>
+      <div class="info-grid">
+        <div>
+          <strong>Número de identificación fiscal</strong>
+          <p>{{ empresa.numeroIdentificacionFiscal }}</p>
+        </div>
+        <div>
+          <strong>Sitio Web Oficial (URL)</strong>
+          <p>
+            <a [href]="empresa.sitioWebEmpresa" target="_blank">
+              {{ empresa.sitioWebEmpresa }}
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="doc-legal">
+        <strong>Documento legal</strong>
+        <div class="doc-box-contenedor disabled" *ngIf="!empresa.urlDocumentoLegal">
+          <div class="doc-box">
+            <span class="material-symbols-outlined icono-pdf">description</span>
+            <div class="doc-detalle">
+              <p class="disabled-text">No se adjuntó documento</p>
+            </div>
+          </div>
+        </div>
+        <div class="doc-box-contenedor" *ngIf="empresa.urlDocumentoLegal">
+          <div class="doc-box">
+            <span class="material-symbols-outlined icono-pdf">description</span>
+            <div class="doc-detalle">
+              <p>
+                <a [href]="empresa.urlDocumentoLegal" target="_blank">
+                  
+                  {{ mostrarNombreArchivo(empresa.urlDocumentoLegal) }}
+                </a>
+              </p>
+              <small>Actualizado el {{ empresa.usuario?.fechaHoraAlta| date:'dd/MM/yyyy' }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="detalle-actions">
+      <button class="btn-rechazar" (click)="rechazarEmpresa()">
+        <span class="material-symbols-outlined">cancel</span>
+        Rechazar empresa</button>
+      <button class="btn-habilitar" (click)="habilitarEmpresa()">
+        <span class="material-symbols-outlined">check_circle</span>
+        Habilitar empresa</button>
+    </div>
+  </div>
+
+
+  </div>
+  

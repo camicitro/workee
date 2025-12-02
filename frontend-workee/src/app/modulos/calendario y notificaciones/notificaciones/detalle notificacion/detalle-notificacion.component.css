@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+:host { font-family: 'Lato', sans-serif; }
+
+.detalle-wrapper {
+  background: #E1F0FA;
+  display: flex;
+  justify-content: center;     /* centrado horizontal */
+  align-items: flex-start;      /* contenido arriba, sin estirar vertical */
+  padding: 24px 16px;           /* podés dejar 24/40 como prefieras */
+}
+
+.detalle-card {
+  background: #ffffff;
+  max-width: 720px;
+  width: min(720px, 100%);      /* responsivo */
+  border-radius: 14px;
+  border: 1px solid #e8eef4;
+  box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+  padding: 24px 28px;
+}
+
+
+/* Cabecera */
+.header { display: flex; gap: 16px; align-items: center; margin-bottom: 8px; }
+.icon-badge { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; }
+.icon-badge .material-symbols-outlined { font-size: 28px; color: #1f2937; }
+.head-text { display: flex; flex-direction: column; gap: 4px; }
+.titulo { margin: 0; font-size: 20px; color: #111827; }
+.fecha { color: #6b7280; font-size: 13px; }
+
+/* Contenido */
+.descripcion {
+  margin: 16px 0 0 0;
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Acciones */
+.acciones { margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end; }
+.btn {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s ease, transform .05s ease;
+}
+.btn:hover { background: #eef0f3; }
+.btn:active { transform: translateY(1px); }
+.btn.primario { background: #111827; color: #fff; border-color: #111827; }
+.btn.primario:hover { filter: brightness(1.05); }
+
+.acciones {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* height: 100%; */
+}
+
+.boton-rechazar {
+  background-color: #FF5252;
+  color: #ffffff;
+  border: #FF5252;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-aceptar {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}

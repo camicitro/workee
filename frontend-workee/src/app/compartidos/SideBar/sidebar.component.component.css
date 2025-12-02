@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap');
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-family: 'Lato', sans-serif;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  border-bottom-right-radius: 20px;
+  box-shadow: none;
+  border-top-right-radius: 20px;
+}
+
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.sidebar .logo img {
+  max-width: 140px;
+}
+
+
+.sidebar .menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  color: #555;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.2s, color 0.2s;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.menu-item span.material-symbols-outlined {
+  font-size: 22px;
+}
+
+.menu-item.active {
+  background: #31A5DD;
+  color: #fff;
+  font-weight: 500;
+}
+
+.submenu-item.active {
+  background: #31A5DD;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Hover */
+.menu-item:hover {
+  background: #f1f9fc;
+  color: #1daae1;
+}
+
+/* Logout */
+.logout {
+  margin-top: auto;
+  padding: 0 20px;
+}
+
+/* Responsive: ocultar sidebar en pantallas muy chicas */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+}
+
+
+.submenu-items {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.submenu-item {
+  padding: 6px 10px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background: #f1f9fc;
+  color: #1daae1;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 18px;
+}
+
+/*NUEVO DEL CHAT PARA ESTILOS DEL CORREO Y ROL*/
+.usuario-info {
+  padding: 10px 20px;
+  margin-top: 0; /* Empuja hacia abajo */
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.usuario-info .correo {
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.usuario-info .rol {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #31A5DD;          /* azul Workee */
+  box-shadow: 0 0 0 2px #fff;    /* anillo blanco para contraste */
+}
+
+/* ✅ realce visual del item cuando hay pendientes */
+.menu-item.has-pending {
+  background: #f1f9fc;   /* celestito ya consistente con tu hover */
+  color: #1daae1;
+  font-weight: 600;
+}

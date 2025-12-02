@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "backup.mysql.database",
+    "type": "java.lang.String",
+    "description": "A description for 'backup.mysql.database'"
+  },
+  {
+    "name": "backup.folder.path.win",
+    "type": "java.lang.String",
+    "description": "A description for 'backup.folder.path'"
+  },
+  {
+    "name": "firebase.storage.token",
+    "type": "java.lang.String",
+    "description": "A description for 'firebase.storage.token'"
+  },
+  {
+    "name": "backup.folder.path.linux",
+    "type": "java.lang.String",
+    "description": "A description for 'backup.folder.path.linux'"
+  }
+]}

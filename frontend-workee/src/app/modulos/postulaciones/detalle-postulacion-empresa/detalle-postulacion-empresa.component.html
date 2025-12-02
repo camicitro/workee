@@ -1,0 +1,215 @@
+<div *ngIf="isLoading; else results">
+  <app-spinner type="inline" message="Cargando..."></app-spinner>
+</div>
+
+<ng-template #results>
+<div class="perfil-wrapper">
+  <button 
+      type="button"
+      class="boton"
+      (click)="volverAOferta()">
+    <span class="material-symbols-outlined">arrow_back</span>
+    Volver
+  </button>
+
+  <div class="perfil-header">
+    <div class="logo-seccion">
+      <img [src]="candidato.usuario?.urlFotoUsuario" alt="foto" class="foto" />
+    </div>
+
+    <div class="info-completa">
+      <div class="nombre-boton">
+        <div class="titulo-fecha">
+          <h1>{{ oferta.titulo }}</h1>
+          <div class="publicacion-oferta">
+            <span class="material-symbols-outlined">schedule</span>
+            <p>Postulado: {{ postulacion.fechaHoraInicioPostulacion | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <h5>{{ candidato.nombreCandidato }} {{ candidato.apellidoCandidato }}</h5>
+      </div>
+      <div class="info">
+        <div class="datos">
+          <span class="material-symbols-outlined">location_on</span>
+          <p>{{ candidato.provincia?.nombreProvincia }}, {{ candidato.provincia?.pais?.nombrePais }}</p>
+        </div>
+        <div class="datos">
+          <span class="material-symbols-outlined">alternate_email</span>
+          <p>{{ candidato.usuario?.correoUsuario }}</p>
+        </div>
+        <div class="datos">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <p>{{ candidato.fechaDeNacimiento | date: 'dd/MM/yyyy' }}</p>
+        </div>
+      </div>    
+    </div>
+  </div>
+
+  @if (postulacion.fechaHoraFinPostulacionOferta === null) {
+    <div class="boton-actualizacion-wrapper">
+      <button
+          class="boton-actualizacion"
+          (click)="actualizarEtapa()">
+          Actualizar etapa
+      </button>
+    </div>
+  }
+</div>
+
+
+<div class="proceso-wrapper">
+  <h5 class="pb-10">Proceso del candidato</h5>
+  <div class="proceso-con-actualizacion">
+    <div class="proceso-etapas">
+        <div
+            class="etapa"
+            *ngFor="let etapa of etapasCombinadas"
+            [ngClass]="{
+                completada: etapa.estado === 'COMPLETADA',
+                actual: etapa.estado === 'ACTUAL',
+                pendiente: etapa.estado === 'PENDIENTE',
+                rechazado: etapa.estado === 'RECHAZADO',
+                abandonado: etapa.estado === 'ABANDONADO'
+            }"
+            (click)="etapa.estado !== 'PENDIENTE' ? seleccionarEtapa(etapa) : null"
+            [class.activa]="etapa === etapaSeleccionada"
+            >
+            <div class="icono">
+                <span *ngIf="etapa.estado === 'COMPLETADA'" class="material-symbols-outlined">check_circle</span>
+                <span *ngIf="etapa.estado === 'ACTUAL'" class="material-symbols-outlined">schedule</span>
+                <span *ngIf="etapa.estado === 'PENDIENTE'" class="material-symbols-outlined">radio_button_unchecked</span>
+                <span *ngIf="etapa.estado === 'RECHAZADO'" class="material-symbols-outlined">cancel</span>
+                <span *ngIf="etapa.estado === 'ABANDONADO'" class="material-symbols-outlined">logout</span>
+            </div>
+            <p>{{ etapa.etapa.nombreEtapa }}</p>
+        </div>
+    </div>
+    
+  </div>
+  
+  
+  <div class="detalle-etapa-container" *ngIf="etapaSeleccionada">
+    <h5><strong>{{ etapaSeleccionada.etapa.nombreEtapa }}</strong></h5>
+
+    <div class="descripcion-etapa">
+       <p class="titulo-seccion-etapa">Descripción</p>
+      {{ etapaSeleccionada.ofertaEtapa?.descripcionAdicional || etapaSeleccionada.etapa.descripcionEtapa }}
+    </div>
+
+    <div class="info-etapa">
+        @if(etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.nombreEmpleadoEmpresa != null) {
+            <div>
+                <p class="titulo-seccion-etapa">Responsable</p>
+                {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.nombreEmpleadoEmpresa }} {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.apellidoEmpleadoEmpresa }}
+                - {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.puestoEmpleadoEmpresa }}
+            </div>
+        }
+        <div>
+        </div>
+      </div>
+<!-- *ngIf="etapaSeleccionada.eventos?.length" -->
+      <div class="bloque-eventos" 
+            *ngIf="
+          etapaSeleccionada.etapa.codigoEtapa !== 'PENDIENTE' &&
+          etapaSeleccionada.etapa.codigoEtapa !== 'SELECCIONADO'
+        ">
+        <div class="titulo-agendar">
+          <p class="titulo-seccion-etapa-eventos">Eventos programados</p>
+          <button
+            class="boton-actualizacion"
+            [disabled]="etapaSeleccionada.estado !== 'ACTUAL'"
+            [ngClass]="{ 'boton-disabled': etapaSeleccionada.estado !== 'ACTUAL' }"
+            (click)="etapaSeleccionada.estado === 'ACTUAL' && agendarEvento(etapaSeleccionada.postulacionEtapa!.id)">
+            <span class="material-symbols-outlined">add</span>
+            Agendar evento
+          </button>
+        </div>
+        <div *ngFor="let ev of etapaSeleccionada.eventos" class="evento-card">
+          <div>
+                <div class="titulo-evento">
+                    {{ ev.nombreEvento }}
+                </div>
+                <!-- <div class="descripcion">
+                    {{ ev.descripcionEvento }}
+                </div> -->
+                <div class="fecha">
+                    {{ fechaFormateada(ev) | titlecase }}
+                </div>
+                <div class="fecha">
+                    {{ horaFormateada(ev) }}
+                </div>
+                <div class="enlace" *ngIf="ev.videollamada?.enlaceVideollamada">
+                  <ng-container *ngIf="!eventoFinalizado(ev); else eventoTerminado">
+                    <!-- TODO: CUIDADO CON ESTE HREFFFFFF -->
+                    <a
+                      class="btn-videollamada"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      [href]="ev.videollamada?.enlaceVideollamada"
+                      >
+                      <!-- [href]="'https://workeemeetings.online/2186c84b-851a-429b-9b16-53eaec697bc9'" -->
+                      Ingresar a la llamada
+                    </a>
+                  </ng-container>
+                  <ng-template #eventoTerminado>
+                    <p class="btn-videollamada">
+                      El evento ha finalizado. No es posible ingresar nuevamente a la llamada.
+                    </p>
+                  </ng-template>
+                </div>
+            </div>
+            <div class="acciones">
+                <button class="btn-detalle-evento" (click)="verDetalleEvento(ev.id!)">
+                    Ver detalle
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque-etapa" *ngIf="etapaSeleccionada.ofertaEtapa?.archivoAdjunto">
+      <p class="titulo-seccion-etapa">Material adjunto</p>
+      <button class="btn-descargar">
+        <div class="cv-box">
+            <span class="material-symbols-outlined icono-pdf">picture_as_pdf</span>
+            <div class="cv-detalle">
+                <p>
+                    <a [href]="etapaSeleccionada.ofertaEtapa?.archivoAdjunto?.enlaceArchivo" target="_blank">
+                    {{ mostrarNombreArchivoCV(etapaSeleccionada.ofertaEtapa?.archivoAdjunto?.enlaceArchivo) }}
+                    </a>
+                </p>
+            </div>
+        </div>
+      </button>
+    </div>
+      <div class="bloque-etapa" *ngIf="etapaSeleccionada?.ofertaEtapa?.adjuntaEnlace">
+          <p class="titulo-seccion-etapa">Entrega</p>
+          @if (etapaSeleccionada.postulacionEtapa?.respuestaCandidato) {
+            <div class="respuesta-previa">
+                <input 
+                type="text" 
+                disabled
+                [value]="etapaSeleccionada.postulacionEtapa?.respuestaCandidato"
+                />
+            </div>
+          } @else {
+            <p>El candidato aún no ha realizado una entrega</p>
+          }
+      </div>
+      <div class="retro">
+        <p class="titulo-seccion-etapa">Retroalimentación</p>
+        @if (etapaSeleccionada.postulacionEtapa?.retroalimentacionEmpresa) {
+          {{ etapaSeleccionada.postulacionEtapa?.retroalimentacionEmpresa }}
+        } @else {
+          <button
+            class="boton-actualizacion"
+            [disabled]="etapaSeleccionada.estado !== 'ACTUAL'"
+            [ngClass]="{ 'boton-disabled': etapaSeleccionada.estado !== 'ACTUAL' }"
+            (click)="etapaSeleccionada.estado === 'ACTUAL' && enviarRetroalimentacion(etapaSeleccionada.postulacionEtapa!.id)">
+            <span class="material-symbols-outlined">campaign</span>
+            Enviar retroalimentación sobre esta etapa
+          </button>
+        }
+      </div>
+    </div>
+</div>
+</ng-template>

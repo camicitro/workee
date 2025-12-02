@@ -1,0 +1,174 @@
+.perfil-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 3rem auto;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.perfil-header h1 {
+  font-size: 1.8rem;
+  color: black;
+}
+
+.perfil-header p {
+  font-size: large;
+  color: black;
+  margin: 0;
+}
+
+.boton {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-enviar-oferta {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  border: 2px solid #31A5DD;    
+  border-radius: 30px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  text-decoration: none; 
+  cursor: pointer;
+  height: auto;
+  white-space: nowrap; 
+}
+
+.etapa-actual {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  border: 2px solid #31A5DD;    
+  border-radius: 30px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  text-decoration: none; 
+  height: auto;
+  white-space: nowrap; 
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch; 
+}
+
+.logo-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-seccion .foto {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  object-fit: cover;
+}
+
+.nombre-boton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.datos {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.datos p {
+    font-size:large;
+}
+
+
+.habilidades {
+  display: flex;
+  gap: 0.8rem;
+  row-gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.habilidades .tag {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.publicacion-oferta {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.publicacion-oferta p {
+    font-size: 16px;
+}
+
+.datos-general {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.datos-boton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 8px;
+    margin-top: 4px; */
+    flex-direction: row;
+}
+
+.seccion-habilidades {
+    margin-bottom: 16px;
+}
+
+.link-empresa {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link-empresa:hover {
+  text-decoration: underline;
+}

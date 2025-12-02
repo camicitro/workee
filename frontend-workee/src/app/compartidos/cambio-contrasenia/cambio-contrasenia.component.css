@@ -1,0 +1,27 @@
+.input-group-text {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.boton-guardar {
+  background-color: #10C036;
+  color: #ffffff;
+  border: 2px solid #10C036;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}

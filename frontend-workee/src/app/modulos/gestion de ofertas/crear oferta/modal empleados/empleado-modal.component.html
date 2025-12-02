@@ -1,0 +1,55 @@
+    <!-- empleado-modal.component.html -->
+<div class="modal-content">
+
+    <div class="modal-header">
+        <h5 class="modal-title">Asignar empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="dismissModal()" aria-label="Close"></button>
+    </div>
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+    @for (empleado of obtenerEmpleadosPaginados(); track $index) {
+        <div class="col">
+        <div
+            class="card d-flex flex-row align-items-center p-3"
+            role="button"
+            (click)="activeModal.close(empleado.id!)"
+        >
+            <img
+            [src]="empleado.usuario?.urlFotoUsuario"
+            alt="{{empleado.nombreEmpleadoEmpresa}} {{empleado.apellidoEmpleadoEmpresa}}"
+            class="rounded-circle me-3"
+            width="64"
+            height="64"
+            />
+            <div>
+            <h5 class="texto-nombre mb-0">
+                {{ empleado.nombreEmpleadoEmpresa }} {{ empleado.apellidoEmpleadoEmpresa }}
+            </h5>
+            <p class="text-muted mb-0">{{ empleado.puestoEmpleadoEmpresa }}</p>
+            </div>
+        </div>
+        </div>
+    }
+    </div>
+    @if (totalPaginas > 1) {
+        <nav class="paginador">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="paginaActual === 1">
+                    <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+                </li>
+        
+                <!-- tuve que usar ngFor porque no me funcionaba solo con @for -->
+                <li 
+                *ngFor="let pagina of paginas"
+                class="page-item" 
+                [class.active]="paginaActual === pagina">
+                    <button class="page-link" (click)="irAPagina(pagina)">
+                        {{ pagina }}
+                    </button>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                    <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

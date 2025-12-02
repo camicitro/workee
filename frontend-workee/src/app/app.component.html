@@ -1,0 +1,14 @@
+
+<div class="app-layout">
+  <!-- @if(estaLogueado){
+    <app-sidebar></app-sidebar>
+  } -->
+  <app-sidebar *ngIf="sidebarVisible$ | async"></app-sidebar>
+
+
+  <!-- Contenido dinámico -->
+  <div class="app-content">
+    <router-outlet></router-outlet>
+    <app-toast-container></app-toast-container>
+  </div>
+</div>

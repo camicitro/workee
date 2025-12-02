@@ -1,0 +1,349 @@
+.inicio-container {
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  background: radial-gradient(circle at top, #ffffff 0%, #31A5DD 100%);
+  padding: 4rem 2rem;
+}
+
+.hero {
+  background: transparent;
+  padding-bottom: 4rem;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+
+.highlight-blue {
+  color: #31A5DD;
+}
+
+.hero p {
+  margin: 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  margin: 2rem 0;
+}
+
+.btn-blue {
+  background-color: #31A5DD;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+
+.btn-blue:hover {
+  background-color: #2690c3;
+}
+
+.btn-outline-blue {
+  background-color: white;
+  color: #31A5DD;
+  padding: 0.8rem 2rem;
+  border: 2px solid #31A5DD;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.btn-outline-blue a {
+  font-style: none;
+}
+
+.btn-outline-blue:hover {
+  background-color: #f0f8fc;
+}
+
+.roles-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);
+}
+
+.card h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.card span.material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #31A5DD;
+}
+
+.funciona {
+  background: #f3faff;
+  padding: 4rem 2rem;
+  border-radius: 60px;
+  margin-top: 4rem;
+}
+
+.funciona h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.funciona-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.funciona-col {
+  max-width: 400px;
+}
+
+.step {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: li;
+}
+
+.step li {
+  margin-bottom: 1.5rem;
+}
+
+.step.green li::before {
+  content: counter(li);
+  counter-increment: li;
+  background: #10C036;
+  color: white;
+  border-radius: 100%;
+  padding: 0.3rem 0.7rem;
+  margin-right: 0.7rem;
+  font-weight: bold;
+}
+
+.step.orange li::before {
+  content: counter(li);
+  counter-increment: li;
+  background: #FFAE00;
+  color: white;
+  border-radius: 100%;
+  padding: 0.3rem 0.7rem;
+  margin-right: 0.7rem;
+  font-weight: bold;
+}
+
+.benefits {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.benefit {
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* 1. Mejora visual para la sección "¿Cómo funciona Workee?" */
+.funciona {
+  background: linear-gradient(135deg, #f9fcff, #eaf4fb);
+  padding: 4rem 2rem;
+  border-radius: 50px;
+  margin-top: 4rem;
+}
+
+.funciona-title {
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  color: #1b4b6f;
+}
+
+.funciona-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.funciona-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  flex: 1 1 350px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.funciona-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.title-with-icon .material-symbols-outlined {
+  font-size: 1.9rem;
+  color: #31A5DD;
+}
+
+/* Estilo de pasos */
+.step {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: li;
+}
+
+.step li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.step li::before {
+  content: counter(li);
+  counter-increment: li;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.step.green li::before {
+  background: #10C036;
+}
+
+.step.orange li::before {
+  background: #FFAE00;
+}
+
+.step-content h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.step-content p {
+  margin: 0.7rem 0 0;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+
+/* 2. Mejora de las tarjetas de beneficios */
+.benefits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.benefit {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 200px;
+}
+
+.benefit .material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #31A5DD;
+}
+
+.funciona .material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #31A5DD;
+}
+
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E1F0FA;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.icon-circle .material-symbols-outlined {
+  font-size: 1.6rem;
+  color: #31A5DD;
+}
+
+.title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.title-with-icon .material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #10C036;
+}
+
+.title-with-icon-1 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.title-with-icon-1 .material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #FFAE00;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+

@@ -1,0 +1,151 @@
+.parametros-container {
+  /* margin: 16px; */
+  padding: 3rem;
+  background-color: #FFFFFF; 
+  border-radius: 10px;
+  max-width: 1300px;
+  margin: 3rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.parametros-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 16px;
+}
+.parametros-header p{
+  font-size: 1rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+.titulo {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+
+/* Estilos de la cuadrícula de tarjetas */
+.tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Estilos para cada tarjeta */
+.tarjeta {
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #C1C7CD;
+  /*padding: 24px;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-header {
+  /*margin-bottom: 16px;*/
+  margin: 0;
+  padding: 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.tarjeta-titulo {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.tarjeta-subtitulo {
+  font-size: 0.9em;
+  color: #666;
+  margin: 4px 0 0 0;
+}
+
+.tarjeta-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.enlace-parametro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer; /* Indica que es un elemento interactivo */
+}
+
+.enlace-parametro:hover {
+  background-color: #ebebeb;
+}
+
+.icono-tarjeta {
+  font-size: 1.5em;
+}
+
+/* Estilos de colores específicos para cada tarjeta */
+.ubicacion .tarjeta-header { 
+  background-color: #c8d4f0;
+}
+.datos-personales .tarjeta-header { 
+  background-color: #fff3b8;
+}
+.perfil-profesional .tarjeta-header {
+   background-color: #fad3e8;
+  }
+.estados .tarjeta-header {
+   background-color: #fcddc3;
+  }
+.eventos-procesos .tarjeta-header {
+   background-color: #cbf8eb;
+  }
+.informacion-laboral .tarjeta-header {
+   background-color: #c9ebfa;
+  }
+
+
+
+.ubicacion .enlace-parametro span{ 
+  color: #4f68a3;
+  background-color: #c8d4f0;
+  padding: 8px;
+  border-radius: 25px;
+}
+.datos-personales .enlace-parametro span{ 
+  color: #c4ab31;
+  background-color: #fff3b8;
+  padding: 8px;
+  border-radius: 25px;
+}
+.perfil-profesional .enlace-parametro span{
+   color: #dd579f;
+   background-color: #fad3e8;
+   padding: 8px;
+   border-radius: 25px;
+  }
+.estados .enlace-parametro span{
+   color: #e98533;
+   background-color: #fcddc3;
+   padding: 8px;
+   border-radius: 25px;
+  }
+.eventos-procesos .enlace-parametro span{
+   color: #32b48f;
+   background-color: #cbf8eb;
+   padding: 8px;
+   border-radius: 25px;
+  }
+.informacion-laboral .enlace-parametro span{
+   color: #4291b3;
+   background-color: #c9ebfa;
+   padding: 8px;
+   border-radius: 25px;
+  }

@@ -1,0 +1,68 @@
+<div class="listado-wrapper">
+    <div class="listado-header">
+        <div>
+            <h1>Empleados</h1>
+            <p class="pt-2">Gestiona a tus empleados</p>
+            <p>Empleados activos: {{cantEmpleadosActivos}}</p>
+        </div>
+        <button type="button" class="boton-nuevo" (click)="crearEmpleado()">
+            <span class="material-symbols-outlined">add</span>
+            Nuevo Empleado
+        </button>
+    </div>
+
+    <div class="listado-contenido row row-cols-1 row-cols-md-2 g-4">
+        @if (empleadoList.length === 0) {
+            <div class="sin-resultados">
+                <img src="assets\sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+                <p class="sin-resultados-txt">
+                    Vaya, no tienes empleados aún
+                </p>
+            </div>
+        } @else {
+            @for (empleado of obtenerEmpleadosPaginados(); track $index) {
+                <div class="col">
+                    <div class="card d-flex flex-row align-items-center p-3" (click)="visualizarEmpleado(empleado.id!)" role="button">
+                        <img 
+                        [src]="empleado.usuario?.urlFotoUsuario"
+                        alt="{{empleado.nombreEmpleadoEmpresa}} {{empleado.apellidoEmpleadoEmpresa}}" 
+                        class="rounded-circle me-3" 
+                        width="64" 
+                        height="64" />
+                        <div>
+                            <h5 class="texto-nombre mb-0">{{ empleado.nombreEmpleadoEmpresa }} {{ empleado.apellidoEmpleadoEmpresa }}</h5>
+                            <p class="text-muted mb-0">{{ empleado.puestoEmpleadoEmpresa }}</p>
+                        </div>
+
+                        <div class="estado-badge" 
+                             [ngClass]="esHabilitado(empleado) ? 'habilitado' : 'deshabilitado'">
+                            {{ esHabilitado(empleado) ? 'Habilitado' : 'Deshabilitado' }}
+                        </div>
+                    </div>
+                </div> 
+            }
+        }
+    </div>
+    @if (totalPaginas > 1) {
+        <nav class="paginador">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="paginaActual === 1">
+                    <button class="page-link" (click)="retrocederPagina()">Anterior</button>
+                </li>
+        
+                <!-- tuve que usar ngFor porque no me funcionaba solo con @for -->
+                <li 
+                *ngFor="let pagina of paginas"
+                class="page-item" 
+                [class.active]="paginaActual === pagina">
+                    <button class="page-link" (click)="irAPagina(pagina)">
+                        {{ pagina }}
+                    </button>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+                    <button class="page-link" (click)="avanzarPagina()">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

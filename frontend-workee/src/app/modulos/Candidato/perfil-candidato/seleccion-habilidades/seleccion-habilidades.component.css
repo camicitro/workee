@@ -1,0 +1,129 @@
+.modal-content {
+  width: 100%;
+}
+
+.input-search-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-search {
+  width: 100%;
+  padding: 8px 36px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.badge {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+#icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.btn-quitar {
+  font-size: x-small;
+  color: #31A5DD;
+}
+
+.sin-resultados-txt {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin: 0px;
+}
+
+.sin-resultados {
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.sin-resultados-img {
+  width: 180px;
+  max-width: 100%;
+}
+
+.habilidades-seleccionadas {
+  margin-top: 20px;
+  border-radius: .25rem;
+  padding: 18px;
+  padding-bottom: 10px;
+  border: #C1C7CD;
+  background-color: #F9FAFB;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+}
+
+.list-group-item.active {
+  background-color: #e8f6fc !important; 
+  color: #31A5DD !important;
+  border-left: 3px solid #31A5DD;
+}
+
+.list-group-item .material-symbols-outlined {
+  font-size: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.boton-guardar {
+  background-color: #10C036;
+  color: #ffffff;
+  border: 2px solid #10C036;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fin-modal {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.boton-volver-gris {
+  background-color: #FFFFFF;
+  color: #697077;
+  border: 2px solid #697077;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}

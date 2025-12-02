@@ -1,0 +1,132 @@
+.perfil-wrapper {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 3rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 2rem; */
+  margin-top: 28px;
+  /* border-bottom: 1px solid #eee; */
+  /* padding-bottom: 1.5rem; */
+}
+
+.perfil-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333;
+}
+
+.perfil-header p {
+  font-size: 0.95rem;
+  color: #777;
+  margin: 0;
+}
+
+.boton {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logo-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-seccion .foto {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    margin-left: 20px;
+}
+
+.nombre-rol {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+.datos {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.datos p {
+    font-size:large;
+}
+
+.badge-rol {
+  background-color: #E1F0FA;
+  color: #31A5DD;
+  /* border: 2px solid #31A5DD;     */
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  text-decoration: none;
+  height: auto;
+  white-space: nowrap; 
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.boton-editar {
+  background-color: #31A5DD;
+  color: #ffffff;
+  border: 2px solid #31A5DD;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-eliminar {
+  background-color: #FF5252;
+  color: #ffffff;
+  border: 2px solid #FF5252;    
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}

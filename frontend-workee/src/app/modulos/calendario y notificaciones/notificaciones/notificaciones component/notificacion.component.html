@@ -1,0 +1,54 @@
+<div class="notificaciones-container">
+  <h2 class="titulo-seccion">Notificaciones</h2>
+
+  <div class="notificacion-lista">
+    @if (notificacionesObtenidas.length > 0) {
+      @for (n of paged; track n.id ?? $index) {
+        <a class="notif-card"
+          [style.--tone]="getPillBg(n.tipoNotificacion)"   
+          [class.no-leida]="!n.lecturaNotificacion"
+          [class.leida]="n.lecturaNotificacion"
+          href="" (click)="abrirDetalle(n, $event)">
+          <div class="left">
+            <div class="icon-badge" [style.background-color]="getPillBg(n.tipoNotificacion)">
+              <span class="material-symbols-outlined">{{ getIcon(n.tipoNotificacion) }}</span>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="header-row">
+              <h4 class="titulo">
+                <strong>{{ getTitulo(n.tipoNotificacion) }}</strong>
+                @if (!n.lecturaNotificacion) { <span class="badge-nueva">Nueva</span> }
+              </h4>
+              <time class="hora">{{ n.fechaHoraEnvioNotificacion | date:'HH:mm' }}</time>
+            </div>
+            <p class="descripcion">{{ n.descripcionNotificacion }}</p>
+          </div>
+        </a>
+      }
+    } @else {
+      <p class="sin-notificaciones">No hay notificaciones disponibles.</p>
+    }
+  </div>
+
+  @if (notificacionesObtenidas.length > 0) {
+    <div class="paginator">
+      <span class="hint">
+        Mostrando
+        {{ ((page-1)*pageSize)+1 }}
+        –
+        {{ Math.min(page*pageSize, total) }}
+        de {{ total }}
+      </span>
+
+      <div class="controls">
+        <button class="pg-btn" [disabled]="page===1" (click)="setPage(1)">«</button>
+        <button class="pg-btn" [disabled]="page===1" (click)="prevPage()">‹</button>
+        <span class="pg-page">{{ page }} / {{ totalPages }}</span>
+        <button class="pg-btn" [disabled]="page===totalPages" (click)="nextPage()">›</button>
+        <button class="pg-btn" [disabled]="page===totalPages" (click)="setPage(totalPages)">»</button>
+      </div>
+    </div>
+  }
+</div>

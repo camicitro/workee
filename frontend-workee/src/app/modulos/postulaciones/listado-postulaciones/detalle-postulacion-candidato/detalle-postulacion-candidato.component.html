@@ -1,0 +1,199 @@
+<div class="perfil-wrapper">
+    <button type="button" class="boton" (click)="volver()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver
+    </button>
+    <div class="perfil-header">
+        <div class="logo-seccion">
+            <img [src]="oferta.empresa.usuario?.urlFotoUsuario" alt="foto" class="foto" />
+        </div>
+        <div class="info">
+            <div class="nombre-boton">
+                <h1 class="m-0">{{ oferta.titulo }}</h1>
+                <div class="boton-fecha">
+                    <button *ngIf="postulacion.fechaHoraFinPostulacionOferta == null && postulacion.fechaHoraAbandonoOferta == null"
+                    class="boton-abandonar" (click)="abandonar()">
+                        Abandonar
+                    </button>
+                    <div class="publicacion-oferta">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <!-- <p>Postulado: 21/09/2025</p> -->
+                        <p>Postulado: {{ postulacion.fechaHoraInicioPostulacion | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="datos-boton">
+                <h5 class="m-0">
+                    <a 
+                    class="link-empresa">
+                    <!-- [routerLink]="['/buscar-empresas/detalle', oferta.empresa.id]"
+                    [queryParams]="{ from: 'oferta', idOferta: oferta.id }" -->
+                    {{ oferta.empresa.nombreEmpresa }}
+                </a>
+                </h5>
+            </div>
+                <div class="datos-general">
+                    <div class="datos">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <p>{{ oferta.empresa.provincia?.nombreProvincia }}, {{ oferta.empresa.provincia?.pais?.nombrePais }}</p>
+                    </div>
+                    <div class="datos">
+                        <span class="material-symbols-outlined">work</span>
+                        <p>{{ oferta.modalidadOferta.nombreModalidadOferta }}</p>
+                    </div>
+                    <div class="datos">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <p>{{ oferta.tipoContratoOferta.nombreTipoContratoOferta }}</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="seccion-abajo">
+        <h5 class="pb-10">Descripción</h5>
+        <p class="descripcion">
+            {{ oferta.descripcion }}
+        </p>
+        <div class="seccion-habilidades">
+            <h5 class="pb-10">Habilidades requeridas</h5>
+            <div class="habilidades">
+                @for (hab of oferta.habilidades; track $index) {
+                    <span class="tag"> {{ hab.habilidad.nombreHabilidad }} </span>
+                }
+            </div>
+        </div>
+        <h5 class="pb-10">Responsabilidades</h5>
+        <p class="descripcion">
+            {{ oferta.responsabilidades }}
+        </p>
+    </div>
+</div>
+
+<!-- ======== MI PROCESO ======== -->
+<div class="proceso-wrapper">
+  <h5 class="pb-10">Mi proceso</h5>
+  <div class="proceso-etapas">
+    <div
+      class="etapa"
+      *ngFor="let etapa of etapasCombinadas"
+      [ngClass]="{
+        completada: etapa.estado === 'COMPLETADA',
+        actual: etapa.estado === 'ACTUAL',
+        pendiente: etapa.estado === 'PENDIENTE',
+        rechazado: etapa.estado === 'RECHAZADO',
+        abandonado: etapa.estado === 'ABANDONADO'
+      }"
+      (click)="etapa.estado !== 'PENDIENTE' ? seleccionarEtapa(etapa) : null"
+      [class.activa]="etapa === etapaSeleccionada"
+    >
+      <div class="icono">
+        <span *ngIf="etapa.estado === 'COMPLETADA'" class="material-symbols-outlined">check_circle</span>
+        <span *ngIf="etapa.estado === 'ACTUAL'" class="material-symbols-outlined">schedule</span>
+        <span *ngIf="etapa.estado === 'PENDIENTE'" class="material-symbols-outlined">radio_button_unchecked</span>
+        <span *ngIf="etapa.estado === 'RECHAZADO'" class="material-symbols-outlined">cancel</span>
+        <span *ngIf="etapa.estado === 'ABANDONADO'" class="material-symbols-outlined">logout</span>
+      </div>
+      <p>{{ etapa.etapa.nombreEtapa }}</p>
+    </div>
+  </div>
+
+  <div class="detalle-etapa-container" *ngIf="etapaSeleccionada">
+    <h5><strong>{{ etapaSeleccionada.etapa.nombreEtapa }}</strong></h5>
+
+    <div class="descripcion-etapa">
+       <p class="titulo-seccion-etapa">Descripción</p>
+      {{ etapaSeleccionada.ofertaEtapa?.descripcionAdicional || etapaSeleccionada.etapa.descripcionEtapa }}
+    </div>
+
+    <div class="info-etapa">
+        @if(etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.nombreEmpleadoEmpresa != null) {
+            <div>
+                <p class="titulo-seccion-etapa">Responsable</p>
+                {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.nombreEmpleadoEmpresa }} {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.apellidoEmpleadoEmpresa }}
+                - {{ etapaSeleccionada.ofertaEtapa?.empleadoEmpresa?.puestoEmpleadoEmpresa }}
+            </div>
+        }
+        <div>
+            <div *ngIf="etapaSeleccionada.postulacionEtapa?.retroalimentacionEmpresa">
+                <p class="titulo-seccion-etapa">Retroalimentación</p>
+                {{ etapaSeleccionada.postulacionEtapa?.retroalimentacionEmpresa }}
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque-eventos" *ngIf="etapaSeleccionada.eventos?.length">
+        <p class="titulo-seccion-etapa">Eventos programados</p>
+        <div *ngFor="let ev of etapaSeleccionada.eventos" class="evento-card">
+            <div>
+                <div class="titulo-evento">
+                    {{ ev.nombreEvento }}
+                </div>
+                <!-- <div class="descripcion">
+                    {{ ev.descripcionEvento }}
+                </div> -->
+                <div class="fecha">
+                    {{ fechaFormateada(ev) | titlecase }}
+                </div>
+                <div class="fecha">
+                    {{ horaFormateada(ev) }}
+                </div>
+                <div class="enlace" *ngIf="ev.videollamada?.enlaceVideollamada">
+                  <ng-container *ngIf="!eventoFinalizado(ev); else eventoTerminado">
+                    <a
+                      class="btn-videollamada"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      [href]="ev.videollamada?.enlaceVideollamada"
+                      >
+                      <!-- [href]="'https://workeemeetings.online/2186c84b-851a-429b-9b16-53eaec697bc9'" -->
+                      Ingresar a la llamada
+                    </a>
+                  </ng-container>
+                  <ng-template #eventoTerminado>
+                    <p class="btn-videollamada">
+                      El evento ha finalizado. No es posible ingresar nuevamente a la llamada.
+                    </p>
+                  </ng-template>
+                </div>
+            </div>
+            <div class="acciones">
+                <button class="btn-detalle-evento" (click)="verDetalleEvento(ev.id!)">
+                    Ver detalle
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque-etapa" *ngIf="etapaSeleccionada.ofertaEtapa?.archivoAdjunto">
+      <p class="titulo-seccion-etapa">Material adjunto</p>
+      <button class="btn-descargar">
+        <div class="cv-box">
+            <span class="material-symbols-outlined icono-pdf">picture_as_pdf</span>
+            <div class="cv-detalle">
+                <p>
+                    <a [href]="etapaSeleccionada.ofertaEtapa?.archivoAdjunto?.enlaceArchivo" target="_blank">
+                    {{ mostrarNombreArchivoCV(etapaSeleccionada.ofertaEtapa?.archivoAdjunto?.enlaceArchivo) }}
+                    </a>
+                </p>
+            </div>
+        </div>
+      </button>
+    </div>
+    <div class="bloque-etapa" *ngIf="etapaSeleccionada?.ofertaEtapa?.adjuntaEnlace">
+        <p class="titulo-seccion-etapa-entrega">Entrega</p>
+        <small class="mb-2">Puedes agregar un enlace a tu portafolio, GitHub, u otro recurso relevante.</small>
+        <div class="entrega-boton">
+            <input 
+            type="text" 
+            placeholder="https://..." 
+            [(ngModel)]="enlaceEntrega"
+            />
+            <button class="btn-enviar" (click)="realizarEntrega()">Enviar</button>
+        </div>
+
+        <div *ngIf="etapaSeleccionada.postulacionEtapa?.respuestaCandidato" class="respuesta-previa">
+            <strong>Entrega previa:</strong> {{ etapaSeleccionada.postulacionEtapa?.respuestaCandidato }}
+        </div>
+        </div>
+    </div>
+</div>
+

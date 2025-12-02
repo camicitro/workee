@@ -1,0 +1,82 @@
+<div class="listado-wrapper">
+  <div class="listado-header">
+    <div>
+      <h1>Postulaciones</h1>
+      <p>Gestiona tus postulaciones a ofertas</p>
+    </div>
+  </div>
+
+  <div class="busqueda-acciones">
+    <p-multiselect
+      [options]="filtrosEtapas"
+      placeholder="Etapa"
+      optionLabel="name"
+      optionValue="code"
+      [maxSelectedLabels]="0"
+      [selectedItemsLabel]="'Etapa ({0})'"
+      class="filtro"
+      [panelStyle]="{ 'background': '#fff' }"
+      [(ngModel)]="filtrosSeleccionadosEtapas"
+      (onChange)="onEtapasChange()">
+    </p-multiselect>
+  </div>
+
+  <div *ngIf="isLoading">
+    <app-spinner type="inline" message="Cargando postulaciones..."></app-spinner>
+  </div>
+
+  <ng-container *ngIf="!isLoading">
+    <div *ngIf="total > 0; else noPostulaciones" class="grid-container">
+      <!-- 👉 ahora iteramos las PÁGINAS, no todo -->
+      <div *ngFor="let p of paged" class="card">
+        <div class="card-body d-flex">
+          <div class="empresa-logo me-3">
+            <img [src]="p.oferta.empresa?.usuario.urlFotoUsuario || 'assets/img/default-logo.png'" alt="Logo empresa">
+          </div>
+
+          <div class="flex-grow-1">
+            <h5>{{ p.oferta.titulo }}</h5>
+            <p class="empresa">{{ p.oferta.empresa?.nombreEmpresa }}</p>
+            <div class="d-flex align-items-center mb-1">
+              <span class="material-symbols-outlined me-1 actualizado">schedule</span>
+              <p class="fecha mb-0">Actualizado: {{ p.etapaActual?.fechaHoraAlta | date:'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="etapa" [ngClass]="getColorClasePorEtapa(p.etapaActual?.etapa.codigoEtapa)">
+            {{ p.etapaActual?.etapa.nombreEtapa }}
+          </span>
+          <div class="ver-detalles" (click)="verDetalle(p.idPostulacionOferta)">
+            <span class="material-symbols-outlined" id="detalle">arrow_forward</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noPostulaciones>
+      <div class="sin-resultados">
+        <img src="assets/sin-resultados.png" alt="No hay resultados" class="sin-resultados-img">
+        <p class="sin-resultados-txt">No encontramos postulaciones</p>
+      </div>
+    </ng-template>
+
+    <!-- Paginador (igual a Notificaciones) -->
+    <div class="paginator" *ngIf="total > 0">
+      <span class="hint">
+        Mostrando
+        {{ ((page-1)*pageSize)+1 }} – {{ Math.min(page*pageSize, total) }}
+        de {{ total }}
+      </span>
+
+      <div class="controls">
+        <button class="pg-btn" [disabled]="page===1" (click)="setPage(1)">«</button>
+        <button class="pg-btn" [disabled]="page===1" (click)="prevPage()">‹</button>
+        <span class="pg-page">{{ page }} / {{ totalPages }}</span>
+        <button class="pg-btn" [disabled]="page===totalPages" (click)="nextPage()">›</button>
+        <button class="pg-btn" [disabled]="page===totalPages" (click)="setPage(totalPages)">»</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
